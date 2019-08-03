@@ -1,0 +1,139 @@
+<script src="x.js"></script>
+<div id="scantron"></div>
+<div id="palette"></div>
+<style>
+    #scantron {
+        background: blue;
+    }
+    input[type='checkbox'] {
+        display: none;
+    }
+    input[type='checkbox'] + label {
+        opacity: 0.5;
+    }
+    input[type='checkbox']:checked + label {
+        opacity: 1;
+        filter: drop-shadow(0 0 5px pink); /* unnecessary */
+    }
+</style>
+<script>
+    var scantron = document.getElementById("scantron");
+    var palette = document.getElementById("palette");
+
+    var imageData = {};
+
+    function onImageLoad(e) {
+        var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
+        canvas.id = this.id.slice(4);
+        canvas.width = this.width;
+        canvas.height = this.height;
+        context.drawImage(this, 0, 0);
+        imageData[canvas.id] = context.getImageData(0, 0, this.width, this.height);
+        document.body.appendChild(canvas);
+    }
+
+    function applyColors(id) {
+    }
+
+    for (var character in images) {
+        var input = document.createElement("input");
+            input.id = character;
+            input.type = "checkbox";
+        scantron.appendChild(input);
+        var label = document.createElement("label");
+            label.setAttribute("for", character);
+            var img = new Image();
+                img.src = "image/character_symbol_" + character + "01.png";
+            label.appendChild(img);
+        scantron.appendChild(label);
+        for (var image of images[character]) {
+            var img = new Image();
+                img.id = "Raw_" + image;
+                img.src = "image/" + image + ".png";
+                img.addEventListener("load", onImageLoad);
+        }
+    }
+
+    function updateCanvas(canvas) {
+        var context = canvas.getContext("2d");
+        var data = imageData[canvas.id];
+        var newdata = context.createImageData(data.width, data.height);
+        for (var i = 0; i < data.data.length; i += 4) {
+            var color = data.data[i];
+            var line = 255 - data.data[i + 1];
+            var shade = data.data[i + 2];
+            var swatch = document.getElementById("cid" + color);
+            var rgb = new Number(swatch.value.replace("#", "0x"));
+            var b = rgb % 0x100;
+            var g = ((rgb - b) / 0x100) % 0x100;
+            var r = ((rgb - b - 0x100 * g) / 0x10000) % 0x100;
+            var strength = 0.5;
+            var alpha = 255 * (color > 0) + line;
+            newdata.data[i] = r + shade * strength - line;
+            newdata.data[i + 1] = g + shade * strength - line;
+            newdata.data[i + 2] = b + shade * strength - line;
+            newdata.data[i + 3] = alpha;
+            // if (i > 10) break;
+        }
+        context.putImageData(newdata, 0, 0);
+    }
+
+    // function updateCanvases() {
+    //     for (var canvas of )
+    // }
+
+
+    for (var i = 0; i < 256; i++) {
+        var input = document.createElement("input");
+        input.type = "color";
+        input.value = "#" + Math.floor(Math.random() * 0x1000000).toString(16);
+        input.id = "cid" + i;
+        input.addEventListener("input", console.log);
+        palette.appendChild(input);
+    }
+
+    var imgname = "RoboFortune_Terrorbyte";
+
+    var img = new Image();
+    img.src = "image/" + imgname + ".png";
+    img.addEventListener("load", function () {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        context.drawImage(img, 0, 0);
+
+        var imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+        var cids = [];
+        for (var i = 0; i < imgData.data.length; i += 4) {
+            var cid = imgData.data[i];
+            if (!cids.includes(cid)) {
+                cids.push(cid);
+            }
+        }
+        cids.sort((a, b) => a - b);
+        for (var i = 0; i < 256; i++) {
+            if (!cids.includes(i)) {
+                document.getElementById("cid" + i).style.display = "none";
+            }
+        }
+
+        var r = 0xff;
+        var g = 0xaa;
+        var b = 0xdd;
+        var depth = 0.5;
+        for (var i = 0; i < imgData.data.length; i += 4) {
+            var line = 255 - imgData.data[i + 1];
+            var shade = 255 - imgData.data[i + 2];
+            var alpha = 255 * (imgData.data[i] > 0) - line;
+            imgData.data[i] = r - shade * depth - line;
+            imgData.data[i + 1] = g - shade * depth - line;
+            imgData.data[i + 2] = b - shade * depth - line;
+            imgData.data[i + 3] = alpha;
+        }
+
+        context.putImageData(imgData, 0, 0);
+        console.log(imgData);
+        console.log(cids);
+    });
+    document.body.appendChild(img);
+</script>
