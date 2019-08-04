@@ -1,10 +1,9 @@
 var colormap = [];
-var scantron = document.getElementById("scantron");
-var palette = document.getElementById("palette");
-
 var imageData = {};
 
 function initButtons() {
+    var scantron = document.getElementById("scantron");
+
     for (var character in images) {
         var input = document.createElement("input");
             input.id = character;
