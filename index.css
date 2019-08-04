@@ -1,3 +1,9 @@
+body {
+    background-image: linear-gradient(to top left, white 50%, wheat 50%);
+    background-size: 20px 20px;
+    background-attachment: fixed;
+}
+
 #scantron {
     background: blue;
 }
