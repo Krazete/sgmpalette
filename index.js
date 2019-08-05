@@ -20,6 +20,8 @@ var colormap = new Uint8ClampedArray(1024);
 var blendmap = new Uint8ClampedArray(256);
 // var shadowmap = new Uint8ClampedArray(1024).fill(255);
 var canvasmap = new Array(256).fill().map(e => new Set());
+var outdatedCanvases = new Set();
+
 var strength = 0.5;
 var datamap = {};
 
@@ -67,7 +69,7 @@ function initSpritesheet() {
         for (var i = 0; i < datamap[imagename].data.length; i += 4) {
             canvasmap[datamap[imagename].data[i]].add(canvas);
         }
-        updateCanvas(canvas);
+        outdatedCanvases.add(canvas);
     }
 
     for (var character in images) {
@@ -80,47 +82,48 @@ function initSpritesheet() {
     }
 }
 
-function hexToNumber(n) { // currently unused
-    return parseInt(n.slice(1), 16);
+
+
+
+
+function updateCanvases() {
+    requestAnimationFrame(updateCanvases);
+    for (var canvas of outdatedCanvases) {
+        var context = canvas.getContext("2d");
+        var data = datamap[canvas.id];
+        var newdata = context.createImageData(data.width, data.height);
+        for (var i = 0; i < data.data.length; i += 4) {
+            var cid = 4 * data.data[i];
+            var line = layermap.line ? 255 - data.data[i + 1] : 0;
+            var blend = layermap.blend ? 255 - data.data[i + 2] : 0;
+            if (blendmap[data.data[i]] == 0) {
+                newdata.data[i] = burn(colormap[cid], blend * strength, line);
+                newdata.data[i + 1] = burn(colormap[cid + 1], blend * strength, line);
+                newdata.data[i + 2] = burn(colormap[cid + 2], blend * strength, line);
+                newdata.data[i + 3] = Math.max(colormap[cid + 3], line);
+            }
+            else {
+                newdata.data[i] = burn(colormap[cid], blend, line);
+                newdata.data[i + 1] = burn(colormap[cid + 1], blend, line);
+                newdata.data[i + 2] = burn(colormap[cid + 2], blend, line);
+                // newdata.data[i + 3] = Math.max(colormap[cid + 3] - (blend * 0xff / 0x9b), line);
+                newdata.data[i + 3] = Math.max(colormap[cid + 3] - 255 + blend, line);
+            }
+        }
+        context.putImageData(newdata, 0, 0);
+    }
+    outdatedCanvases.clear();
 }
-
-function hexToString(n) { // currently unused
-    return "#" + n.toString(16).padStart(6, 0);
-}
-
-var interrupt = true; // figure this out
-
-
-
-
-
+updateCanvases();
 
 function burn(a, b, line) {
     return a - b - line;
 }
 
-function updateCanvas(canvas) {
-    var context = canvas.getContext("2d");
-    var data = datamap[canvas.id];
-    var newdata = context.createImageData(data.width, data.height);
-    for (var i = 0; i < data.data.length; i += 4) {
-        var cid = 4 * data.data[i];
-        var line = layermap.line ? 255 - data.data[i + 1] : 0;
-        var blend = layermap.blend ? 255 - data.data[i + 2] : 0;
-        if (blendmap[data.data[i]]) {
-            newdata.data[i] = burn(colormap[cid], blend, line);
-            newdata.data[i + 1] = burn(colormap[cid + 1], blend, line);
-            newdata.data[i + 2] = burn(colormap[cid + 2], blend, line);
-            newdata.data[i + 3] = Math.max(colormap[cid + 3] - (blend * 0xff / 0x9b), line);
-        }
-        else {
-            newdata.data[i] = burn(colormap[cid], blend * strength, line);
-            newdata.data[i + 1] = burn(colormap[cid + 1], blend * strength, line);
-            newdata.data[i + 2] = burn(colormap[cid + 2], blend * strength, line);
-            newdata.data[i + 3] = Math.max(colormap[cid + 3], line);
-        }
+function union(a, b) {
+    for (var i of b) {
+        a.add(i);
     }
-    context.putImageData(newdata, 0, 0);
 }
 
 function initSwatch(n, r, g, b, a) {
@@ -134,27 +137,20 @@ function initSwatch(n, r, g, b, a) {
         return hex.toString(16).padStart(pad, 0);
     }
 
-    function updateCanvases() {
-        for (var canvas of canvasmap[n]) {
-            /* continue if canvas is hidden? */
-            updateCanvas(canvas);
-        }
-    }
-
     function updateColormap() {
         colormap[4 * n] = parseInt(text.value.slice(0, 2), 16);
         colormap[4 * n + 1] = parseInt(text.value.slice(2, 4), 16);
         colormap[4 * n + 2] = parseInt(text.value.slice(4, 6), 16);
         colormap[4 * n + 3] = range.value;
-        updateCanvases();
+        union(outdatedCanvases, canvasmap[n]);
     }
 
-    function changeColor() {
+    function inputColor() {
         text.value = color.value.slice(1) + text.value.slice(6);
         updateColormap();
     }
 
-    function changeText() {
+    function inputText() {
         text.value = text.value.replace(/[^\dA-Fa-f]/g, "");
         if (text.value.length == 3 || text.value.length == 4) {
             text.value = text.value.replace(/(.)/g, "$1$1");
@@ -179,7 +175,7 @@ function initSwatch(n, r, g, b, a) {
         updateColormap();
     }
 
-    function changeRange() {
+    function inputRange() {
         text.value = text.value.slice(0, 6) + (range.value < 255 ? hexToString(parseInt(range.value), 2) : "");
         color.style.opacity = range.value / 255;
         updateColormap();
@@ -187,7 +183,7 @@ function initSwatch(n, r, g, b, a) {
 
     function updateBlend() {
         blendmap[n] = blend.checked ? 1 : 0;
-        updateCanvases();
+        union(outdatedCanvases, canvasmap[n]);
     }
 
     colormap[4 * n] = r;
@@ -203,12 +199,12 @@ function initSwatch(n, r, g, b, a) {
 
     color.type = "color";
     color.value = "#" + rgb;
-    color.addEventListener("change", changeColor);
+    color.addEventListener("input", inputColor);
     swatch.appendChild(color);
 
     text.type = "text";
     text.value = rgb + (a < 255 ? hexToString(a, 2) : "");
-    text.addEventListener("change", changeText);
+    text.addEventListener("input", inputText);
     swatch.appendChild(text);
 
     range.type = "range";
@@ -216,11 +212,11 @@ function initSwatch(n, r, g, b, a) {
     range.max = 255;
     range.step = 1;
     range.value = a;
-    range.addEventListener("change", changeRange);
+    range.addEventListener("input", inputRange);
     swatch.appendChild(range);
 
     blend.type = "checkbox";
-    blend.addEventListener("change", updateBlend);
+    blend.addEventListener("input", updateBlend);
     swatch.appendChild(blend);
 
     palette.appendChild(swatch);
