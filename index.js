@@ -99,8 +99,6 @@ function burn(a, b, line) {
     return a - b - line;
 }
 
-// strength = 1; //////
-
 function updateCanvas(canvas) {
     var context = canvas.getContext("2d");
     var data = datamap[canvas.id];
@@ -109,7 +107,7 @@ function updateCanvas(canvas) {
         var cid = 4 * data.data[i];
         var line = layermap.line ? 255 - data.data[i + 1] : 0;
         var blend = layermap.blend ? 255 - data.data[i + 2] : 0;
-        if (1) {
+        if (blendmap[data.data[i]]) {
             newdata.data[i] = burn(colormap[cid], blend, line);
             newdata.data[i + 1] = burn(colormap[cid + 1], blend, line);
             newdata.data[i + 2] = burn(colormap[cid + 2], blend, line);
@@ -188,7 +186,7 @@ function initSwatch(n, r, g, b, a) {
     }
 
     function updateBlend() {
-        blendmap[n] = blend.value == "on" ? 1 : 0;
+        blendmap[n] = blend.checked ? 1 : 0;
         updateCanvases();
     }
 

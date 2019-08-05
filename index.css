@@ -3,9 +3,8 @@ html {
 }
 
 body {
-    background: linear-gradient(to top left, white 50%, wheat 50%);
+    background: linear-gradient(to top left, gray 50%, darkgray 50%);
     background-size: 20px 20px;
-    background-attachment: fixed;
     height: 100%;
     margin: 0;
     display: grid;
