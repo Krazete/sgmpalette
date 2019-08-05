@@ -1,19 +1,31 @@
+html {
+    height: 100%;
+}
+
 body {
-    background-image: linear-gradient(to top left, white 50%, wheat 50%);
+    background: linear-gradient(to top left, white 50%, wheat 50%);
     background-size: 20px 20px;
     background-attachment: fixed;
+    height: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.section {
+    overflow-y: scroll;
 }
 
 #scantron {
     background: blue;
 }
-input[type='checkbox'] {
+#scantron input[type='checkbox'] {
     display: none;
 }
-input[type='checkbox'] + label {
+#scantron input[type='checkbox'] + label {
     opacity: 0.5;
 }
-input[type='checkbox']:checked + label {
+#scantron input[type='checkbox']:checked + label {
     opacity: 1;
     filter: drop-shadow(0 0 5px pink); /* unnecessary */
 }
@@ -29,4 +41,8 @@ input[type='checkbox']:checked + label {
     top: 0;
     left: 0;
     text-transform: uppercase;
+}
+
+canvas {
+    cursor: crosshair;
 }

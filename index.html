@@ -12,10 +12,30 @@
     <script src="index.js"></script>
 </head>
 <body>
-    <h1>
-        <a href="https://github.com/Krazete/sgmpalette">Skullgirls Mobile Palette Editor</a>
-    </h1>
-    <div id="scantron"></div>
-    <div id="palette"></div>
+    <div class="section">
+        <h1>
+            <a href="https://github.com/Krazete/sgmpalette">Skullgirls Mobile Palette Editor</a>
+        </h1>
+        <div id="scantron"></div>
+        <div>
+            <input type="checkbox" id="line">
+            <label for="line">Color</label>
+            <input type="checkbox" id="color">
+            <label for="color">Line</label>
+            <input type="checkbox" id="blend">
+            <label for="blend">Blend</label>
+        </div>
+        <div id="sheet"></div>
+    </div>
+    <div class="section">
+        <!-- <div>
+            <div>Uniform Override</div>
+            <label>Uniform Color</label>
+            <label>Uniform Opacity</label>
+            <label>Uniform Blend Layer</label>
+            <label>Uniform Blend Modes</label>
+        </div> -->
+        <div id="palette"></div>
+    </div>
 </body>
 </html>
