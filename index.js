@@ -3,7 +3,7 @@
 var activechar;
 var strength = 0.5;
 var layer = {
-    "lines": true,
+    "line": true,
     "detail": true
 };
 
@@ -92,7 +92,7 @@ function updateCanvases() {
             for (var i = 0; i < rawdata.data.length; i += 4) {
                 var cid = rawdata.data[i];
                 var j = 4 * cid;
-                var line = layer.lines ? 0xff - rawdata.data[i + 1] : 0;
+                var line = layer.line ? 0xff - rawdata.data[i + 1] : 0;
                 var detail = layer.detail ? 0xff - rawdata.data[i + 2] : 0;
                 if (blendmap[cid] == 0) {
                     newdata.data[i] = burn(colormap[j], detail * strength, line);
@@ -314,7 +314,7 @@ function initDownload() {
     var download = document.getElementById("download");
 
     function completeDownload(blob) {
-        saveAs(blob, activechar + (layer.lines ? "" : "-nolines") + (layer.detail ? "" : "-nodetail") + ".zip");
+        saveAs(blob, activechar + (layer.line ? "" : "-noline") + (layer.detail ? "" : "-nodetail") + ".zip");
     }
 
     function beginDownload() {
