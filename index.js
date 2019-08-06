@@ -63,7 +63,7 @@ function initBasic() {
         label.setAttribute("for", character);
         selection.appendChild(label);
 
-        img.src = "image/character_symbol_" + character + "01.png";
+        img.src = "icon/character_symbol_" + character + "01.png";
         label.appendChild(img);
     }
 
@@ -169,7 +169,7 @@ function initSpritesheet() {
     for (var character in ids) {
         for (var id of ids[character]) {
             var img = new Image();
-                img.src = "image/" + id + ".png";
+                img.src = "sprite/" + id + ".png";
                 img.dataset.character = character;
                 img.dataset.id = id;
                 img.addEventListener("load", initSprite);
