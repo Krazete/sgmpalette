@@ -314,7 +314,7 @@ function initDownload() {
     var download = document.getElementById("download");
 
     function completeDownload(blob) {
-        saveAs(blob, activechar + ".zip");
+        saveAs(blob, activechar + (layer.lines ? "" : "-nolines") + (layer.detail ? "" : "-nodetail") + ".zip");
     }
 
     function beginDownload() {
