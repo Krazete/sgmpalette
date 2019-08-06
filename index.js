@@ -1,22 +1,17 @@
+// var knownlight = [206, 207, 210, 223, 228, 236, 237];
+
 var layer = {
     "lines": true,
     "blend": true
 };
 
-var blendmode = [
-    function (color, blend, line) { // full burn
-        return color - blend - line;
-    },
-    function (color, blend, line) { // partial burn
-        return color - strength * blend - line;
-    }
-];
-
 /* key is color id */
 var colormap = new Uint8ClampedArray(1024);
 var blendmap = new Uint8ClampedArray(256);
-var textmap = new Array(256);
 var idmap = new Array(256).fill().map(e => new Set());
+
+var swatches = new Array(256);
+var charactercolors = {};
 
 /* key is image name */
 var datamap = {};
@@ -44,7 +39,7 @@ function initButtons() {
         flagAllIds();
     }
 
-    function onInputClick() {
+    function toggleCharacter() {
         activechar = this.id;
         flagAllIds();
     }
@@ -61,7 +56,7 @@ function initButtons() {
         input.type = "radio";
         input.name = "character";
         input.id = character;
-        input.addEventListener("input", onInputClick);
+        input.addEventListener("input", toggleCharacter);
         scantron.appendChild(input);
 
         label.setAttribute("for", character);
@@ -85,20 +80,16 @@ function updateCanvases() {
         }
         else if (canvas.classList.contains(activechar)) {
             var context = canvas.getContext("2d");
-            var data = datamap[canvas.id];
-            var newdata = context.createImageData(data.width, data.height);
+            var rawdata = datamap[canvas.id];
+            var newdata = context.createImageData(rawdata.width, rawdata.height);
 
             canvas.classList.remove("hidden");
-            for (var i = 0; i < data.data.length; i += 4) {
-                var j = 4 * data.data[i];
-                var line = layer.lines ? 255 - data.data[i + 1] : 0;
-                var blend = layer.blend ? 255 - data.data[i + 2] : 0;
-                // var mode = blendmap[data.data[i]];
-                // newdata.data[i] = blendmode[mode](colormap[j], blend, line);
-                // newdata.data[i + 1] = blendmode[mode](colormap[j + 1], blend, line);
-                // newdata.data[i + 2] = blendmode[mode](colormap[j + 2], blend, line);
-                // newdata.data[i + 3] = blendmode[mode](colormap[j + 3], blend, line);
-                if (blendmap[data.data[i]] == 0) {
+            for (var i = 0; i < rawdata.data.length; i += 4) {
+                var cid = rawdata.data[i];
+                var j = 4 * cid;
+                var line = layer.lines ? 255 - rawdata.data[i + 1] : 0;
+                var blend = layer.blend ? 255 - rawdata.data[i + 2] : 0;
+                if (blendmap[cid] == 0) {
                     newdata.data[i] = burn(colormap[j], blend * strength, line);
                     newdata.data[i + 1] = burn(colormap[j + 1], blend * strength, line);
                     newdata.data[i + 2] = burn(colormap[j + 2], blend * strength, line);
@@ -116,6 +107,18 @@ function updateCanvases() {
         else {
             canvas.classList.add("hidden");
         }
+
+        for (var i = 0; i < 256; i++) {
+            if (!charactercolors[activechar]) {
+                continue;
+            }
+            else if (charactercolors[activechar].has(i)) {
+                swatches[i].classList.remove("hidden");
+            }
+            else {
+                swatches[i].classList.add("hidden");
+            }
+        }
     }
     outdatedids.clear();
     requestAnimationFrame(updateCanvases);
@@ -128,16 +131,17 @@ function initSpritesheet() {
         if (e.target.tagName == "CANVAS") {
             var data = datamap[e.target.id];
             var j = data.data[4 * (data.width * e.offsetY + e.offsetX)];
-            textmap[j].focus();
+            swatches[j].children[1].focus();
         }
     }
 
     function initSprite() {
-        var id = this.dataset.name;
+        var character = this.dataset.character;
+        var id = this.dataset.id;
         var canvas = document.createElement("canvas");
         var context = canvas.getContext("2d");
 
-        canvas.className = this.dataset.character + " hidden";
+        canvas.className = character + " hidden";
         canvas.id = id;
         canvas.width = this.width;
         canvas.height = this.height;
@@ -146,7 +150,12 @@ function initSpritesheet() {
 
         datamap[id] = context.getImageData(0, 0, this.width, this.height);
         for (var i = 0; i < datamap[id].data.length; i += 4) {
-            idmap[datamap[id].data[i]].add(id);
+            var cid = datamap[id].data[i];
+            if (!charactercolors[character]) {
+                charactercolors[character] = new Set();
+            }
+            charactercolors[character].add(cid);
+            idmap[cid].add(id);
         }
         outdatedids.add(id);
     }
@@ -156,7 +165,7 @@ function initSpritesheet() {
             var img = new Image();
                 img.src = "image/" + id + ".png";
                 img.dataset.character = character;
-                img.dataset.name = id;
+                img.dataset.id = id;
                 img.addEventListener("load", initSprite);
         }
     }
@@ -240,7 +249,6 @@ function initSwatch(n, r, g, b, a) {
     colormap[4 * n + 2] = b;
     colormap[4 * n + 3] = a;
     blendmap[n] = 0;
-    textmap[n] = text;
 
     var rgb = hexToString(0x10000 * r + 0x100 * g + b, 6);
 
@@ -270,6 +278,8 @@ function initSwatch(n, r, g, b, a) {
     swatch.appendChild(blend);
 
     palette.appendChild(swatch);
+
+    swatches[n] = swatch;
 }
 
 function initPalette() {
