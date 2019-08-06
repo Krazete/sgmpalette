@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5eb98648-c7fd-4ff8-a404-fe3d10938f26/deploy-status)](https://app.netlify.com/sites/sgmpalette/deploys)
+
 # Skullgirls Mobile Palette Editor
 
 A palette editor for the static sprites of Skullgirls Mobile.
