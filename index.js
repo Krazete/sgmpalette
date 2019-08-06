@@ -136,6 +136,7 @@ function initSpritesheet() {
         if (e.target.tagName == "CANVAS") {
             var data = datamap[e.target.id];
             var j = data.data[4 * (data.width * e.offsetY + e.offsetX)];
+            swatches[j].children[2].click();
             swatches[j].children[3].children[0].focus();
         }
     }
