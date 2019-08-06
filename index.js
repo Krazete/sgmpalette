@@ -87,8 +87,8 @@ function updateCanvases() {
             for (var i = 0; i < rawdata.data.length; i += 4) {
                 var cid = rawdata.data[i];
                 var j = 4 * cid;
-                var line = layer.lines ? 255 - rawdata.data[i + 1] : 0;
-                var blend = layer.blend ? 255 - rawdata.data[i + 2] : 0;
+                var line = layer.lines ? 0xff - rawdata.data[i + 1] : 0;
+                var blend = layer.blend ? 0xff - rawdata.data[i + 2] : 0;
                 if (blendmap[cid] == 0) {
                     newdata.data[i] = burn(colormap[j], blend * strength, line);
                     newdata.data[i + 1] = burn(colormap[j + 1], blend * strength, line);
@@ -215,7 +215,7 @@ function initSwatch(n, r, g, b, a) {
         }
         if (text.value.length == 6) {
             color.value = "#" + text.value;
-            range.value = 255;
+            range.value = 0xff;
         }
         else if (text.value.length == 8) {
             color.value = "#" + text.value.slice(0, 6);
@@ -227,15 +227,15 @@ function initSwatch(n, r, g, b, a) {
         else {
             color.value = "#000000";
             text.value = "000000";
-            range.value = 255;
+            range.value = 0xff;
         }
-        color.style.opacity = range.value / 255;
+        color.style.opacity = range.value / 0xff;
         updateColormap();
     }
 
     function onRangeChange() {
-        text.value = text.value.slice(0, 6) + (range.value < 255 ? hexToString(parseInt(range.value), 2) : "");
-        color.style.opacity = range.value / 255;
+        text.value = text.value.slice(0, 6) + (range.value < 0xff ? hexToString(parseInt(range.value), 2) : "");
+        color.style.opacity = range.value / 0xff;
         updateColormap();
     }
 
@@ -252,22 +252,23 @@ function initSwatch(n, r, g, b, a) {
 
     var rgb = hexToString(0x10000 * r + 0x100 * g + b, 6);
 
-    swatch.className = "swatch";
+    swatch.className = "swatch hidden";
 
     color.type = "color";
     color.value = "#" + rgb;
+    color.style.opacity = a / 0xff;
     color.addEventListener("input", onColorChange);
     swatch.appendChild(color);
 
     text.type = "text";
-    text.value = rgb + (a < 255 ? hexToString(a, 2) : "");
+    text.value = rgb + (a < 0xff ? hexToString(a, 2) : "");
     text.addEventListener("focus", onTextFocus);
     text.addEventListener("change", onTextChange);
     swatch.appendChild(text);
 
     range.type = "range";
-    range.min = 0;
-    range.max = 255;
+    range.min = 0x00;
+    range.max = 0xff;
     range.step = 1;
     range.value = a;
     range.addEventListener("input", onRangeChange);
@@ -291,7 +292,7 @@ function initPalette() {
 
     initSwatch(0, 0, 0, 0, 0);
     for (var i = 1; i < 256; i++) {
-        initSwatch(i, rhex(), rhex(), rhex(), 255);
+        initSwatch(i, rhex(), rhex(), rhex(), 0xff);
     }
 }
 
