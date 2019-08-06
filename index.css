@@ -18,13 +18,13 @@ body {
 #scantron {
     background: blue;
 }
-#scantron input[type='checkbox'] {
+#scantron input[type='radio'] {
     display: none;
 }
-#scantron input[type='checkbox'] + label {
+#scantron input[type='radio'] + label {
     opacity: 0.5;
 }
-#scantron input[type='checkbox']:checked + label {
+#scantron input[type='radio']:checked + label {
     opacity: 1;
     filter: drop-shadow(0 0 5px pink); /* unnecessary */
 }
@@ -44,4 +44,8 @@ body {
 
 canvas {
     cursor: crosshair;
+}
+
+.hidden {
+    display: none;
 }

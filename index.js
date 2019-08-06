@@ -1,129 +1,178 @@
-var palette;
-
-var layermap = {
-    "line": true,
-    // "color": true,
+var layer = {
+    "lines": true,
     "blend": true
 };
-// var uniform = {
-//     "color": false,
-//     "alpha": false,
-//     "layer": "shadow",
-//     "mode": {
-//         "color": "colorburn",
-//         "alpha": "multiply"
-//     },
-//     "strength": 1
-// };
 
+var blendmode = [
+    function (color, blend, line) { // full burn
+        return color - blend - line;
+    },
+    function (color, blend, line) { // partial burn
+        return color - strength * blend - line;
+    }
+];
+
+/* key is color id */
 var colormap = new Uint8ClampedArray(1024);
 var blendmap = new Uint8ClampedArray(256);
-// var shadowmap = new Uint8ClampedArray(1024).fill(255);
-var canvasmap = new Array(256).fill().map(e => new Set());
-var outdatedCanvases = new Set();
+var textmap = new Array(256);
+var idmap = new Array(256).fill().map(e => new Set());
+
+/* key is image name */
+var datamap = {};
+
+/* set of canvas ids */
+var visibleids = new Set();
+var outdatedids = new Set();
 
 var strength = 0.5;
-var datamap = {};
+var activechar;
 
 function initButtons() {
     var scantron = document.getElementById("scantron");
 
-    for (var character in images) {
-        var input = document.createElement("input");
-            input.id = character;
-            input.type = "checkbox";
-        scantron.appendChild(input);
-        var label = document.createElement("label");
-            label.setAttribute("for", character);
-            var img = new Image();
-                img.src = "image/character_symbol_" + character + "01.png";
-            label.appendChild(img);
-        scantron.appendChild(label);
+    function flagAllIds() {
+        for (var character in ids) {
+            for (var id of ids[character]) {
+                outdatedids.add(id);
+            }
+        }
     }
+
+    function toggleLayer() {
+        layer[this.id] = this.checked;
+        flagAllIds();
+    }
+
+    function onInputClick() {
+        activechar = this.id;
+        flagAllIds();
+    }
+
+    for (var i in layer) {
+        document.getElementById(i).addEventListener("input", toggleLayer);
+    }
+
+    for (var character in ids) {
+        var input = document.createElement("input");
+        var label = document.createElement("label");
+        var img = new Image();
+
+        input.type = "radio";
+        input.name = "character";
+        input.id = character;
+        input.addEventListener("input", onInputClick);
+        scantron.appendChild(input);
+
+        label.setAttribute("for", character);
+        scantron.appendChild(label);
+
+        img.src = "image/character_symbol_" + character + "01.png";
+        label.appendChild(img);
+    }
+}
+
+
+function burn(a, b, line) {
+    return a - b - line;
+}
+
+function updateCanvases() {
+    for (var id of outdatedids) {
+        var canvas = document.getElementById(id);
+        if (!canvas) {
+            continue;
+        }
+        else if (canvas.classList.contains(activechar)) {
+            var context = canvas.getContext("2d");
+            var data = datamap[canvas.id];
+            var newdata = context.createImageData(data.width, data.height);
+
+            canvas.classList.remove("hidden");
+            for (var i = 0; i < data.data.length; i += 4) {
+                var j = 4 * data.data[i];
+                var line = layer.lines ? 255 - data.data[i + 1] : 0;
+                var blend = layer.blend ? 255 - data.data[i + 2] : 0;
+                // var mode = blendmap[data.data[i]];
+                // newdata.data[i] = blendmode[mode](colormap[j], blend, line);
+                // newdata.data[i + 1] = blendmode[mode](colormap[j + 1], blend, line);
+                // newdata.data[i + 2] = blendmode[mode](colormap[j + 2], blend, line);
+                // newdata.data[i + 3] = blendmode[mode](colormap[j + 3], blend, line);
+                if (blendmap[data.data[i]] == 0) {
+                    newdata.data[i] = burn(colormap[j], blend * strength, line);
+                    newdata.data[i + 1] = burn(colormap[j + 1], blend * strength, line);
+                    newdata.data[i + 2] = burn(colormap[j + 2], blend * strength, line);
+                    newdata.data[i + 3] = Math.max(colormap[j + 3], line);
+                }
+                else {
+                    newdata.data[i] = burn(colormap[j], blend, line);
+                    newdata.data[i + 1] = burn(colormap[j + 1], blend, line);
+                    newdata.data[i + 2] = burn(colormap[j + 2], blend, line);
+                    newdata.data[i + 3] = Math.max(colormap[j + 3] - blend * 0xff / (0xff - 0x64), line);
+                }
+            }
+            context.putImageData(newdata, 0, 0);
+        }
+        else {
+            canvas.classList.add("hidden");
+        }
+    }
+    outdatedids.clear();
+    requestAnimationFrame(updateCanvases);
 }
 
 function initSpritesheet() {
     var sheet = document.getElementById("sheet");
 
-    function focusPalette(e) {
-        var data = datamap[e.target.id];
-        var cid = data.data[4 * (e.offsetX + e.offsetY * data.width)];
-        var swatch = document.getElementById("s" + cid);
-        console.log(swatch);
-        // swatch.children[0].click();
-        swatch.children[1].focus();
-        swatch.children[1].select();
+    function onSheetClick(e) {
+        if (e.target.tagName == "CANVAS") {
+            var data = datamap[e.target.id];
+            var j = data.data[4 * (data.width * e.offsetY + e.offsetX)];
+            textmap[j].focus();
+        }
     }
 
-    function initDynamicSprite() {
-        var imagename = this.id.slice(4);
+    function initSprite() {
+        var id = this.dataset.name;
         var canvas = document.createElement("canvas");
-            canvas.id = imagename;
-            canvas.width = this.width;
-            canvas.height = this.height;
-            canvas.addEventListener("click", focusPalette);
+        var context = canvas.getContext("2d");
+
+        canvas.className = this.dataset.character + " hidden";
+        canvas.id = id;
+        canvas.width = this.width;
+        canvas.height = this.height;
+        context.drawImage(this, 0, 0);
         sheet.appendChild(canvas);
-        var context = canvas.getContext("2d");
-            context.drawImage(this, 0, 0);
-        datamap[imagename] = context.getImageData(0, 0, this.width, this.height);
-        for (var i = 0; i < datamap[imagename].data.length; i += 4) {
-            canvasmap[datamap[imagename].data[i]].add(canvas);
+
+        datamap[id] = context.getImageData(0, 0, this.width, this.height);
+        for (var i = 0; i < datamap[id].data.length; i += 4) {
+            idmap[datamap[id].data[i]].add(id);
         }
-        outdatedCanvases.add(canvas);
+        outdatedids.add(id);
     }
 
-    for (var character in images) {
-        for (var image of images[character]) {
+    for (var character in ids) {
+        for (var id of ids[character]) {
             var img = new Image();
-                img.id = "Raw_" + image;
-                img.src = "image/" + image + ".png";
-                img.addEventListener("load", initDynamicSprite);
+                img.src = "image/" + id + ".png";
+                img.dataset.character = character;
+                img.dataset.name = id;
+                img.addEventListener("load", initSprite);
         }
     }
-}
+    sheet.addEventListener("click", onSheetClick);
 
-
-
-
-
-function updateCanvases() {
-    requestAnimationFrame(updateCanvases);
-    for (var canvas of outdatedCanvases) {
-        var context = canvas.getContext("2d");
-        var data = datamap[canvas.id];
-        var newdata = context.createImageData(data.width, data.height);
-        for (var i = 0; i < data.data.length; i += 4) {
-            var cid = 4 * data.data[i];
-            var line = layermap.line ? 255 - data.data[i + 1] : 0;
-            var blend = layermap.blend ? 255 - data.data[i + 2] : 0;
-            if (blendmap[data.data[i]] == 0) {
-                newdata.data[i] = burn(colormap[cid], blend * strength, line);
-                newdata.data[i + 1] = burn(colormap[cid + 1], blend * strength, line);
-                newdata.data[i + 2] = burn(colormap[cid + 2], blend * strength, line);
-                newdata.data[i + 3] = Math.max(colormap[cid + 3], line);
-            }
-            else {
-                newdata.data[i] = burn(colormap[cid], blend, line);
-                newdata.data[i + 1] = burn(colormap[cid + 1], blend, line);
-                newdata.data[i + 2] = burn(colormap[cid + 2], blend, line);
-                // newdata.data[i + 3] = Math.max(colormap[cid + 3] - (blend * 0xff / 0x9b), line);
-                newdata.data[i + 3] = Math.max(colormap[cid + 3] - 255 + blend, line);
-            }
-        }
-        context.putImageData(newdata, 0, 0);
-    }
-    outdatedCanvases.clear();
-}
-updateCanvases();
-
-function burn(a, b, line) {
-    return a - b - line;
+    updateCanvases();
 }
 
 function union(a, b) {
     for (var i of b) {
         a.add(i);
     }
+}
+
+function hexToString(hex, pad) {
+    return hex.toString(16).padStart(pad, 0);
 }
 
 function initSwatch(n, r, g, b, a) {
@@ -133,24 +182,24 @@ function initSwatch(n, r, g, b, a) {
     var range = document.createElement("input");
     var blend = document.createElement("input");
 
-    function hexToString(hex, pad) {
-        return hex.toString(16).padStart(pad, 0);
-    }
-
     function updateColormap() {
         colormap[4 * n] = parseInt(text.value.slice(0, 2), 16);
         colormap[4 * n + 1] = parseInt(text.value.slice(2, 4), 16);
         colormap[4 * n + 2] = parseInt(text.value.slice(4, 6), 16);
         colormap[4 * n + 3] = range.value;
-        union(outdatedCanvases, canvasmap[n]);
+        union(outdatedids, idmap[n]);
     }
 
-    function inputColor() {
+    function onColorChange() {
         text.value = color.value.slice(1) + text.value.slice(6);
         updateColormap();
     }
 
-    function inputText() {
+    function onTextFocus() {
+        text.select();
+    }
+
+    function onTextChange() {
         text.value = text.value.replace(/[^\dA-Fa-f]/g, "");
         if (text.value.length == 3 || text.value.length == 4) {
             text.value = text.value.replace(/(.)/g, "$1$1");
@@ -175,7 +224,7 @@ function initSwatch(n, r, g, b, a) {
         updateColormap();
     }
 
-    function inputRange() {
+    function onRangeChange() {
         text.value = text.value.slice(0, 6) + (range.value < 255 ? hexToString(parseInt(range.value), 2) : "");
         color.style.opacity = range.value / 255;
         updateColormap();
@@ -183,7 +232,7 @@ function initSwatch(n, r, g, b, a) {
 
     function updateBlend() {
         blendmap[n] = blend.checked ? 1 : 0;
-        union(outdatedCanvases, canvasmap[n]);
+        union(outdatedids, idmap[n]);
     }
 
     colormap[4 * n] = r;
@@ -191,20 +240,21 @@ function initSwatch(n, r, g, b, a) {
     colormap[4 * n + 2] = b;
     colormap[4 * n + 3] = a;
     blendmap[n] = 0;
+    textmap[n] = text;
 
     var rgb = hexToString(0x10000 * r + 0x100 * g + b, 6);
 
     swatch.className = "swatch";
-    swatch.id = "s" + n;
 
     color.type = "color";
     color.value = "#" + rgb;
-    color.addEventListener("input", inputColor);
+    color.addEventListener("input", onColorChange);
     swatch.appendChild(color);
 
     text.type = "text";
     text.value = rgb + (a < 255 ? hexToString(a, 2) : "");
-    text.addEventListener("input", inputText);
+    text.addEventListener("focus", onTextFocus);
+    text.addEventListener("change", onTextChange);
     swatch.appendChild(text);
 
     range.type = "range";
@@ -212,7 +262,7 @@ function initSwatch(n, r, g, b, a) {
     range.max = 255;
     range.step = 1;
     range.value = a;
-    range.addEventListener("input", inputRange);
+    range.addEventListener("input", onRangeChange);
     swatch.appendChild(range);
 
     blend.type = "checkbox";
@@ -223,6 +273,8 @@ function initSwatch(n, r, g, b, a) {
 }
 
 function initPalette() {
+    var palette = document.getElementById("palette");
+
     function rhex() {
         return Math.floor(Math.random() * 0x100);
     }
@@ -234,10 +286,6 @@ function initPalette() {
 }
 
 function init() {
-    window.removeEventListener("DOMContentLoaded", init);
-
-    palette = document.getElementById("palette");
-
     initButtons();
     initSpritesheet();
     initPalette();
