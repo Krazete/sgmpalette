@@ -57,7 +57,6 @@ canvas {
     display: none;
 }
 #basic input + label {
-    font-weight: bold;
     padding: 6px;
     opacity: 0.5;
     display: inline-block;
@@ -67,6 +66,7 @@ canvas {
     opacity: 0.75;
 }
 #basic input:checked + label {
+    font-weight: bold;
     opacity: 1;
 }
 
