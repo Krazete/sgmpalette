@@ -39,6 +39,7 @@ function initBasic() {
 
     function toggleCharacter() {
         activechar = this.id;
+        initSpritesheet();
         flagAllIds();
     }
 
@@ -71,7 +72,6 @@ function initBasic() {
         document.getElementById(i).addEventListener("input", toggleLayer);
     }
 }
-
 
 function burn(a, b, line) {
     return a - b - line;
@@ -166,14 +166,12 @@ function initSpritesheet() {
         outdatedids.add(id);
     }
 
-    for (var character in ids) {
-        for (var id of ids[character]) {
-            var img = new Image();
-                img.src = "sprite/" + id + ".png";
-                img.dataset.character = character;
-                img.dataset.id = id;
-                img.addEventListener("load", initSprite);
-        }
+    for (var id of ids[activechar]) {
+        var img = new Image();
+            img.src = "sprite/" + id + ".png";
+            img.dataset.character = activechar;
+            img.dataset.id = id;
+            img.addEventListener("load", initSprite);
     }
     sheet.addEventListener("click", onSheetClick);
 
@@ -338,7 +336,6 @@ function initDownload() {
 
 function init() {
     initBasic();
-    initSpritesheet();
     initPalette();
     initDownload();
 }
