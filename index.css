@@ -3,43 +3,24 @@ html {
 }
 
 body {
-    background: linear-gradient(to top left, gray 50%, darkgray 50%);
-    background-size: 20px 20px;
+    font-family: 'Trebuchet MS', 'Helvetica', 'Arial', sans-serif;
+    text-transform: uppercase;
     height: 100%;
     margin: 0;
     display: grid;
     grid-template-columns: auto auto;
 }
 
-.section {
-    overflow-y: scroll;
+h1 {
+    margin: 12px 6px;
 }
 
-#scantron {
-    background: blue;
+a {
+    color: white;
+    text-decoration: none;
 }
-#scantron input[type='radio'] {
-    display: none;
-}
-#scantron input[type='radio'] + label {
-    opacity: 0.5;
-}
-#scantron input[type='radio']:checked + label {
-    opacity: 1;
-    filter: drop-shadow(0 0 5px pink); /* unnecessary */
-}
-
-#palette input[type='color'] {
-    position: relative;
-    padding: 0;
-    border: none;
-}
-#palette input:after { /* nonsense */
-    content: attr(data-value);
-    position: absolute;
-    top: 0;
-    left: 0;
-    text-transform: uppercase;
+a:hover {
+    text-decoration: underline;
 }
 
 canvas {
@@ -48,4 +29,111 @@ canvas {
 
 .hidden {
     display: none;
+}
+
+.section {
+    overflow-y: scroll;
+}
+
+#left {
+    background: linear-gradient(to top left, gray 50%, darkgray 50%);
+    background-size: 20px 20px;
+    /* background-attachment: fixed; */
+    text-align: center;
+}
+#left.solid {
+    background: gray;
+}
+
+#basic {
+    background: linear-gradient(#1b2a41, #0f1824);
+    color: white;
+    width: max-content;
+    padding: 6px;
+    border: 3px double #ccb55a;
+    margin: 18px auto;
+}
+
+#basic input {
+    display: none;
+}
+#basic input + label {
+    font-weight: bold;
+    padding: 6px;
+    opacity: 0.5;
+    display: inline-block;
+    cursor: pointer;
+}
+#basic input:hover + label {
+    opacity: 0.75;
+}
+#basic input:checked + label {
+    opacity: 1;
+}
+
+#basic img {
+    vertical-align: middle;
+}
+
+#layers {
+    display: flex;
+}
+#layers > * {
+    flex: 1;
+}
+
+#right {
+    background: linear-gradient(#1b2a41, #0f1824);
+    border-left: 3px double #ccb55a;
+    padding: 3px;
+}
+
+#palette input[type='checkbox'] {
+    display: none;
+}
+#palette input[type='checkbox'] + label {
+    background: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+#palette input[type='checkbox']:checked + label {
+    background: radial-gradient(white, transparent 75%);
+}
+
+#palette input[type='color'] {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+}
+
+#palette input[type='text'] {
+    background: none;
+    color: white;
+    font-family: 'Courier', monospace;
+    font-size: 18px;
+    width: 8em;
+    border-width: 0 0 1px 0;
+    border-color: white;
+}
+
+.swatch {
+    padding: 3px;
+}
+.swatch > * {
+    vertical-align: middle;
+    margin: 3px;
+}
+
+.hashwrapper {
+    color: white;
+    font-family: 'Courier', monospace;
+    font-size: 18px;
+    display: inline;
+}
+.hashwrapper:before {
+    content: '#';
 }

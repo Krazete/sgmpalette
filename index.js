@@ -1,30 +1,30 @@
-// var knownlight = [206, 207, 210, 223, 228, 236, 237];
+// var knownlights = [206, 207, 210, 223, 228, 236, 237];
 
+var activechar;
+var strength = 0.5;
 var layer = {
     "lines": true,
-    "blend": true
+    "detail": true
 };
 
 /* key is color id */
 var colormap = new Uint8ClampedArray(1024);
 var blendmap = new Uint8ClampedArray(256);
 var idmap = new Array(256).fill().map(e => new Set());
-
 var swatches = new Array(256);
-var charactercolors = {};
 
 /* key is image name */
+var charactercolors = {};
 var datamap = {};
 
 /* set of canvas ids */
 var visibleids = new Set();
 var outdatedids = new Set();
 
-var strength = 0.5;
-var activechar;
-
 function initButtons() {
-    var scantron = document.getElementById("scantron");
+    var left = document.getElementById("left");
+    var selection = document.getElementById("selection");
+    var background = document.getElementById("background");
 
     function flagAllIds() {
         for (var character in ids) {
@@ -34,9 +34,8 @@ function initButtons() {
         }
     }
 
-    function toggleLayer() {
-        layer[this.id] = this.checked;
-        flagAllIds();
+    function toggleBackground() {
+        left.className = this.checked ? "section" : "section solid";
     }
 
     function toggleCharacter() {
@@ -44,9 +43,12 @@ function initButtons() {
         flagAllIds();
     }
 
-    for (var i in layer) {
-        document.getElementById(i).addEventListener("input", toggleLayer);
+    function toggleLayer() {
+        layer[this.id] = this.checked;
+        flagAllIds();
     }
+
+    background.addEventListener("input", toggleBackground);
 
     for (var character in ids) {
         var input = document.createElement("input");
@@ -57,13 +59,17 @@ function initButtons() {
         input.name = "character";
         input.id = character;
         input.addEventListener("input", toggleCharacter);
-        scantron.appendChild(input);
+        selection.appendChild(input);
 
         label.setAttribute("for", character);
-        scantron.appendChild(label);
+        selection.appendChild(label);
 
         img.src = "image/character_symbol_" + character + "01.png";
         label.appendChild(img);
+    }
+
+    for (var i in layer) {
+        document.getElementById(i).addEventListener("input", toggleLayer);
     }
 }
 
@@ -88,18 +94,18 @@ function updateCanvases() {
                 var cid = rawdata.data[i];
                 var j = 4 * cid;
                 var line = layer.lines ? 0xff - rawdata.data[i + 1] : 0;
-                var blend = layer.blend ? 0xff - rawdata.data[i + 2] : 0;
+                var detail = layer.detail ? 0xff - rawdata.data[i + 2] : 0;
                 if (blendmap[cid] == 0) {
-                    newdata.data[i] = burn(colormap[j], blend * strength, line);
-                    newdata.data[i + 1] = burn(colormap[j + 1], blend * strength, line);
-                    newdata.data[i + 2] = burn(colormap[j + 2], blend * strength, line);
+                    newdata.data[i] = burn(colormap[j], detail * strength, line);
+                    newdata.data[i + 1] = burn(colormap[j + 1], detail * strength, line);
+                    newdata.data[i + 2] = burn(colormap[j + 2], detail * strength, line);
                     newdata.data[i + 3] = Math.max(colormap[j + 3], line);
                 }
                 else {
-                    newdata.data[i] = burn(colormap[j], blend, line);
-                    newdata.data[i + 1] = burn(colormap[j + 1], blend, line);
-                    newdata.data[i + 2] = burn(colormap[j + 2], blend, line);
-                    newdata.data[i + 3] = Math.max(colormap[j + 3] - blend * 0xff / (0xff - 0x64), line);
+                    newdata.data[i] = burn(colormap[j], detail, line);
+                    newdata.data[i + 1] = burn(colormap[j + 1], detail, line);
+                    newdata.data[i + 2] = burn(colormap[j + 2], detail, line);
+                    newdata.data[i + 3] = Math.max(colormap[j + 3] - detail * 0xff / (0xff - 0x64), line);
                 }
             }
             context.putImageData(newdata, 0, 0);
@@ -131,7 +137,7 @@ function initSpritesheet() {
         if (e.target.tagName == "CANVAS") {
             var data = datamap[e.target.id];
             var j = data.data[4 * (data.width * e.offsetY + e.offsetX)];
-            swatches[j].children[1].focus();
+            swatches[j].children[3].children[0].focus();
         }
     }
 
@@ -186,10 +192,12 @@ function hexToString(hex, pad) {
 
 function initSwatch(n, r, g, b, a) {
     var swatch = document.createElement("div");
+    var blend = document.createElement("input");
+    var blendlabel = document.createElement("label");
     var color = document.createElement("input");
+    var hashwrapper = document.createElement("div");
     var text = document.createElement("input");
     var range = document.createElement("input");
-    var blend = document.createElement("input");
 
     function updateColormap() {
         colormap[4 * n] = parseInt(text.value.slice(0, 2), 16);
@@ -254,6 +262,14 @@ function initSwatch(n, r, g, b, a) {
 
     swatch.className = "swatch hidden";
 
+    blend.type = "checkbox";
+    blend.id = "b" + n;
+    blend.addEventListener("input", updateBlend);
+    swatch.appendChild(blend);
+
+    blendlabel.setAttribute("for", blend.id);
+    swatch.appendChild(blendlabel);
+
     color.type = "color";
     color.value = "#" + rgb;
     color.style.opacity = a / 0xff;
@@ -264,7 +280,10 @@ function initSwatch(n, r, g, b, a) {
     text.value = rgb + (a < 0xff ? hexToString(a, 2) : "");
     text.addEventListener("focus", onTextFocus);
     text.addEventListener("change", onTextChange);
-    swatch.appendChild(text);
+    hashwrapper.appendChild(text);
+
+    hashwrapper.className = "hashwrapper";
+    swatch.appendChild(hashwrapper);
 
     range.type = "range";
     range.min = 0x00;
@@ -273,10 +292,6 @@ function initSwatch(n, r, g, b, a) {
     range.value = a;
     range.addEventListener("input", onRangeChange);
     swatch.appendChild(range);
-
-    blend.type = "checkbox";
-    blend.addEventListener("input", updateBlend);
-    swatch.appendChild(blend);
 
     palette.appendChild(swatch);
 

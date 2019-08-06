@@ -8,31 +8,28 @@
     <link rel="stylesheet" href="index.css"></link>
     <!-- <script src="library/jszip/jszip.min.js"></script>
     <script src="library/FileSaver-js/FileSaver.min.js"></script> -->
-    <script src="x.js"></script>
+    <script src="directory.js"></script>
     <script src="index.js"></script>
 </head>
 <body>
-    <div class="section">
-        <h1>
-            <a href="https://github.com/Krazete/sgmpalette">Skullgirls Mobile Palette Editor</a>
-        </h1>
-        <div>
-            <input type="checkbox" id="lines" checked>
-            <label for="lines">Lines</label>
-            <input type="checkbox" id="blend" checked>
-            <label for="blend">Blend</label>
+    <div class="section" id="left">
+        <div id="basic">
+            <h1>
+                <a target="_blank" href="https://github.com/Krazete/sgmpalette">Skullgirls Mobile Palette Editor</a>
+            </h1>
+            <div id="selection"></div>
+            <div id="layers">
+                <input type="checkbox" id="background" checked>
+                <label for="background">Background</label>
+                <input type="checkbox" id="lines" checked>
+                <label for="lines">Lines</label>
+                <input type="checkbox" id="detail" checked>
+                <label for="detail">Detail</label>
+            </div>
         </div>
-        <div id="scantron"></div>
         <div id="sheet"></div>
     </div>
-    <div class="section">
-        <!-- <div>
-            <div>Uniform Override</div>
-            <label>Uniform Color</label>
-            <label>Uniform Opacity</label>
-            <label>Uniform Blend Layer</label>
-            <label>Uniform Blend Modes</label>
-        </div> -->
+    <div class="section" id="right">
         <div id="palette"></div>
     </div>
 </body>
