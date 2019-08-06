@@ -1,4 +1,5 @@
 html {
+    background: gray;
     height: 100%;
 }
 
@@ -41,7 +42,7 @@ canvas {
     flex: 1;
 }
 #left.solid {
-    background: gray;
+    background: none;
 }
 
 #basic {
@@ -81,6 +82,20 @@ canvas {
     flex: 1;
 }
 
+#download {
+    background: #ccb55a;
+    color: black;
+    font-weight: bold;
+    width: max-content;
+    padding: 6px;
+    border: 3px double #1b2a41;
+    margin: 24px auto;
+    cursor: pointer;
+}
+#download:hover {
+    background: #dec974;
+}
+
 #right {
     background: linear-gradient(#1b2a41, #0f1824);
     border-left: 3px double #ccb55a;
@@ -112,8 +127,9 @@ canvas {
 #palette input[type='text'] {
     background: none;
     color: white;
-    font-family: 'Courier', monospace;
+    font-family: 'Lucida Console', 'Courier New', 'Courier', monospace;
     font-size: 18px;
+    text-transform: uppercase;
     width: 8em;
     border-width: 0 0 1px 0;
     border-color: white;

@@ -18,10 +18,9 @@ var charactercolors = {};
 var datamap = {};
 
 /* set of canvas ids */
-var visibleids = new Set();
 var outdatedids = new Set();
 
-function initButtons() {
+function initBasic() {
     var left = document.getElementById("left");
     var selection = document.getElementById("selection");
     var background = document.getElementById("background");
@@ -311,10 +310,36 @@ function initPalette() {
     }
 }
 
+function initDownload() {
+    var download = document.getElementById("download");
+
+    function completeDownload(blob) {
+        saveAs(blob, activechar + ".zip");
+    }
+
+    function beginDownload() {
+        if (activechar) {
+            var zip = new JSZip();
+            for (var id of ids[activechar]) {
+                var canvas = document.getElementById(id);
+                if (canvas) {
+                    var dataURL = canvas.toDataURL();
+                    zip.file(id + ".png", dataURL.slice(22), {"base64": true});
+                }
+            }
+
+            zip.generateAsync({"type": "blob"}).then(completeDownload);
+        }
+    }
+
+    download.addEventListener("click", beginDownload);
+}
+
 function init() {
-    initButtons();
+    initBasic();
     initSpritesheet();
     initPalette();
+    initDownload();
 }
 
 window.addEventListener("DOMContentLoaded", init);
