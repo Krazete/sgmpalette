@@ -7,8 +7,7 @@ body {
     text-transform: uppercase;
     height: 100%;
     margin: 0;
-    display: grid;
-    grid-template-columns: auto auto;
+    display: flex;
 }
 
 h1 {
@@ -38,8 +37,8 @@ canvas {
 #left {
     background: linear-gradient(to top left, gray 50%, darkgray 50%);
     background-size: 20px 20px;
-    /* background-attachment: fixed; */
     text-align: center;
+    flex: 1;
 }
 #left.solid {
     background: gray;
