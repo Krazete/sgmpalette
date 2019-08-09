@@ -8,7 +8,7 @@ A palette editor for the static sprites of Skullgirls Mobile.
 
 A big thanks to Discord user Pupix#0001 for showing me where to find the raw sprites from which this entire project is based on.
 
-Don't expect to be able to perfectly recreate the more complex official palettes, such as Doublicious or Tomb & Gloom. The detail layer and color layer are blended using linear burn; the game likely uses more complex and multiple other blend modes.
+Don't expect to be able to perfectly recreate official palettes like Doublicious or Tomb & Gloom. The detail layer and color layer are blended here using linear burn; the game likely uses more complex and multiple other blend modes.
 
 Also, unlike my previous Skullgirls Mobile projects, I did not take any steps to make this website mobile-friendly. The color picker on most mobile browsers is too limited anyway.
 
