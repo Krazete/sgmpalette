@@ -6,6 +6,7 @@ var layer = {
     "line": true,
     "detail": true
 };
+var autopick = true;
 
 /* key is color id */
 var colormap = new Uint8ClampedArray(1024);
@@ -57,6 +58,7 @@ function initBasic() {
 
         input.type = "radio";
         input.name = "character";
+        input.className = "option";
         input.id = character;
         input.addEventListener("input", toggleCharacter);
         selection.appendChild(input);
@@ -136,8 +138,10 @@ function initSpritesheet() {
         if (e.target.tagName == "CANVAS") {
             var data = datamap[e.target.id];
             var j = data.data[4 * (data.width * e.offsetY + e.offsetX)];
-            swatches[j].children[2].click();
-            swatches[j].children[3].children[0].focus();
+            swatches[j].children[3].children[0].select();
+            if (autopick) {
+                swatches[j].children[2].click();
+            }
         }
     }
 
@@ -298,6 +302,11 @@ function initSwatch(n, r, g, b, a) {
 
 function initPalette() {
     var palette = document.getElementById("palette");
+    var picker = document.getElementById("picker");
+
+    function onPaletteChange() {
+        autopick = this.checked;
+    }
 
     function rhex() {
         return Math.floor(Math.random() * 0x100);
@@ -307,6 +316,8 @@ function initPalette() {
     for (var i = 1; i < 256; i++) {
         initSwatch(i, rhex(), rhex(), rhex(), 0xff);
     }
+
+    picker.addEventListener("change", onPaletteChange);
 }
 
 function initDownload() {

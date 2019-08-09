@@ -18,12 +18,12 @@
                 <a target="_blank" href="https://github.com/Krazete/sgmpalette">Skullgirls Mobile Palette Editor</a>
             </h1>
             <div id="selection"></div>
-            <div id="layers">
-                <input type="checkbox" id="background" checked>
+            <div class="flexbox">
+                <input type="checkbox" class="option" id="background" checked>
                 <label for="background">Background</label>
-                <input type="checkbox" id="line" checked>
+                <input type="checkbox" class="option" id="line" checked>
                 <label for="line">Linework</label>
-                <input type="checkbox" id="detail" checked>
+                <input type="checkbox" class="option" id="detail" checked>
                 <label for="detail">Detail</label>
             </div>
         </div>
@@ -31,6 +31,10 @@
         <div id="download">Download</div>
     </div>
     <div class="section" id="right">
+        <div class="flexbox">
+            <input type="checkbox" class="option" id="picker" checked>
+            <label for="picker">Auto Color Picker</label>
+        </div>
         <div id="palette"></div>
     </div>
 </body>

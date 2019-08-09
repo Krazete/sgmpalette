@@ -23,6 +23,8 @@ You can also toggle visibility of the background layer, linework layer, and deta
 
 The spritesheet contains all in-game static sprites of the chosen character.
 You can click within any sprite to select a color area to edit.
+The color picker for the selected area will be automatically opened.
+To disable this, toggle the `Auto Color Picker` button in the palette section.
 
 ### Palette
 
