@@ -4,6 +4,8 @@
 
 A palette editor for the static sprites of Skullgirls Mobile.
 
+Static sprites consist of portraits, card art, and art for special moves and blockbusters.
+
 <img src="sample.png">
 
 A big thanks to Discord user Pupix#0001 for showing me where to find the raw sprites from which this entire project is based on.
@@ -44,3 +46,5 @@ Thanks to the following:
 
 * [Stuk/jszip](https://github.com/Stuk/jszip) for making it easy to create zip files
 * [eligrey/FileSaver.js](https://github.com/eligrey/FileSaver.js) for making it easy to download those zip files
+
+The card art sprites can be uploaded to the [SGM Card Creator](https://github.com/Krazete/sgmcard), which should detect it based on its dimensions and automatically set the optimal position parameters.
