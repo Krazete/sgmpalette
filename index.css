@@ -53,6 +53,20 @@ input.option:checked + label {
     opacity: 1;
 }
 
+input.option.text + label:before {
+    content: '';
+    background: url(icon/CheckmarkBad.png);
+    background-size: 18px;
+    width: 18px;
+    height: 18px;
+    vertical-align: bottom;
+    display: inline-block;
+}
+input.option.text:checked + label:before {
+    background: url(icon/CheckmarkGood.png);
+    background-size: 18px;
+}
+
 .hidden {
     display: none;
 }
