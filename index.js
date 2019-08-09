@@ -6,7 +6,7 @@ var layer = {
     "line": true,
     "detail": true
 };
-var autopick = true;
+var autopicker = true;
 
 /* key is color id */
 var colormap = new Uint8ClampedArray(1024);
@@ -139,7 +139,7 @@ function initSpritesheet() {
             var data = datamap[e.target.id];
             var j = data.data[4 * (data.width * e.offsetY + e.offsetX)];
             swatches[j].children[3].children[0].select();
-            if (autopick) {
+            if (autopicker) {
                 swatches[j].children[2].click();
             }
         }
@@ -193,6 +193,7 @@ function hexToString(hex, pad) {
 }
 
 function initSwatch(n, r, g, b, a) {
+    var palette = document.getElementById("palette");
     var swatch = document.createElement("div");
     var blend = document.createElement("input");
     var blendlabel = document.createElement("label");
@@ -301,11 +302,10 @@ function initSwatch(n, r, g, b, a) {
 }
 
 function initPalette() {
-    var palette = document.getElementById("palette");
     var picker = document.getElementById("picker");
 
-    function onPaletteChange() {
-        autopick = this.checked;
+    function onPickerChange() {
+        autopicker = this.checked;
     }
 
     function rhex() {
@@ -317,7 +317,7 @@ function initPalette() {
         initSwatch(i, rhex(), rhex(), rhex(), 0xff);
     }
 
-    picker.addEventListener("change", onPaletteChange);
+    picker.addEventListener("change", onPickerChange);
 }
 
 function initDownload() {
