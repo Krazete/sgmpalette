@@ -11,14 +11,14 @@ var blend = {
     "none": function (a, b, line) {
         return a - line;
     },
-    "subtract": function (a, b, line) {
+    "matte": function (a, b, line) {
         return a - b - line;
     },
-    "divide": function (a, b, line) {
+    "shiny": function (a, b, line) {
         return Math.min(32 * a / b, 255) - line;
     }
 };
-var mode = "subtract";
+var mode = "matte";
 
 /* key is color id */
 var colormap = new Uint8ClampedArray(1024);
