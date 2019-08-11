@@ -360,7 +360,7 @@ function initLoader() {
         saveAs(blob, "palette.png");
     }
 
-    function applyPalette2() {
+    function applyPalette() {
         context.clearRect(0, 0, 16, 16);
         context.drawImage(this, 0, 0, 16, 16);
         colormap = context.getImageData(0, 0, 16, 16).data;
@@ -377,9 +377,9 @@ function initLoader() {
         flagAllIds();
     }
 
-    function applyPalette() {
+    function loadPaletteImage() {
         var image = new Image();
-        image.addEventListener("load", applyPalette2);
+        image.addEventListener("load", applyPalette);
         image.src = this.result;
     }
 
@@ -387,7 +387,7 @@ function initLoader() {
         var file = this.files[0];
         if (file) {
             var reader = new FileReader();
-            reader.addEventListener("load", applyPalette);
+            reader.addEventListener("load", loadPaletteImage);
             reader.readAsDataURL(file);
         }
     }
