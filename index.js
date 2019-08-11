@@ -1,4 +1,4 @@
-// var knownlights = [206, 207, 210, 223, 228, 236, 237];
+var knownspectral = [206, 207, 210, 228, 236, 237]; /* 223 */
 
 var activechar;
 var strength = 0.5;
@@ -276,6 +276,10 @@ function initSwatch(n, r, g, b, a) {
 
     spectral.type = "checkbox";
     spectral.id = "b" + n;
+    if (knownspectral.includes(n)) {
+        spectral.checked = true;
+        spectralmap[n] = 1;
+    }
     spectral.addEventListener("input", updateSpectral);
     swatch.appendChild(spectral);
 
