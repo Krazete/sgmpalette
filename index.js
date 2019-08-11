@@ -1,4 +1,4 @@
-var knownspectral = [206, 207, 210, 228, 236, 237]; /* 223 */
+var knownspectral = [206, 207, 210, 215, 228, 236, 237]; /* 223 applies to robofortune but not parasoul */
 
 var activechar;
 var strength = 0.5;
