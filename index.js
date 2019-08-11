@@ -452,7 +452,7 @@ function init() {
 
 function holup(e) {
     e.preventDefault();
-    e.returnValue = msg;
+    e.returnValue = "Changes you made may not be saved.";
     return e.returnValue;
 }
 
