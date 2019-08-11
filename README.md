@@ -39,6 +39,9 @@ The other options in the row indicate color and uniform opacity.
 The `Matte` and `Shiny` options at the top denote how the detail layer is blended with the color layer.
 `Matte` is essentially linear burn and `Shiny` is basically color dodge.
 
+At the bottom of the palette section, you can load and save palette files.
+Palette files are 16x16px images, though the website allows loading images with different dimensions.
+
 ## Download
 
 To download a single sprite, right-click (or control-click) a sprite and select `Save Image As...`.

@@ -10,6 +10,8 @@ body {
     height: 100%;
     margin: 0;
     display: flex;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
 }
 
 h1 {
@@ -36,6 +38,10 @@ canvas {
     flex: 1;
 }
 
+input + label {
+    cursor: pointer;
+}
+
 input.option {
     display: none;
 }
@@ -43,7 +49,6 @@ input.option + label {
     padding: 6px;
     opacity: 0.5;
     display: inline-block;
-    cursor: pointer;
 }
 input.option:hover + label {
     opacity: 0.75;
@@ -117,7 +122,9 @@ input.option.text:checked + label:before {
     padding: 3px;
 }
 
-#palette input[type='checkbox'] {
+#palette input[type='checkbox'],
+input[type='file'],
+input[type='button'] {
     display: none;
 }
 #palette input[type='checkbox'] + label {
@@ -126,7 +133,6 @@ input.option.text:checked + label:before {
     height: 24px;
     border-radius: 50%;
     display: inline-block;
-    cursor: pointer;
 }
 #palette input[type='checkbox']:checked + label {
     background: radial-gradient(white, transparent 75%);

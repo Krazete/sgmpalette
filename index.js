@@ -349,10 +349,70 @@ function initSwatches() {
     }
 }
 
+function initLoader() {
+    var load = document.getElementById("load");
+    var save = document.getElementById("save");
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+    var image = document.createElement("img");
+
+    function saveBlob(blob) {
+        saveAs(blob, "palette.png");
+    }
+
+    function applyPalette2() {
+        context.clearRect(0, 0, 16, 16);
+        context.drawImage(this, 0, 0, 16, 16);
+        colormap = context.getImageData(0, 0, 16, 16).data;
+        for (var i = 0; i < 256; i++) {
+            var r = hexToString(colormap[4 * i], 2);
+            var g = hexToString(colormap[4 * i + 1], 2);
+            var b = hexToString(colormap[4 * i + 2], 2);
+            var alpha = colormap[4 * i + 3];
+            var a = hexToString(alpha, 2);
+            swatches[i].children[2].value = "#" + r + g + b;
+            swatches[i].children[3].children[0].value = r + g + b + (alpha < 0xff ? a : "");
+            swatches[i].children[4].value = alpha;
+        }
+        flagAllIds();
+    }
+
+    function applyPalette() {
+        var image = new Image();
+        image.addEventListener("load", applyPalette2);
+        image.src = this.result;
+    }
+
+    function loadPalette() {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.addEventListener("load", applyPalette);
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function savePalette() {
+        var data = context.createImageData(16, 16);
+        for (var i = 0; i < 1024; i++) {
+            data.data[i] = colormap[i];
+        }
+        context.putImageData(data, 0, 0);
+        canvas.toBlob(saveBlob);
+    }
+
+    canvas.width = 16;
+    canvas.height = 16;
+
+    load.addEventListener("change", loadPalette);
+    save.addEventListener("click", savePalette);
+}
+
 function initPalette() {
     initPicker();
     initBlend();
     initSwatches();
+    initLoader();
 }
 
 function initDownload() {
@@ -386,4 +446,11 @@ function init() {
     initDownload();
 }
 
+function holup(e) {
+    e.preventDefault();
+    e.returnValue = msg;
+    return e.returnValue;
+}
+
 window.addEventListener("DOMContentLoaded", init);
+window.addEventListener("beforeunload", holup);
