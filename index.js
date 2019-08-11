@@ -15,7 +15,7 @@ var blend = {
         return a - b - line;
     },
     "shiny": function (a, b, line) {
-        return Math.min(0x20 * a / b, 0xff) - line;
+        return Math.min(0x80 * Math.log(a / b), 0xff) - line;
     }
 };
 var mode = "matte";
