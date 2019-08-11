@@ -2,15 +2,27 @@
 
 var activechar;
 var strength = 0.5;
+var autopicker = true;
 var layer = {
     "line": true,
     "detail": true
 };
-var autopicker = true;
+var blend = {
+    "none": function (a, b, line) {
+        return a - line;
+    },
+    "subtract": function (a, b, line) {
+        return a - b - line;
+    },
+    "divide": function (a, b, line) {
+        return Math.min(32 * a / b, 255) - line;
+    }
+};
+var mode = "subtract";
 
 /* key is color id */
 var colormap = new Uint8ClampedArray(1024);
-var blendmap = new Uint8ClampedArray(256);
+var spectralmap = new Uint8ClampedArray(256);
 var idmap = new Array(256).fill().map(e => new Set());
 var swatches = new Array(256);
 
@@ -21,18 +33,18 @@ var datamap = {};
 /* set of canvas ids */
 var outdatedids = new Set();
 
+function flagAllIds() {
+    for (var character in ids) {
+        for (var id of ids[character]) {
+            outdatedids.add(id);
+        }
+    }
+}
+
 function initBasic() {
     var left = document.getElementById("left");
     var selection = document.getElementById("selection");
     var background = document.getElementById("background");
-
-    function flagAllIds() {
-        for (var character in ids) {
-            for (var id of ids[character]) {
-                outdatedids.add(id);
-            }
-        }
-    }
 
     function toggleBackground() {
         left.className = this.checked ? "section" : "section solid";
@@ -75,10 +87,6 @@ function initBasic() {
     }
 }
 
-function burn(a, b, line) {
-    return a - b - line;
-}
-
 function updateCanvases() {
     for (var id of outdatedids) {
         var canvas = document.getElementById(id);
@@ -95,17 +103,18 @@ function updateCanvases() {
                 var cid = rawdata.data[i];
                 var j = 4 * cid;
                 var line = layer.line ? 0xff - rawdata.data[i + 1] : 0;
-                var detail = layer.detail ? 0xff - rawdata.data[i + 2] : 0;
-                if (blendmap[cid] == 0) {
-                    newdata.data[i] = burn(colormap[j], detail * strength, line);
-                    newdata.data[i + 1] = burn(colormap[j + 1], detail * strength, line);
-                    newdata.data[i + 2] = burn(colormap[j + 2], detail * strength, line);
+                var detail = 0xff - rawdata.data[i + 2];
+                var moo = layer.detail ? mode : "none";
+                if (spectralmap[cid] == 0) {
+                    newdata.data[i] = blend[moo](colormap[j], detail * strength, line);
+                    newdata.data[i + 1] = blend[moo](colormap[j + 1], detail * strength, line);
+                    newdata.data[i + 2] = blend[moo](colormap[j + 2], detail * strength, line);
                     newdata.data[i + 3] = Math.max(colormap[j + 3], line);
                 }
                 else {
-                    newdata.data[i] = burn(colormap[j], detail, line);
-                    newdata.data[i + 1] = burn(colormap[j + 1], detail, line);
-                    newdata.data[i + 2] = burn(colormap[j + 2], detail, line);
+                    newdata.data[i] = blend[moo](colormap[j], detail, line);
+                    newdata.data[i + 1] = blend[moo](colormap[j + 1], detail, line);
+                    newdata.data[i + 2] = blend[moo](colormap[j + 2], detail, line);
                     newdata.data[i + 3] = Math.max(colormap[j + 3] - detail * 0xff / (0xff - 0x64), line);
                 }
             }
@@ -195,8 +204,8 @@ function hexToString(hex, pad) {
 function initSwatch(n, r, g, b, a) {
     var palette = document.getElementById("palette");
     var swatch = document.createElement("div");
-    var blend = document.createElement("input");
-    var blendlabel = document.createElement("label");
+    var spectral = document.createElement("input");
+    var spectrallabel = document.createElement("label");
     var color = document.createElement("input");
     var hashwrapper = document.createElement("div");
     var text = document.createElement("input");
@@ -250,8 +259,8 @@ function initSwatch(n, r, g, b, a) {
         updateColormap();
     }
 
-    function updateBlend() {
-        blendmap[n] = blend.checked ? 1 : 0;
+    function updateSpectral() {
+        spectralmap[n] = spectral.checked ? 1 : 0;
         union(outdatedids, idmap[n]);
     }
 
@@ -259,19 +268,19 @@ function initSwatch(n, r, g, b, a) {
     colormap[4 * n + 1] = g;
     colormap[4 * n + 2] = b;
     colormap[4 * n + 3] = a;
-    blendmap[n] = 0;
+    spectralmap[n] = 0;
 
     var rgb = hexToString(0x10000 * r + 0x100 * g + b, 6);
 
     swatch.className = "swatch hidden";
 
-    blend.type = "checkbox";
-    blend.id = "b" + n;
-    blend.addEventListener("input", updateBlend);
-    swatch.appendChild(blend);
+    spectral.type = "checkbox";
+    spectral.id = "b" + n;
+    spectral.addEventListener("input", updateSpectral);
+    swatch.appendChild(spectral);
 
-    blendlabel.setAttribute("for", blend.id);
-    swatch.appendChild(blendlabel);
+    spectrallabel.setAttribute("for", spectral.id);
+    swatch.appendChild(spectrallabel);
 
     color.type = "color";
     color.value = "#" + rgb;
@@ -301,13 +310,35 @@ function initSwatch(n, r, g, b, a) {
     swatches[n] = swatch;
 }
 
-function initPalette() {
+function initPicker() {
     var picker = document.getElementById("picker");
 
     function onPickerChange() {
         autopicker = this.checked;
     }
 
+    picker.addEventListener("change", onPickerChange);
+}
+
+function initBlend() {
+    var blendmode = document.getElementById("blendmode");
+
+    function onBlendChange() {
+        for (var child of blendmode.children) {
+            if (child.tagName == "INPUT") {
+                if (child.checked) {
+                    mode = child.id;
+                    break;
+                }
+            }
+        }
+        flagAllIds();
+    }
+
+    blendmode.addEventListener("click", onBlendChange);
+}
+
+function initSwatches() {
     function rhex() {
         return Math.floor(Math.random() * 0x100);
     }
@@ -316,8 +347,12 @@ function initPalette() {
     for (var i = 1; i < 256; i++) {
         initSwatch(i, rhex(), rhex(), rhex(), 0xff);
     }
+}
 
-    picker.addEventListener("change", onPickerChange);
+function initPalette() {
+    initPicker();
+    initBlend();
+    initSwatches();
 }
 
 function initDownload() {
