@@ -364,7 +364,7 @@ function initLoader() {
     var image = document.createElement("img");
 
     function saveBlob(blob) {
-        saveAs(blob, "palette.png");
+        saveAs(blob, "palette-" + activechar + "-" + mode + ".png");
     }
 
     function applyPalette() {
