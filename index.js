@@ -1,4 +1,5 @@
-var knownspectral = [206, 207, 215, 228, 236, 237];
+var knownspectral = [207, 215, 228, 236, 237];
+/* 206 applies to squigly but not valentine or big band */
 /* 210 applies to robofortune but not big band */
 /* 223 applies to robofortune but not parasoul */
 
