@@ -66,7 +66,7 @@ function initBasic() {
         flagAllIds();
     }
 
-    background.addEventListener("input", toggleBackground);
+    background.addEventListener("click", toggleBackground);
 
     for (var character in ids) {
         var input = document.createElement("input");
@@ -77,7 +77,7 @@ function initBasic() {
         input.name = "character";
         input.className = "option";
         input.id = character;
-        input.addEventListener("input", toggleCharacter);
+        input.addEventListener("click", toggleCharacter);
         selection.appendChild(input);
 
         label.setAttribute("for", character);
@@ -88,7 +88,7 @@ function initBasic() {
     }
 
     for (var i in layer) {
-        document.getElementById(i).addEventListener("input", toggleLayer);
+        document.getElementById(i).addEventListener("click", toggleLayer);
     }
 }
 
@@ -285,7 +285,7 @@ function initSwatch(n, r, g, b, a) {
         spectral.checked = true;
         spectralmap[n] = 1;
     }
-    spectral.addEventListener("input", updateSpectral);
+    spectral.addEventListener("click", updateSpectral);
     swatch.appendChild(spectral);
 
     spectrallabel.setAttribute("for", spectral.id);
