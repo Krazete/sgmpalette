@@ -26,7 +26,9 @@ var mode = "matte";
 /* key is color id */
 var colormap = new Uint8ClampedArray(1024);
 var spectralmap = new Uint8ClampedArray(256);
-var idmap = new Array(256).fill().map(e => new Set());
+var idmap = new Array(256).fill().map(function () {
+    return new Set();
+});
 var swatches = new Array(256);
 
 /* key is image name */
