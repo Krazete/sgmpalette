@@ -21,6 +21,7 @@ var ids = {
         "Beowulf_SM6_GiganArmSweep",
         "Beowulf_SM8_HurtingHurdle",
         "Beowulf_SMX_HypeMode",
+        "Beowulf_SnakeBite",
         "Beowulf_Underdog",
         "Beowulf_WeekendWarrior",
         "Beowulf_WrestlerX",
@@ -52,6 +53,7 @@ var ids = {
         "BigBand_SM6_TakeFive",
         "BigBand_SM7_SweetClarinet",
         "BigBand_SM8_NoiseCancel",
+        "BigBand_TrebleMaker",
         "HeavyMetal"
     ],
     "cerebella": [
@@ -64,6 +66,7 @@ var ids = {
         "Cerebella_BB6_T3_GrabBag",
         "Cerebella_BigTop",
         "Cerebella_BrainFreeze",
+        "Cerebella_CriminalMind",
         "Cerebella_GrayMatter",
         "Cerebella_Harlequin",
         "Cerebella_Headstrong",
@@ -122,6 +125,7 @@ var ids = {
         "Eliza_DivaIntervention",
         "Eliza_InDenile",
         "Eliza_LapisLuxury",
+        "Eliza_MummyDearest",
         "Eliza_Portrait",
         "Eliza_RedVelvet",
         "Eliza_Revamped",
@@ -197,7 +201,8 @@ var ids = {
         "MsFortune_SMX_HeadGames_Recall",
         "MsFortune_SMX_HeadGames_Sneeze",
         "MsFortune_SMX_HeadGames_Zoom",
-        "MsFortune_SMX_HeadGames"
+        "MsFortune_SMX_HeadGames",
+        "MsFortune_WindStalker"
     ],
     "painwheel": [
         "Painwheel_BB1_T1_DeathCrawl",
@@ -209,7 +214,9 @@ var ids = {
         "Painwheel_Buzzkill",
         "Painwheel_Firefly",
         "Painwheel_FlyTrap",
+        "Painwheel_FreakyFriday",
         "Painwheel_GrimFan",
+        "Painwheel_Neuromancer",
         "Painwheel_Portrait",
         "Painwheel_RageAppropriate",
         "Painwheel_RawNerv",
@@ -236,6 +243,7 @@ var ids = {
         "Parasoul_Primed",
         "Parasoul_PrincessPride",
         "Parasoul_RegallyBlonde",
+        "Parasoul_RiskyGinger",
         "Parasoul_ShadowOps",
         "Parasoul_Sheltered",
         "Parasoul_SM1_Taunt",
@@ -257,6 +265,7 @@ var ids = {
         "Peacock_BB5_T1_ArgusAgony",
         "Peacock_BB6_T1_ImpendingDoom",
         "Peacock_BB7_T3_DeadlyAirport",
+        "Peacock_DreamCatcher",
         "Peacock_FreezeFrame",
         "Peacock_Inkling",
         "Peacock_PeaShooter",
@@ -303,7 +312,8 @@ var ids = {
         "RoboFortune_SMX_HeadDroneHardware_Launch",
         "RoboFortune_SMX_HeadDroneHardware_RAM",
         "RoboFortune_SMX_HeadDroneHardware_Salvo",
-        "RoboFortune_TerrorByte"
+        "RoboFortune_TerrorByte",
+        "RoboFortune_XBot"
     ],
     "squigly": [
         "Squigly_BB1_DaisyPusher",
@@ -317,6 +327,7 @@ var ids = {
         "Squigly_LoveCrafted",
         "Squigly_NearlyDeparted",
         "Squigly_Necrobreaker",
+        "Squigly_PlotTwisted",
         "Squigly_Poltergust",
         "Squigly_Portrait",
         "Squigly_ScaredStiff",
@@ -329,6 +340,7 @@ var ids = {
         "Squigly_SM7_CenterStage",
         "Squigly_SM8_AshesToAshes",
         "Squigly_StageFright",
+        "Squigly_ThrillShrieker",
         "Squigly_WyrmsTail"
     ],
     "valentine": [
@@ -358,6 +370,7 @@ var ids = {
         "Valentine_SM6_VialHazardB",
         "Valentine_SM7_VialHazardC",
         "Valentine_SM9_MortuaryDrop",
-        "Valentine_SurgeonGeneral"
+        "Valentine_SurgeonGeneral",
+        "Valentine_TresChic"
     ]
 };
