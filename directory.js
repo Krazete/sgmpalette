@@ -372,5 +372,8 @@ var ids = {
         "Valentine_SM9_MortuaryDrop",
         "Valentine_SurgeonGeneral",
         "Valentine_TresChic"
+    ],
+    "scribble": [
+        "cat"
     ]
 };

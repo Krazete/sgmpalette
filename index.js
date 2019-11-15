@@ -450,6 +450,9 @@ function initDownload() {
 }
 
 function init() {
+    if (Math.random() < 0.99) {
+        delete ids.scribble;
+    }
     initBasic();
     initPalette();
     initDownload();
