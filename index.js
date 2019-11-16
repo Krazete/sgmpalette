@@ -453,9 +453,9 @@ function init() {
     var date = new Date();
     var month = date.getMonth() + 1;
     var day = date.getDate();
-    var deletechance = (month == 4 && (day == 1 || day == 11)) ? 0.75 : 0.98; // april fools or bella's bday
-    if (Math.random() < deletechance) {
-        delete ids.scribble;
+    var buffchance = month == 4 && (day == 1 || day == 11); // april fools or bella's bday
+    if (Math.random() < (buffchance ? 0.25 : 0.02)) {
+        ids.scribble = "cat";
     }
     initBasic();
     initPalette();
