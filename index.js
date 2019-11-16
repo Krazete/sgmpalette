@@ -450,7 +450,11 @@ function initDownload() {
 }
 
 function init() {
-    if (Math.random() < 0.99) {
+    var date = new Date();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var deletechance = (month == 4 && (day == 1 || day == 11)) ? 0.75 : 0.98; // april fools or bella's bday
+    if (Math.random() < deletechance) {
         delete ids.scribble;
     }
     initBasic();
