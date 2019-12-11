@@ -91,6 +91,7 @@ input.option.text:checked + label:before {
 }
 
 #basic {
+    position: relative;
     background: linear-gradient(#1b2a41, #0f1824);
     width: max-content;
     padding: 6px;
@@ -100,6 +101,24 @@ input.option.text:checked + label:before {
 
 #basic img {
     vertical-align: middle;
+}
+
+#version {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 12px;
+    margin: 6px;
+    display: block;
+}
+
+#kofi img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 24px;
+    margin: 6px;
+    display: block;
 }
 
 #download {
