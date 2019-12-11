@@ -93,6 +93,7 @@ var ids = {
         "Double_BB5_CatelliteLives",
         "Double_BB6_MegalithArray",
         "Double_Doublicious",
+        "Double_EvergreenEvil",
         "Double_HeartOfDarkness",
         "Double_ImmoralFiber",
         "Double_Jawbreaker",
@@ -124,6 +125,7 @@ var ids = {
         "Eliza_Decrypted",
         "Eliza_DivaIntervention",
         "Eliza_InDenile",
+        "Eliza_InnerPieces",
         "Eliza_LapisLuxury",
         "Eliza_MummyDearest",
         "Eliza_Portrait",
@@ -170,8 +172,6 @@ var ids = {
         "Filia_SM7_Taunt",
         "Filia_Windswept"
     ],
-    /* "fukua": [
-    ], */
     "msfortune": [
         "MsFortune_BB1_HitPaws",
         "MsFortune_BB2_CatScratchFever",
@@ -268,6 +268,7 @@ var ids = {
         "Peacock_DreamCatcher",
         "Peacock_FreezeFrame",
         "Peacock_Inkling",
+        "Peacock_MeanOne",
         "Peacock_PeaShooter",
         "Peacock_Portrait",
         "Peacock_Rerun",
