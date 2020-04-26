@@ -1,4 +1,6 @@
 var knownspectral = [207, 215, 236, 237];
+/* 133 applies to fukua only */
+/* 139 applies to fukua only */
 /* 206 applies to squigly but not valentine or big band */
 /* 210 applies to robofortune but not big band */
 /* 223 applies to robofortune but not parasoul */
