@@ -1,8 +1,12 @@
 var knownspectral = {
-    "all": [207, 215, 236, 237],
-    "fukua": [133, 139], /* interferes with big band and TODO */
-    "squigly": [206], /* interferes with valentine and big band */
-    "robofortune": [210, 223] /* interferes with big band and parasoul */
+    "beowulf": [236],
+    "big band": [219],
+    "cerebella": [183],
+    "eliza": [237],
+    "fukua": [133, 139],
+    "parasoul": [207],
+    "robofortune": [210, 215, 223, 228],
+    "squigly": [206]
 };
 
 var activechar;
@@ -65,7 +69,7 @@ function initBasic() {
         activechar = this.id;
         for (var i = 0; i < 256; i++) {
             var spectral = document.getElementById("b" + i);
-            if (knownspectral.all.includes(i) || knownspectral[activechar] && knownspectral[activechar].includes(i)) {
+            if (knownspectral[activechar] && knownspectral[activechar].includes(i)) {
                 spectral.checked = true;
                 spectralmap[i] = 1;
             }
