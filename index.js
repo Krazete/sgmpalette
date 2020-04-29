@@ -1,9 +1,9 @@
-var knownspectral = [207, 215, 236, 237];
-/* 133 applies to fukua only */
-/* 139 applies to fukua only */
-/* 206 applies to squigly but not valentine or big band */
-/* 210 applies to robofortune but not big band */
-/* 223 applies to robofortune but not parasoul */
+var knownspectral = {
+    "all": [207, 215, 236, 237],
+    "fukua": [133, 139], /* interferes with big band and TODO */
+    "squigly": [206], /* interferes with valentine and big band */
+    "robofortune": [210, 223] /* interferes with big band and parasoul */
+};
 
 var activechar;
 var strength = 0.5;
@@ -61,6 +61,17 @@ function initBasic() {
         }
         activechar = this.id;
         initSpritesheet();
+        for (var i = 0; i < 256; i++) {
+            var spectral = document.getElementById("b" + i);
+            if (knownspectral.all.includes(i) || knownspectral[activechar] && knownspectral[activechar].includes(i)) {
+                spectral.checked = true;
+                spectralmap[i] = 1;
+            }
+            else {
+                spectral.checked = false;
+                spectralmap[i] = 0;
+            }
+        }
         flagActiveCharacter();
     }
 
@@ -284,10 +295,6 @@ function initSwatch(n, r, g, b, a) {
 
     spectral.type = "checkbox";
     spectral.id = "b" + n;
-    if (knownspectral.includes(n)) {
-        spectral.checked = true;
-        spectralmap[n] = 1;
-    }
     spectral.addEventListener("click", updateSpectral);
     swatch.appendChild(spectral);
 
