@@ -37,6 +37,9 @@ var swatches = new Array(256);
 var charactercolors = {};
 var datamap = {};
 
+/* set of character names */
+var alreadyloaded = new Set();
+
 /* set of canvas ids */
 var flaggedids = new Set();
 
@@ -60,7 +63,6 @@ function initBasic() {
             flagActiveCharacter();
         }
         activechar = this.id;
-        initSpritesheet();
         for (var i = 0; i < 256; i++) {
             var spectral = document.getElementById("b" + i);
             if (knownspectral.all.includes(i) || knownspectral[activechar] && knownspectral[activechar].includes(i)) {
@@ -71,6 +73,10 @@ function initBasic() {
                 spectral.checked = false;
                 spectralmap[i] = 0;
             }
+        }
+        if (!alreadyloaded.has(activechar)) {
+            alreadyloaded.add(activechar);
+            initSpritesheet();
         }
         flagActiveCharacter();
     }
