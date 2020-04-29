@@ -76,7 +76,7 @@ function initBasic() {
         }
         if (!alreadyloaded.has(activechar)) {
             alreadyloaded.add(activechar);
-            initSpritesheet();
+            initSpriteSet();
         }
         flagActiveCharacter();
     }
@@ -112,60 +112,43 @@ function initBasic() {
     }
 }
 
-function updateCanvases() {
-    for (var id of flaggedids) {
-        var canvas = document.getElementById(id);
-        if (!canvas) {
-            continue;
-        }
-        else if (canvas.classList.contains(activechar)) {
-            var context = canvas.getContext("2d");
-            var rawdata = datamap[canvas.id];
-            var newdata = context.createImageData(rawdata.width, rawdata.height);
-
-            canvas.classList.remove("hidden");
-            for (var i = 0; i < rawdata.data.length; i += 4) {
-                var cid = rawdata.data[i];
-                var j = 4 * cid;
-                var line = layer.line ? 0xff - rawdata.data[i + 1] : 0;
-                var detail = 0xff - rawdata.data[i + 2];
-                var moo = layer.detail ? mode : "none";
-                if (spectralmap[cid] == 0) {
-                    newdata.data[i] = blend[moo](colormap[j], detail * strength, line);
-                    newdata.data[i + 1] = blend[moo](colormap[j + 1], detail * strength, line);
-                    newdata.data[i + 2] = blend[moo](colormap[j + 2], detail * strength, line);
-                    newdata.data[i + 3] = Math.max(colormap[j + 3], line);
-                }
-                else {
-                    newdata.data[i] = blend[moo](colormap[j], detail, line);
-                    newdata.data[i + 1] = blend[moo](colormap[j + 1], detail, line);
-                    newdata.data[i + 2] = blend[moo](colormap[j + 2], detail, line);
-                    newdata.data[i + 3] = Math.max(colormap[j + 3] - detail * 0xff / (0xff - 0x64), line);
-                }
-            }
-            context.putImageData(newdata, 0, 0);
-        }
-        else {
-            canvas.classList.add("hidden");
-        }
-
-        for (var i = 0; i < 256; i++) {
-            if (!charactercolors[activechar]) {
-                continue;
-            }
-            else if (charactercolors[activechar].has(i)) {
-                swatches[i].classList.remove("hidden");
-            }
-            else {
-                swatches[i].classList.add("hidden");
-            }
-        }
+function initSpriteSet() {
+    for (var id of ids[activechar]) {
+        var img = new Image();
+            img.src = "sprite/" + id + ".png";
+            img.dataset.character = activechar;
+            img.dataset.id = id;
+            img.addEventListener("load", initSprite);
     }
-    flaggedids.clear();
-    requestAnimationFrame(updateCanvases);
 }
 
-function initSpritesheet() {
+function initSprite() {
+    var sheet = document.getElementById("sheet");
+    var character = this.dataset.character;
+    var id = this.dataset.id;
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+
+    canvas.className = character + " hidden";
+    canvas.id = id;
+    canvas.width = this.width;
+    canvas.height = this.height;
+    context.drawImage(this, 0, 0);
+    sheet.appendChild(canvas);
+
+    datamap[id] = context.getImageData(0, 0, this.width, this.height);
+    for (var i = 0; i < datamap[id].data.length; i += 4) {
+        var cid = datamap[id].data[i];
+        if (!charactercolors[character]) {
+            charactercolors[character] = new Set();
+        }
+        charactercolors[character].add(cid);
+        idmap[cid].add(id);
+    }
+    flaggedids.add(id);
+}
+
+function initSpriteSheet() {
     var sheet = document.getElementById("sheet");
 
     function onSheetClick(e) {
@@ -179,38 +162,59 @@ function initSpritesheet() {
         }
     }
 
-    function initSprite() {
-        var character = this.dataset.character;
-        var id = this.dataset.id;
-        var canvas = document.createElement("canvas");
-        var context = canvas.getContext("2d");
-
-        canvas.className = character + " hidden";
-        canvas.id = id;
-        canvas.width = this.width;
-        canvas.height = this.height;
-        context.drawImage(this, 0, 0);
-        sheet.appendChild(canvas);
-
-        datamap[id] = context.getImageData(0, 0, this.width, this.height);
-        for (var i = 0; i < datamap[id].data.length; i += 4) {
-            var cid = datamap[id].data[i];
-            if (!charactercolors[character]) {
-                charactercolors[character] = new Set();
+    function updateCanvases() {
+        for (var id of flaggedids) {
+            var canvas = document.getElementById(id);
+            if (!canvas) {
+                continue;
             }
-            charactercolors[character].add(cid);
-            idmap[cid].add(id);
+            else if (canvas.classList.contains(activechar)) {
+                var context = canvas.getContext("2d");
+                var rawdata = datamap[canvas.id];
+                var newdata = context.createImageData(rawdata.width, rawdata.height);
+
+                canvas.classList.remove("hidden");
+                for (var i = 0; i < rawdata.data.length; i += 4) {
+                    var cid = rawdata.data[i];
+                    var j = 4 * cid;
+                    var line = layer.line ? 0xff - rawdata.data[i + 1] : 0;
+                    var detail = 0xff - rawdata.data[i + 2];
+                    var moo = layer.detail ? mode : "none";
+                    if (spectralmap[cid] == 0) {
+                        newdata.data[i] = blend[moo](colormap[j], detail * strength, line);
+                        newdata.data[i + 1] = blend[moo](colormap[j + 1], detail * strength, line);
+                        newdata.data[i + 2] = blend[moo](colormap[j + 2], detail * strength, line);
+                        newdata.data[i + 3] = Math.max(colormap[j + 3], line);
+                    }
+                    else {
+                        newdata.data[i] = blend[moo](colormap[j], detail, line);
+                        newdata.data[i + 1] = blend[moo](colormap[j + 1], detail, line);
+                        newdata.data[i + 2] = blend[moo](colormap[j + 2], detail, line);
+                        newdata.data[i + 3] = Math.max(colormap[j + 3] - detail * 0xff / (0xff - 0x64), line);
+                    }
+                }
+                context.putImageData(newdata, 0, 0);
+            }
+            else {
+                canvas.classList.add("hidden");
+            }
+
+            for (var i = 0; i < 256; i++) {
+                if (!charactercolors[activechar]) {
+                    continue;
+                }
+                else if (charactercolors[activechar].has(i)) {
+                    swatches[i].classList.remove("hidden");
+                }
+                else {
+                    swatches[i].classList.add("hidden");
+                }
+            }
         }
-        flaggedids.add(id);
+        flaggedids.clear();
+        requestAnimationFrame(updateCanvases);
     }
 
-    for (var id of ids[activechar]) {
-        var img = new Image();
-            img.src = "sprite/" + id + ".png";
-            img.dataset.character = activechar;
-            img.dataset.id = id;
-            img.addEventListener("load", initSprite);
-    }
     sheet.addEventListener("click", onSheetClick);
 
     updateCanvases();
@@ -474,6 +478,7 @@ function init() {
         ids.scribble = ["cat"];
     }
     initBasic();
+    initSpriteSheet();
     initPalette();
     initDownload();
 }
