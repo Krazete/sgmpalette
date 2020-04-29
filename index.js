@@ -38,13 +38,11 @@ var charactercolors = {};
 var datamap = {};
 
 /* set of canvas ids */
-var outdatedids = new Set();
+var flaggedids = new Set();
 
-function flagAllIds() {
-    for (var character in ids) {
-        for (var id of ids[character]) {
-            outdatedids.add(id);
-        }
+function flagActiveCharacter() {
+    for (var id of ids[activechar]) {
+        flaggedids.add(id);
     }
 }
 
@@ -58,14 +56,17 @@ function initBasic() {
     }
 
     function toggleCharacter() {
+        if (activechar) {
+            flagActiveCharacter();
+        }
         activechar = this.id;
         initSpritesheet();
-        flagAllIds();
+        flagActiveCharacter();
     }
 
     function toggleLayer() {
         layer[this.id] = this.checked;
-        flagAllIds();
+        flagActiveCharacter();
     }
 
     background.addEventListener("click", toggleBackground);
@@ -95,7 +96,7 @@ function initBasic() {
 }
 
 function updateCanvases() {
-    for (var id of outdatedids) {
+    for (var id of flaggedids) {
         var canvas = document.getElementById(id);
         if (!canvas) {
             continue;
@@ -143,7 +144,7 @@ function updateCanvases() {
             }
         }
     }
-    outdatedids.clear();
+    flaggedids.clear();
     requestAnimationFrame(updateCanvases);
 }
 
@@ -183,7 +184,7 @@ function initSpritesheet() {
             charactercolors[character].add(cid);
             idmap[cid].add(id);
         }
-        outdatedids.add(id);
+        flaggedids.add(id);
     }
 
     for (var id of ids[activechar]) {
@@ -223,7 +224,7 @@ function initSwatch(n, r, g, b, a) {
         colormap[4 * n + 1] = parseInt(text.value.slice(2, 4), 16);
         colormap[4 * n + 2] = parseInt(text.value.slice(4, 6), 16);
         colormap[4 * n + 3] = range.value;
-        union(outdatedids, idmap[n]);
+        union(flaggedids, idmap[n]);
     }
 
     function onColorChange() {
@@ -268,7 +269,7 @@ function initSwatch(n, r, g, b, a) {
 
     function updateSpectral() {
         spectralmap[n] = spectral.checked ? 1 : 0;
-        union(outdatedids, idmap[n]);
+        union(flaggedids, idmap[n]);
     }
 
     colormap[4 * n] = r;
@@ -343,7 +344,7 @@ function initBlend() {
                 }
             }
         }
-        flagAllIds();
+        flagActiveCharacter();
     }
 
     blendmode.addEventListener("click", onBlendChange);
@@ -385,7 +386,7 @@ function initLoader() {
             swatches[i].children[3].children[0].value = r + g + b + (alpha < 0xff ? a : "");
             swatches[i].children[4].value = alpha;
         }
-        flagAllIds();
+        flagActiveCharacter();
     }
 
     function loadPaletteImage() {
