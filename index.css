@@ -146,6 +146,11 @@ input.option.text:checked + label:before {
     padding: 0 6px;
 }
 
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 #palette {
     flex: 1;
     overflow-y: scroll;
