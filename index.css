@@ -9,9 +9,14 @@ body {
     text-transform: uppercase;
     height: 100%;
     margin: 0;
+}
+
+.flexbox {
     display: flex;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
+}
+.flexbox > * {
+    text-align: center;
+    flex: 1;
 }
 
 h1 {
@@ -27,30 +32,27 @@ a:hover {
 }
 
 canvas {
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
     cursor: crosshair;
 }
 
-.flexbox {
-    display: flex;
-}
-.flexbox > * {
-    text-align: center;
-    flex: 1;
+input[type='radio'],
+input[type='checkbox'],
+input[type='file'],
+input[type='button'] {
+    display: none;
 }
 
 input + label {
     cursor: pointer;
-}
-
-input.option {
-    display: none;
 }
 input.option + label {
     padding: 6px;
     opacity: 0.5;
     display: inline-block;
 }
-input.option:hover + label {
+input.option + label:hover {
     opacity: 0.75;
 }
 input.option:checked + label {
@@ -60,7 +62,7 @@ input.option:checked + label {
 
 input.option.text + label:before {
     content: '';
-    background: url(icon/CheckmarkBad.png);
+    background-image: url(icon/CheckmarkBad.png);
     background-size: 18px;
     width: 18px;
     height: 18px;
@@ -68,8 +70,7 @@ input.option.text + label:before {
     display: inline-block;
 }
 input.option.text:checked + label:before {
-    background: url(icon/CheckmarkGood.png);
-    background-size: 18px;
+    background-image: url(icon/CheckmarkGood.png);
 }
 
 .hidden {
@@ -82,43 +83,37 @@ input.option.text:checked + label:before {
 
 #left {
     background: linear-gradient(to top left, gray 50%, darkgray 50%);
-    background-size: 20px 20px;
-    text-align: center;
-    flex: 1;
+    background-size: 10px 10px;
 }
 #left.solid {
     background: none;
 }
 
 #basic {
-    position: relative;
     background: linear-gradient(#1b2a41, #0f1824);
-    width: max-content;
-    padding: 6px;
-    border: 3px double #ccb55a;
-    margin: 18px auto;
+    width: 100%;
+    border-bottom: 3px double #ccb55a;
+    margin-bottom: 12px;
+}
+
+#version {
+    font-size: 12px;
+    margin: 6px;
+    display: block;
+    flex: none;
+}
+
+#kofi {
+    flex: none;
+}
+
+#kofi img {
+    width: 24px;
+    margin: 6px;
 }
 
 #basic img {
     vertical-align: middle;
-}
-
-#version {
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 12px;
-    margin: 6px;
-    display: block;
-}
-
-#kofi img {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 24px;
-    margin: 6px;
-    display: block;
 }
 
 #download {
@@ -138,26 +133,61 @@ input.option.text:checked + label:before {
 #right {
     background: linear-gradient(#1b2a41, #0f1824);
     border-left: 3px double #ccb55a;
-    padding: 3px;
+    flex: none;
+    display: flex;
+    flex-direction: column;
 }
 
-#palette input[type='checkbox'],
-input[type='file'],
-input[type='button'] {
+#right > * {
+    flex: none;
+}
+
+#iro {
+    padding: 0 6px;
+}
+
+#palette {
+    flex: 1;
+    overflow-y: scroll;
+}
+
+#palette input[type='radio'] + label {
+    display: block;
+    padding: 3px;
+    border-radius: 3px;
+    cursor: default;
+}
+#palette input[type='radio'] + label:hover {
+    box-shadow: inset 0 0 6px white;
+}
+#palette input[type='radio']:checked + label {
+    box-shadow: inset 0 0 3px 3px white;
+}
+#palette input[type='radio'].hidden + label {
     display: none;
 }
-#palette input[type='checkbox'] + label {
-    background: white;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
+
+#palette input[type='radio'] + label:before {
+    content: attr(data-n);
+    width: 16px;
+    height: 16px;
+    color: white;
+    font-size: 8px;
+    line-height: 16px;
+    vertical-align: middle;
     display: inline-block;
+    border: 1px solid white;
+    border-radius: 50%;
+    margin: 3px;
 }
-#palette input[type='checkbox']:checked + label {
-    background: radial-gradient(white, transparent 75%);
+
+#palette input[type='radio'] + label > * {
+    vertical-align: middle;
+    margin: 3px;
 }
 
 #palette input[type='color'] {
+    background: transparent;
     width: 24px;
     height: 24px;
     padding: 0;
@@ -167,27 +197,20 @@ input[type='button'] {
 #palette input[type='text'] {
     background: none;
     color: white;
-    font-family: 'Lucida Console', 'Courier New', 'Courier', monospace;
+    font-family: 'Andale Mono', 'Lucida Console', 'Courier New', 'Courier', monospace;
     font-size: 18px;
     text-transform: uppercase;
-    width: 8em;
+    width: 9em;
     border-width: 0 0 1px 0;
-    border-color: white;
 }
 
-.swatch {
-    padding: 3px;
+#palette input[type='checkbox'] + label {
+    background: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-block;
 }
-.swatch > * {
-    vertical-align: middle;
-    margin: 3px;
-}
-
-.hashwrapper {
-    font-family: 'Courier', monospace;
-    font-size: 18px;
-    display: inline;
-}
-.hashwrapper:before {
-    content: '#';
+#palette input[type='checkbox']:checked + label {
+    background: radial-gradient(white, transparent 75%);
 }

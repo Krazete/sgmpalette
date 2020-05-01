@@ -11,7 +11,6 @@ var knownspectral = {
 
 var activechar;
 var strength = 0.5;
-var autopicker = true;
 var layer = {
     "line": true,
     "detail": true
@@ -46,12 +45,85 @@ var alreadyloaded = new Set();
 
 /* set of canvas ids */
 var flaggedids = new Set();
+var pickerflagged = true;
+var picker, focal;
 
 function flagActiveCharacter() {
     for (var id of ids[activechar]) {
         flaggedids.add(id);
     }
 }
+
+function flagPicker() {
+    pickerflagged = true;
+}
+
+function updateFlags() {
+    for (var id of flaggedids) {
+        var canvas = document.getElementById(id);
+        if (!canvas) {
+            continue;
+        }
+        else if (canvas.classList.contains(activechar)) {
+            var context = canvas.getContext("2d");
+            var rawdata = datamap[canvas.id];
+            var newdata = context.createImageData(rawdata.width, rawdata.height);
+
+            canvas.classList.remove("hidden");
+            for (var i = 0; i < rawdata.data.length; i += 4) {
+                var cid = rawdata.data[i];
+                var j = 4 * cid;
+                var line = layer.line ? 0xff - rawdata.data[i + 1] : 0;
+                var detail = 0xff - rawdata.data[i + 2];
+                var moo = layer.detail ? mode : "none";
+                if (spectralmap[cid] == 0) {
+                    newdata.data[i] = blend[moo](colormap[j], detail * strength, line);
+                    newdata.data[i + 1] = blend[moo](colormap[j + 1], detail * strength, line);
+                    newdata.data[i + 2] = blend[moo](colormap[j + 2], detail * strength, line);
+                    newdata.data[i + 3] = Math.max(colormap[j + 3], line);
+                }
+                else {
+                    newdata.data[i] = blend[moo](colormap[j], detail, line);
+                    newdata.data[i + 1] = blend[moo](colormap[j + 1], detail, line);
+                    newdata.data[i + 2] = blend[moo](colormap[j + 2], detail, line);
+                    newdata.data[i + 3] = Math.max(colormap[j + 3] - detail * 0xff / (0xff - 0x64), line);
+                }
+            }
+            context.putImageData(newdata, 0, 0);
+        }
+        else {
+            canvas.classList.add("hidden");
+        }
+
+        for (var i = 0; i < 256; i++) {
+            if (!charactercolors[activechar]) {
+                continue;
+            }
+            else if (charactercolors[activechar].has(i)) {
+                swatches[i].radio.classList.remove("hidden");
+            }
+            else {
+                swatches[i].radio.classList.add("hidden");
+            }
+        }
+    }
+    flaggedids.clear();
+
+    if (pickerflagged) {
+        if (typeof focal != "undefined") {
+            picker.setColors([swatches[focal].text.value]);
+            picker.base.style.opacity = 1;
+        }
+        else {
+            picker.base.style.opacity = 0.5;
+        }
+    }
+    pickerflagged = false;
+
+    requestAnimationFrame(updateFlags);
+}
+
+/* todo: name this section */
 
 function initBasic() {
     var left = document.getElementById("left");
@@ -83,6 +155,10 @@ function initBasic() {
             initSpriteSet();
         }
         flagActiveCharacter();
+        if (focal) {
+            swatches[focal].radio.checked = false;
+            focal = undefined;
+        }
     }
 
     function toggleLayer() {
@@ -159,69 +235,16 @@ function initSpriteSheet() {
         if (e.target.tagName == "CANVAS") {
             var data = datamap[e.target.id];
             var j = data.data[4 * (data.width * e.offsetY + e.offsetX)];
-            swatches[j].children[3].children[0].select();
-            if (autopicker) {
-                swatches[j].children[2].click();
-            }
+            focal = j;
+            swatches[j].radio.checked = true;
+            swatches[j].text.select();
+            flagPicker();
         }
-    }
-
-    function updateCanvases() {
-        for (var id of flaggedids) {
-            var canvas = document.getElementById(id);
-            if (!canvas) {
-                continue;
-            }
-            else if (canvas.classList.contains(activechar)) {
-                var context = canvas.getContext("2d");
-                var rawdata = datamap[canvas.id];
-                var newdata = context.createImageData(rawdata.width, rawdata.height);
-
-                canvas.classList.remove("hidden");
-                for (var i = 0; i < rawdata.data.length; i += 4) {
-                    var cid = rawdata.data[i];
-                    var j = 4 * cid;
-                    var line = layer.line ? 0xff - rawdata.data[i + 1] : 0;
-                    var detail = 0xff - rawdata.data[i + 2];
-                    var moo = layer.detail ? mode : "none";
-                    if (spectralmap[cid] == 0) {
-                        newdata.data[i] = blend[moo](colormap[j], detail * strength, line);
-                        newdata.data[i + 1] = blend[moo](colormap[j + 1], detail * strength, line);
-                        newdata.data[i + 2] = blend[moo](colormap[j + 2], detail * strength, line);
-                        newdata.data[i + 3] = Math.max(colormap[j + 3], line);
-                    }
-                    else {
-                        newdata.data[i] = blend[moo](colormap[j], detail, line);
-                        newdata.data[i + 1] = blend[moo](colormap[j + 1], detail, line);
-                        newdata.data[i + 2] = blend[moo](colormap[j + 2], detail, line);
-                        newdata.data[i + 3] = Math.max(colormap[j + 3] - detail * 0xff / (0xff - 0x64), line);
-                    }
-                }
-                context.putImageData(newdata, 0, 0);
-            }
-            else {
-                canvas.classList.add("hidden");
-            }
-
-            for (var i = 0; i < 256; i++) {
-                if (!charactercolors[activechar]) {
-                    continue;
-                }
-                else if (charactercolors[activechar].has(i)) {
-                    swatches[i].classList.remove("hidden");
-                }
-                else {
-                    swatches[i].classList.add("hidden");
-                }
-            }
-        }
-        flaggedids.clear();
-        requestAnimationFrame(updateCanvases);
     }
 
     sheet.addEventListener("click", onSheetClick);
 
-    updateCanvases();
+    updateFlags();
 }
 
 function union(a, b) {
@@ -232,125 +255,6 @@ function union(a, b) {
 
 function hexToString(hex, pad) {
     return hex.toString(16).padStart(pad, 0);
-}
-
-function initSwatch(n, r, g, b, a) {
-    var palette = document.getElementById("palette");
-    var swatch = document.createElement("div");
-    var spectral = document.createElement("input");
-    var spectrallabel = document.createElement("label");
-    var color = document.createElement("input");
-    var hashwrapper = document.createElement("div");
-    var text = document.createElement("input");
-    var range = document.createElement("input");
-
-    function updateColormap() {
-        colormap[4 * n] = parseInt(text.value.slice(0, 2), 16);
-        colormap[4 * n + 1] = parseInt(text.value.slice(2, 4), 16);
-        colormap[4 * n + 2] = parseInt(text.value.slice(4, 6), 16);
-        colormap[4 * n + 3] = range.value;
-        union(flaggedids, idmap[n]);
-    }
-
-    function onColorChange() {
-        text.value = color.value.slice(1) + text.value.slice(6);
-        updateColormap();
-    }
-
-    function onTextFocus() {
-        text.select();
-    }
-
-    function onTextChange() {
-        text.value = text.value.replace(/[^\dA-Fa-f]/g, "");
-        if (text.value.length == 3 || text.value.length == 4) {
-            text.value = text.value.replace(/(.)/g, "$1$1");
-        }
-        if (text.value.length == 6) {
-            color.value = "#" + text.value;
-            range.value = 0xff;
-        }
-        else if (text.value.length == 8) {
-            color.value = "#" + text.value.slice(0, 6);
-            range.value = parseInt(text.value.slice(6), 16);
-            if (text.value.slice(6) == "ff") {
-                text.value = text.value.slice(0, 6);
-            }
-        }
-        else {
-            color.value = "#000000";
-            text.value = "000000";
-            range.value = 0xff;
-        }
-        color.style.opacity = range.value / 0xff;
-        updateColormap();
-    }
-
-    function onRangeChange() {
-        text.value = text.value.slice(0, 6) + (range.value < 0xff ? hexToString(parseInt(range.value), 2) : "");
-        color.style.opacity = range.value / 0xff;
-        updateColormap();
-    }
-
-    function updateSpectral() {
-        spectralmap[n] = spectral.checked ? 1 : 0;
-        union(flaggedids, idmap[n]);
-    }
-
-    colormap[4 * n] = r;
-    colormap[4 * n + 1] = g;
-    colormap[4 * n + 2] = b;
-    colormap[4 * n + 3] = a;
-    spectralmap[n] = 0;
-
-    var rgb = hexToString(0x10000 * r + 0x100 * g + b, 6);
-
-    swatch.className = "swatch hidden";
-
-    spectral.type = "checkbox";
-    spectral.id = "b" + n;
-    spectral.addEventListener("click", updateSpectral);
-    swatch.appendChild(spectral);
-
-    spectrallabel.setAttribute("for", spectral.id);
-    swatch.appendChild(spectrallabel);
-
-    color.type = "color";
-    color.value = "#" + rgb;
-    color.style.opacity = a / 0xff;
-    color.addEventListener("input", onColorChange);
-    swatch.appendChild(color);
-
-    text.type = "text";
-    text.value = rgb + (a < 0xff ? hexToString(a, 2) : "");
-    text.addEventListener("focus", onTextFocus);
-    text.addEventListener("change", onTextChange);
-    hashwrapper.appendChild(text);
-
-    hashwrapper.className = "hashwrapper";
-    swatch.appendChild(hashwrapper);
-
-    range.type = "range";
-    range.min = 0x00;
-    range.max = 0xff;
-    range.step = 1;
-    range.value = a;
-    range.addEventListener("input", onRangeChange);
-    swatch.appendChild(range);
-
-    palette.appendChild(swatch);
-
-    swatches[n] = swatch;
-}
-
-function initPicker() {
-    var picker = document.getElementById("picker");
-
-    function onPickerChange() {
-        autopicker = this.checked;
-    }
-
-    picker.addEventListener("change", onPickerChange);
 }
 
 function initBlend() {
@@ -371,7 +275,163 @@ function initBlend() {
     blendmode.addEventListener("click", onBlendChange);
 }
 
+var picker, focal;
+
+function initPicker() {
+    picker = new iro.ColorPicker("#iro", {
+        "width": 192,
+        "height": 10,
+        "borderWidth": 1,
+        "layoutDirection": "horizontal",
+        "layout": [
+            {
+                "component": iro.ui.Slider,
+                "options": {
+                    "sliderType": "hue"
+                }
+            },
+            {
+                "component": iro.ui.Box,
+            },
+            {
+                "component": iro.ui.Slider,
+                "options": {
+                    "sliderType": "alpha"
+                }
+            }
+        ]
+    });
+
+    function onIRO() {
+        if (focal) {
+            swatches[focal].color.value = this.color.hexString;
+            swatches[focal].color.style.opacity = this.color.alpha;
+            swatches[focal].text.value = this.color.hex8String.slice(7) == "ff" ? this.color.hexString : this.color.hex8String;
+            swatches[focal].update();
+        }
+    }
+
+    picker.on("color:change", onIRO);
+}
+
+var pickerflagged = false;
+
+function initSwatch(n, r, g, b, a) {
+    var swatch = document.createElement("input");
+    var swatchlabel = document.createElement("label");
+    var color = document.createElement("input");
+    var text = document.createElement("input");
+    var spectral = document.createElement("input");
+    var spectrallabel = document.createElement("label");
+
+    function updateColormap() {
+        colormap[4 * n] = parseInt(text.value.slice(1, 3), 16);
+        colormap[4 * n + 1] = parseInt(text.value.slice(3, 5), 16);
+        colormap[4 * n + 2] = parseInt(text.value.slice(5, 7), 16);
+        colormap[4 * n + 3] = text.value.slice(7, 9) == "" ? 0xff : parseInt(text.value.slice(7, 9), 16);
+        union(flaggedids, idmap[n]);
+    }
+
+    function checkSwatch() {
+        swatch.checked = true;
+        focal = n;
+        flagPicker();
+    }
+
+    function onColorChange() {
+        text.value = this.value.slice(0, 7) + text.value.slice(7);
+        flagPicker();
+        updateColormap();
+    }
+
+    function onTextFocus() {
+        this.select();
+        var paletterect = palette.getBoundingClientRect();
+        var labelrect = swatchlabel.getBoundingClientRect();
+        if (labelrect.top < paletterect.top || labelrect.bottom > paletterect.bottom) {
+            swatchlabel.scrollIntoView({"behavior": "smooth"});
+        }
+    }
+
+    function onTextChange() {
+        var hex = this.value.replace(/[^\dA-Fa-f]/g, "").toLowerCase();
+        if (hex.length == 3 || hex.length == 4) {
+            hex = hex.replace(/(.)/g, "$1$1");
+        }
+        if (hex.length == 6 || hex.length == 8) {
+            if (hex.slice(6) == "ff") {
+                hex = hex.slice(0, 6);
+            }
+            color.value = "#" + hex.slice(0, 6);
+            this.value = "#" + hex;
+        }
+        else {
+            color.value = "#000000";
+            this.value = "#000000";
+        }
+        var a = parseInt(hex.slice(6), 16);
+        color.style.opacity = a / 0xff;
+        this.style.borderColor = color.value; // todo: put this everywhere
+        flagPicker();
+        updateColormap();
+    }
+
+    function updateSpectral() {
+        spectralmap[n] = this.checked ? 1 : 0;
+        union(flaggedids, idmap[n]);
+    }
+
+    var rgb = hexToString(0x10000 * r + 0x100 * g + b, 6);
+
+    swatch.type = "radio";
+    swatch.name = "swatch";
+    swatch.id = "s" + n;
+    swatch.className = "hidden";
+    palette.appendChild(swatch);
+
+    swatchlabel.dataset.n = n;
+    swatchlabel.setAttribute("for", swatch.id);
+    swatchlabel.addEventListener("click", checkSwatch);
+
+    color.type = "color";
+    color.value = "#" + rgb;
+    color.style.opacity = a / 0xff;
+    color.addEventListener("input", onColorChange);
+    swatchlabel.appendChild(color);
+
+    text.type = "text";
+    text.value = "#" + rgb + (a < 0xff ? hexToString(a, 2) : ""); // todo: is hex2string used elsewhere?
+    text.addEventListener("focus", onTextFocus);
+    text.addEventListener("change", onTextChange);
+    swatchlabel.appendChild(text);
+
+    spectral.type = "checkbox";
+    spectral.id = "b" + n;
+    spectral.addEventListener("click", updateSpectral);
+    swatchlabel.appendChild(spectral);
+
+    spectrallabel.setAttribute("for", spectral.id);
+    swatchlabel.appendChild(spectrallabel);
+
+    palette.appendChild(swatchlabel);
+
+    swatches[n] = {
+        "radio": swatch,
+        "color": color,
+        "text": text,
+        "spectral": spectral, // todo: use this
+        "update": updateColormap
+    }
+    colormap[4 * n] = r;
+    colormap[4 * n + 1] = g;
+    colormap[4 * n + 2] = b;
+    colormap[4 * n + 3] = a;
+    spectralmap[n] = 0;
+}
+
 function initSwatches() {
+    var palette = document.getElementById("palette");
+
     function rhex() {
         return Math.floor(Math.random() * 0x100);
     }
@@ -403,11 +463,11 @@ function initLoader() {
             var b = hexToString(colormap[4 * i + 2], 2);
             var alpha = colormap[4 * i + 3];
             var a = hexToString(alpha, 2);
-            swatches[i].children[2].value = "#" + r + g + b;
-            swatches[i].children[3].children[0].value = r + g + b + (alpha < 0xff ? a : "");
-            swatches[i].children[4].value = alpha;
+            swatches[i].color.value = "#" + r + g + b;
+            swatches[i].text.value = r + g + b + (alpha < 0xff ? a : "");
         }
         flagActiveCharacter();
+        flagPicker();
     }
 
     function loadPaletteImage() {
@@ -442,8 +502,8 @@ function initLoader() {
 }
 
 function initPalette() {
-    initPicker();
     initBlend();
+    initPicker(); // todo
     initSwatches();
     initLoader();
 }

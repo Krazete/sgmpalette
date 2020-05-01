@@ -6,22 +6,25 @@
     <title>Skullgirls Mobile Palette Editor</title>
     <link rel="shortcut icon" type="image/png" href="icon/notblight.png">
     <link rel="stylesheet" href="index.css"></link>
+    <script src="library/iro.min.js"></script>
     <script src="library/jszip/jszip.min.js"></script>
     <script src="library/FileSaver-js/FileSaver.min.js"></script>
     <script src="polyfill.js"></script>
     <script src="directory.js"></script>
     <script src="index.js"></script>
 </head>
-<body>
+<body class="flexbox">
     <div class="section" id="left">
         <div id="basic">
-            <div id="version">4.2.0</div>
-            <a target="_blank" href="https://ko-fi.com/krazete" id="kofi">
-                <img src="icon/kofi.png">
-            </a>
-            <h1>
-                <a target="_blank" href="https://github.com/Krazete/sgmpalette">Skullgirls Mobile Palette Editor</a>
-            </h1>
+            <div class="flexbox">
+                <div id="version">4.2.0</div>
+                <h1>
+                    <a target="_blank" href="https://github.com/Krazete/sgmpalette">Skullgirls Mobile Palette Editor</a>
+                </h1>
+                <a target="_blank" href="https://ko-fi.com/krazete" id="kofi">
+                    <img src="icon/kofi.png">
+                </a>
+            </div>
             <div id="selection"></div>
             <div class="flexbox">
                 <input type="checkbox" class="option text" id="background" checked>
@@ -36,16 +39,13 @@
         <div id="download">Download</div>
     </div>
     <div class="section" id="right">
-        <div class="flexbox">
-            <input type="checkbox" class="option text" id="picker" checked>
-            <label for="picker">Auto Color Picker</label>
-        </div>
         <div class="flexbox" id="blendmode">
             <input type="radio" class="option text" name="blend" id="matte" checked>
             <label for="matte">Matte</label>
             <input type="radio" class="option text" name="blend" id="shiny">
             <label for="shiny">Shiny</label>
         </div>
+        <div class="flexbox" id="iro"></div>
         <div id="palette"></div>
         <div class="flexbox">
             <input type="file" id="load">
