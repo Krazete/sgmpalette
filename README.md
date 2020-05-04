@@ -10,9 +10,7 @@ Static sprites consist of portraits, card art, and art for special moves and blo
 
 A big thanks to Discord user Pupix#0001 for showing me where to find the raw sprites from which this entire project is based on.
 
-Don't expect to be able to perfectly recreate official palettes like Doublicious or Tomb & Gloom. The game uses more complex and more refined blend modes than the ones available here.
-
-Also, unlike my previous Skullgirls Mobile projects, I did not take any steps to make this website mobile-friendly. The color picker on most mobile browsers is too limited anyway.
+Don't expect to be able to perfectly recreate official palettes like Tomb & Gloom or Heart of Darkness. The game uses more complex and more refined blend modes than the ones available here.
 
 ## Features
 
@@ -25,22 +23,23 @@ You can also toggle visibility of the background layer, linework layer, and deta
 
 The spritesheet contains all in-game static sprites of the chosen character.
 You can click within any sprite to select a color area to edit.
-The color picker for the selected area will be automatically opened.
-To disable this, toggle the `Auto Color Picker` button in the palette section.
 
 ### Palette
 
 The palette contains all colors present in the chosen character's spritesheet.
 Some characters have sprites with noisy edges and thus have extraneous rows of color.
 
-The leftmost button in a row indicates whether the color area is opaque (detail layer applies shadows) or transparent (detail layer is an alpha channel).
-The other options in the row indicate color and uniform opacity.
-
 The `Matte` and `Shiny` options at the top denote how the detail layer is blended with the color layer.
 `Matte` is essentially linear burn and `Shiny` is basically color dodge.
 
+A color picker is available above the list of colors.
+If your device's native color picker is more feature-rich, you can click the colored boxes at the left of each row to use that instead.
+The native color picker will always be focused on the active color row.
+
+The white circles at the right of each row indicate whether that color area is opaque (detail layer applies shadows) or transparent (detail layer is an alpha channel).
+
 At the bottom of the palette section, you can load and save palette files.
-Palette files are 16x16px images, though the website allows loading images with different dimensions.
+Palette files are 16x16px images, though you may load images with different dimensions.
 
 ## Download
 
@@ -50,6 +49,7 @@ To download a zipped folder of all sprites in the current spritesheet, click the
 
 Thanks to the following:
 
+* [jaames/iro.js](https://github.com/jaames/iro.js) for the color picker
 * [Stuk/jszip](https://github.com/Stuk/jszip) for making it easy to create zip files
 * [eligrey/FileSaver.js](https://github.com/eligrey/FileSaver.js) for making it easy to download those zip files
 

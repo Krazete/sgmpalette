@@ -1,22 +1,12 @@
-var knownspectral = {
-    "beowulf": [236],
-    "big band": [219],
-    "cerebella": [183],
-    "eliza": [237],
-    "fukua": [133, 139],
-    "parasoul": [207],
-    "robofortune": [210, 215, 223, 228],
-    "squigly": [206]
-};
+var activechar; /* active char */
+var activecid; /* active color id */
+var picker; /* iro color picker element */
 
-var activechar;
-var strength = 0.5;
+var strength = 0.5; /* strength of the detail layer */
 var layer = {
     "line": true,
     "detail": true
-};
-
-var activeswatch;
+}; /* active layer flags */
 var blend = {
     "none": function (a, b, line) {
         return a - line;
@@ -27,30 +17,32 @@ var blend = {
     "shiny": function (a, b, line) {
         return Math.min(0x80 * Math.log(a / b), 0xff) - line;
     }
-};
-var mode = "matte";
+}; /* blend mode functions */
+var mode = "matte"; /* active blend mode */
 
-/* key is color id */
-var colormap = new Uint8ClampedArray(1024);
-var spectralmap = new Uint8ClampedArray(256);
+var colormap = new Uint8ClampedArray(1024); /* map color id to its color value */
+var spectralmap = new Uint8ClampedArray(256); /* map color id to its spectral value */
+var knownspectral = {
+    "beowulf": [236],
+    "big band": [219],
+    "cerebella": [183],
+    "eliza": [237],
+    "fukua": [133, 139],
+    "parasoul": [207],
+    "robofortune": [210, 215, 223, 228],
+    "squigly": [206]
+}; /* known color ids of spectral areas */
 var idmap = new Array(256).fill().map(function () {
     return new Set();
-});
-var swatches = new Array(256);
+}); /* map color id to canvas ids that use it */
+var swatches = new Array(256); /* swatch objects */
 
-/* key is image name */
-var charactercolors = {};
-var datamap = {};
+var charcolors = {}; /* map char to its used color ids */
+var datamap = {}; /* map canvas id to its raw image data */
 
-/* set of character names */
-var alreadyloaded = new Set(); /* names of characters whose sprites have already been loaded */
-
-/* set of canvas ids */
+var alreadyloaded = new Set(); /* chars whose sprites have already been loaded */
 var flaggedids = new Set(); /* ids of outdated canvases */
-var pickerflagged = true;
-var picker, focal;
-
-/* todo: organize the above */
+var pickerflagged = true; /* true if picker is outdated */
 
 function flagActiveCharacter() {
     for (var id of ids[activechar]) {
@@ -100,10 +92,10 @@ function updateFlags() {
         }
 
         for (var i = 0; i < 256; i++) {
-            if (!charactercolors[activechar]) {
+            if (!charcolors[activechar]) {
                 continue;
             }
-            else if (charactercolors[activechar].has(i)) {
+            else if (charcolors[activechar].has(i)) {
                 swatches[i].radio.classList.remove("hidden");
             }
             else {
@@ -114,12 +106,12 @@ function updateFlags() {
     flaggedids.clear();
 
     if (pickerflagged) {
-        if (typeof focal == "undefined") {
+        if (typeof activecid == "undefined") {
             picker.setColors(["#804040"]);
             picker.base.classList.add("disabled");
         }
         else {
-            picker.setColors([swatches[focal].text.value]);
+            picker.setColors([swatches[activecid].text.value]);
             picker.base.classList.remove("disabled");
         }
     }
@@ -128,7 +120,7 @@ function updateFlags() {
     requestAnimationFrame(updateFlags);
 }
 
-/* todo: name this section */
+/* Left Section */
 
 function initLeft() {
     var left = document.getElementById("left");
@@ -152,10 +144,10 @@ function initLeft() {
         datamap[id] = context.getImageData(0, 0, this.width, this.height);
         for (var i = 0; i < datamap[id].data.length; i += 4) {
             var cid = datamap[id].data[i];
-            if (!charactercolors[character]) {
-                charactercolors[character] = new Set();
+            if (!charcolors[character]) {
+                charcolors[character] = new Set();
             }
-            charactercolors[character].add(cid);
+            charcolors[character].add(cid);
             idmap[cid].add(id);
         }
         flaggedids.add(id);
@@ -172,9 +164,9 @@ function initLeft() {
     }
 
     function uncheckSwatch() {
-        if (typeof focal != "undefined") {
-            swatches[focal].radio.checked = false;
-            focal = undefined;
+        if (typeof activecid != "undefined") {
+            swatches[activecid].radio.checked = false;
+            activecid = undefined;
             flagPicker();
         }
     }
@@ -224,15 +216,15 @@ function initLeft() {
         if (e.target.tagName == "CANVAS") {
             var data = datamap[e.target.id];
             var cid = data.data[4 * (data.width * e.offsetY + e.offsetX)];
-            if (typeof focal != "undefined") {
-                swatches[focal].text.blur();
+            if (typeof activecid != "undefined") {
+                swatches[activecid].text.blur();
             }
-            focal = cid;
+            activecid = cid;
             swatches[cid].check();
             if (typeof e.parentEvent != "undefined") {
                 e.parentEvent.preventDefault();
             }
-            else {
+            else { /* prevent input zoom on mobile devices */
                 swatches[cid].text.select();
             }
         }
@@ -267,7 +259,32 @@ function initLeft() {
     sheet.addEventListener("touchstart", onSheetClick);
 }
 
-/* todo RIGHT */
+function initDownload() {
+    var download = document.getElementById("download");
+
+    function completeDownload(blob) {
+        saveAs(blob, activechar + (layer.line ? "" : "-noline") + (layer.detail ? "" : "-nodetail") + ".zip");
+    }
+
+    function beginDownload() {
+        if (activechar) {
+            var zip = new JSZip();
+            for (var id of ids[activechar]) {
+                var canvas = document.getElementById(id);
+                if (canvas) {
+                    var dataURL = canvas.toDataURL();
+                    zip.file(id + ".png", dataURL.slice(22), {"base64": true});
+                }
+            }
+
+            zip.generateAsync({"type": "blob"}).then(completeDownload);
+        }
+    }
+
+    download.addEventListener("click", beginDownload);
+}
+
+/* Right Section */
 
 function union(a, b) {
     for (var i of b) {
@@ -322,12 +339,12 @@ function initPicker() {
     });
 
     function updateSwatch() {
-        if (typeof focal != "undefined") {
-            swatches[focal].color.value = this.color.hexString;
-            swatches[focal].color.style.opacity = this.color.alpha;
-            swatches[focal].text.value = this.color.alpha < 1 ? this.color.hex8String : this.color.hexString;
-            swatches[focal].text.style.borderColor = this.color.hexString;
-            swatches[focal].update();
+        if (typeof activecid != "undefined") {
+            swatches[activecid].color.value = this.color.hexString;
+            swatches[activecid].color.style.opacity = this.color.alpha;
+            swatches[activecid].text.value = this.color.alpha < 1 ? this.color.hex8String : this.color.hexString;
+            swatches[activecid].text.style.borderColor = this.color.hexString;
+            swatches[activecid].update();
         }
     }
 
@@ -363,23 +380,23 @@ function initSwatch(n, r, g, b, a) {
             label.scrollIntoView({"behavior": "smooth"});
         }
         radio.checked = true;
-        focal = n;
+        activecid = n;
         flagPicker();
     }
 
     function onColorChange() { /* color inputs are strictly #rrggbb */
-        if (focal == n) {
+        if (activecid == n) {
             text.value = this.value + text.value.slice(7);
             text.style.borderColor = this.value;
             updateColormap();
             flagPicker();
         }
         else { /* update native picker's focus */
-            swatches[focal].color.click();
-            swatches[focal].color.value = this.value;
-            swatches[focal].text.value = this.value + swatches[focal].text.value.slice(7);
-            swatches[focal].text.style.borderColor = this.value;
-            swatches[focal].update();
+            swatches[activecid].color.click();
+            swatches[activecid].color.value = this.value;
+            swatches[activecid].text.value = this.value + swatches[activecid].text.value.slice(7);
+            swatches[activecid].text.style.borderColor = this.value;
+            swatches[activecid].update();
             this.value = text.value.slice(0, 7);
         }
     }
@@ -538,34 +555,9 @@ function initLoader() {
 
 function initPalette() {
     initBlend();
-    initPicker(); // todo
+    initPicker();
     initSwatches();
     initLoader();
-}
-
-function initDownload() {
-    var download = document.getElementById("download");
-
-    function completeDownload(blob) {
-        saveAs(blob, activechar + (layer.line ? "" : "-noline") + (layer.detail ? "" : "-nodetail") + ".zip");
-    }
-
-    function beginDownload() {
-        if (activechar) {
-            var zip = new JSZip();
-            for (var id of ids[activechar]) {
-                var canvas = document.getElementById(id);
-                if (canvas) {
-                    var dataURL = canvas.toDataURL();
-                    zip.file(id + ".png", dataURL.slice(22), {"base64": true});
-                }
-            }
-
-            zip.generateAsync({"type": "blob"}).then(completeDownload);
-        }
-    }
-
-    download.addEventListener("click", beginDownload);
 }
 
 function init() {
@@ -577,8 +569,8 @@ function init() {
         ids.scribble = ["cat"];
     }
     initLeft();
-    initPalette();
     initDownload();
+    initPalette();
     updateFlags();
 }
 
