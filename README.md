@@ -40,6 +40,7 @@ If your device's native color picker is more feature-rich, you can click the col
 The native color picker will always be focused on the active color row.
 
 The white circles at the right of each row indicate whether that color area is opaque (detail layer applies shadows) or transparent (detail layer is an alpha channel).
+This is automatically set based on the selected character, but can be changed.
 
 At the bottom of the palette section, you can load and save palette files.
 Palette files are 16x16px images, though you may load images with different dimensions.
