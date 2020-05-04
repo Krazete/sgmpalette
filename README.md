@@ -24,6 +24,9 @@ You can also toggle visibility of the background layer, linework layer, and deta
 The spritesheet contains all in-game static sprites of the chosen character.
 You can click within any sprite to select a color area to edit.
 
+The hex color text input will automatically be selected for easy copying via keyboard shortcuts.
+(This feature does not activate when a touch is detected instead of a mouse click.)
+
 ### Palette
 
 The palette contains all colors present in the chosen character's spritesheet.
