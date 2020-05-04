@@ -342,9 +342,6 @@ function initPicker() {
         ]
     });
 
-    var expander = document.getElementById("iro-zoom");
-    var expanded = false;
-
     function updateSwatch() {
         if (typeof activecid != "undefined") {
             swatches[activecid].color.value = this.color.hexString;
@@ -355,20 +352,7 @@ function initPicker() {
         }
     }
 
-    function resizePicker() {
-        if (expanded) {
-            picker.resize(192);
-            picker.base.style.marginLeft = "";
-        }
-        else {
-            picker.resize(512);
-            picker.base.style.marginLeft = "-320px";
-        }
-        expanded = !expanded;
-    }
-
     picker.on("input:change", updateSwatch);
-    expander.addEventListener("click", resizePicker);
 }
 
 function initSwatch(n, r, g, b, a) {
