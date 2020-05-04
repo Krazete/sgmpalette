@@ -136,6 +136,7 @@ input.option.text:checked + label:before {
     flex: none;
     display: flex;
     flex-direction: column;
+    overflow: visible;
 }
 
 #right > * {
@@ -143,6 +144,7 @@ input.option.text:checked + label:before {
 }
 
 #iro {
+    position: relative;
     padding: 0 6px;
 }
 
