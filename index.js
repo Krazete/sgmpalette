@@ -127,6 +127,7 @@ function initLeft() {
     var selection = document.getElementById("selection");
     var background = document.getElementById("background");
     var sheet = document.getElementById("sheet");
+    var touched = false; /* to relegate post-touchstart click events */
 
     function initSprite() {
         var character = this.dataset.character;
@@ -207,7 +208,7 @@ function initLeft() {
         if (e.type == "touchstart") {
             var rect = e.touches[0].target.getBoundingClientRect();
             e = {
-                "parentEvent": e,
+                "isTouch": true,
                 "target": e.touches[0].target,
                 "offsetX": Math.round(e.touches[0].clientX - rect.left),
                 "offsetY": Math.round(e.touches[0].clientY - rect.top)
@@ -221,10 +222,13 @@ function initLeft() {
             }
             activecid = cid;
             swatches[cid].check();
-            if (typeof e.parentEvent != "undefined") {
-                e.parentEvent.preventDefault();
+            if (e.isTouch) {
+                touched = true;
             }
-            else { /* prevent input zoom on mobile devices */
+            else if (touched) {
+                touched = false;
+            }
+            else {
                 swatches[cid].text.select();
             }
         }
