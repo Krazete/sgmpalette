@@ -205,16 +205,10 @@ function initLeft() {
     }
 
     function onSheetClick(e) {
-        if (e.type == "touchstart") {
-            var rect = e.touches[0].target.getBoundingClientRect();
-            e = {
-                "isTouch": true,
-                "target": e.touches[0].target,
-                "offsetX": Math.round(e.touches[0].clientX - rect.left),
-                "offsetY": Math.round(e.touches[0].clientY - rect.top)
-            };
+        if (e.type == "touchend") {
+            touched = true;
         }
-        if (e.target.tagName == "CANVAS") {
+        else if (e.target.tagName == "CANVAS") {
             var data = datamap[e.target.id];
             var cid = data.data[4 * (data.width * e.offsetY + e.offsetX)];
             if (typeof activecid != "undefined") {
@@ -222,16 +216,21 @@ function initLeft() {
             }
             activecid = cid;
             swatches[cid].check();
-            if (e.isTouch) {
-                touched = true;
-            }
-            else if (touched) {
+            if (touched) {
                 touched = false;
             }
             else {
                 swatches[cid].text.select();
             }
         }
+    }
+
+    function onSheetTouchMove() { /* cancel on zoom or scroll */
+        sheet.removeEventListener("touchend", onSheetClick);
+    }
+
+    function onSheetTouchStart() {
+        sheet.addEventListener("touchend", onSheetClick);
     }
 
     for (var character in ids) {
@@ -260,7 +259,8 @@ function initLeft() {
     }
 
     sheet.addEventListener("click", onSheetClick);
-    sheet.addEventListener("touchstart", onSheetClick);
+    sheet.addEventListener("touchstart", onSheetTouchStart);
+    sheet.addEventListener("touchmove", onSheetTouchMove);
 }
 
 function initDownload() {
