@@ -147,7 +147,7 @@ input.option.text:checked + label:before {
 }
 
 .disabled {
-    opacity: 0.5;
+    opacity: 0.25;
     pointer-events: none;
 }
 

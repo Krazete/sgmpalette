@@ -130,14 +130,6 @@ function updateFlags() {
 
 /* todo: name this section */
 
-function unfocusSwatch() {
-    if (typeof focal != "undefined") {
-        swatches[focal].radio.checked = false;
-        focal = undefined;
-        flagPicker();
-    }
-}
-
 function initLeft() {
     var left = document.getElementById("left");
     var selection = document.getElementById("selection");
@@ -179,6 +171,14 @@ function initLeft() {
         }
     }
 
+    function uncheckSwatch() {
+        if (typeof focal != "undefined") {
+            swatches[focal].radio.checked = false;
+            focal = undefined;
+            flagPicker();
+        }
+    }
+
     function toggleCharacter() {
         if (activechar) {
             flagActiveCharacter();
@@ -199,7 +199,7 @@ function initLeft() {
             initSpriteSet();
         }
         flagActiveCharacter();
-        unfocusSwatch();
+        uncheckSwatch();
     }
 
     function toggleBackground() {
@@ -212,14 +212,29 @@ function initLeft() {
     }
 
     function onSheetClick(e) {
+        if (e.type == "touchstart") {
+            var rect = e.touches[0].target.getBoundingClientRect();
+            e = {
+                "parentEvent": e,
+                "target": e.touches[0].target,
+                "offsetX": Math.round(e.touches[0].clientX - rect.left),
+                "offsetY": Math.round(e.touches[0].clientY - rect.top)
+            };
+        }
         if (e.target.tagName == "CANVAS") {
             var data = datamap[e.target.id];
             var cid = data.data[4 * (data.width * e.offsetY + e.offsetX)];
+            if (typeof focal != "undefined") {
+                swatches[focal].text.blur();
+            }
             focal = cid;
-            // setPicker(cid); /* todo */
-            swatches[cid].radio.checked = true;
-            swatches[cid].text.select();
-            flagPicker();
+            swatches[cid].check();
+            if (typeof e.parentEvent != "undefined") {
+                e.parentEvent.preventDefault();
+            }
+            else {
+                swatches[cid].text.select();
+            }
         }
     }
 
@@ -249,6 +264,7 @@ function initLeft() {
     }
 
     sheet.addEventListener("click", onSheetClick);
+    sheet.addEventListener("touchstart", onSheetClick);
 }
 
 /* todo RIGHT */
@@ -341,6 +357,11 @@ function initSwatch(n, r, g, b, a) {
     }
 
     function checkSwatch() {
+        var paletterect = palette.getBoundingClientRect();
+        var labelrect = label.getBoundingClientRect();
+        if (labelrect.top < paletterect.top || labelrect.bottom > paletterect.bottom) {
+            label.scrollIntoView({"behavior": "smooth"});
+        }
         radio.checked = true;
         focal = n;
         flagPicker();
@@ -364,11 +385,6 @@ function initSwatch(n, r, g, b, a) {
     }
 
     function onTextFocus() {
-        var paletterect = palette.getBoundingClientRect();
-        var labelrect = label.getBoundingClientRect();
-        if (labelrect.top < paletterect.top || labelrect.bottom > paletterect.bottom) {
-            label.scrollIntoView({"behavior": "smooth"});
-        }
         this.select();
     }
 
@@ -443,6 +459,7 @@ function initSwatch(n, r, g, b, a) {
         "color": color,
         "text": text,
         "spectral": spectral,
+        "check": checkSwatch,
         "update": updateColormap
     };
 }
@@ -480,7 +497,9 @@ function initLoader() {
             var alpha = colormap[4 * i + 3];
             var a = hexToString(alpha, 2);
             swatches[i].color.value = "#" + r + g + b;
-            swatches[i].text.value = r + g + b + (alpha < 0xff ? a : "");
+            swatches[i].color.style.opacity = alpha / 0xff;
+            swatches[i].text.value = "#" + r + g + b + (alpha < 0xff ? a : "");
+            swatches[i].text.style.borderColor = "#" + r + g + b;
         }
         flagActiveCharacter();
         flagPicker();
