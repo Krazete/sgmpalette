@@ -205,22 +205,24 @@ function initLeft() {
     }
 
     function onSheetClick(e) {
-        if (e.type == "touchend") {
-            touched = true;
-        }
-        else if (e.target.tagName == "CANVAS") {
-            var data = datamap[e.target.id];
-            var cid = data.data[4 * (data.width * e.offsetY + e.offsetX)];
-            if (typeof activecid != "undefined") {
-                swatches[activecid].text.blur();
-            }
-            activecid = cid;
-            swatches[cid].check();
-            if (touched) {
-                touched = false;
+        if (e.target.tagName == "CANVAS") {
+            if (e.type == "click") {
+                var data = datamap[e.target.id];
+                var cid = data.data[4 * (data.width * e.offsetY + e.offsetX)];
+                if (typeof activecid != "undefined") {
+                    swatches[activecid].text.blur();
+                }
+                activecid = cid;
+                swatches[cid].check();
+                if (touched) {
+                    touched = false;
+                }
+                else {
+                    swatches[cid].text.select();
+                }
             }
             else {
-                swatches[cid].text.select();
+                touched = true;
             }
         }
     }
