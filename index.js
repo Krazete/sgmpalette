@@ -324,6 +324,7 @@ function initPicker() {
     picker = new iro.ColorPicker("#iro", {
         "width": 192,
         "borderWidth": 1,
+        "sliderMargin": 6,
         "layoutDirection": "horizontal",
         "layout": [
             {
