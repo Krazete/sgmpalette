@@ -78,6 +78,7 @@ input.option.text:checked + label:before {
 }
 
 .section {
+    position: relative;
     overflow-y: scroll;
 }
 
@@ -116,18 +117,29 @@ input.option.text:checked + label:before {
     vertical-align: middle;
 }
 
-#download {
+.button-container {
+    padding: 16px;
+}
+.button-container > * {
     background: #ccb55a;
     color: black;
     font-weight: bold;
-    width: max-content;
+    display: inline;
     padding: 6px;
     border: 3px double #1b2a41;
-    margin: 24px auto;
     cursor: pointer;
 }
-#download:hover {
+.button-container > *:hover {
     background: #dec974;
+}
+
+#outlink {
+    line-height: 32px;
+}
+
+#outlink img {
+    height: 32px;
+    vertical-align: bottom;
 }
 
 #right {
