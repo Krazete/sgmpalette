@@ -12,10 +12,13 @@ var blend = {
         return a - line;
     },
     "matte": function (a, b, line) {
-        return a - b - line;
+        return a - b * strength - line;
+    },
+    "pastel": function (a, b, line) {
+        return Math.atan(a / b) * 0xff * 2 / Math.PI - line;
     },
     "shiny": function (a, b, line) {
-        return Math.min(0x80 * Math.log(a / b), 0xff) - line;
+        return Math.min(0x80 * Math.log(a / (b * strength)), 0xff) - line;
     }
 }; /* blend mode functions */
 var mode = "matte"; /* active blend mode */
@@ -78,9 +81,9 @@ function updateFlags() {
                     newdata.data[i + 3] = Math.max(colormap[j + 3] - detail * 0xff / (0xff - 0x64), line);
                 }
                 else {
-                    newdata.data[i] = blend[moed](colormap[j], detail * strength, line);
-                    newdata.data[i + 1] = blend[moed](colormap[j + 1], detail * strength, line);
-                    newdata.data[i + 2] = blend[moed](colormap[j + 2], detail * strength, line);
+                    newdata.data[i] = blend[moed](colormap[j], detail, line);
+                    newdata.data[i + 1] = blend[moed](colormap[j + 1], detail, line);
+                    newdata.data[i + 2] = blend[moed](colormap[j + 2], detail, line);
                     newdata.data[i + 3] = Math.max(colormap[j + 3], line);
                 }
             }
