@@ -589,6 +589,11 @@ function init() {
     initDownload();
     initPalette();
     updateFlags();
+    window.addEventListener("load", function () { /* because bfcache */
+        for (var i = 0; i < 256; i++) {
+            swatches[i].update();
+        }
+    });
 }
 
 function holup(e) {
