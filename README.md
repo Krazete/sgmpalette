@@ -48,8 +48,9 @@ Palette files are 16x16px images, though you may load images with different dime
 ## Download
 
 To download a single sprite, right-click (or control-click) a sprite and select `Save Image As...`.
+For mobile devices, you can enable the `Download on Tap` button at the bottom of the page and tap on whichever sprite you want to download.
 
-To download a zipped folder of all sprites in the current spritesheet, click the `Download` button at the very bottom of the page.
+To download a zipped folder of all sprites in the current spritesheet, click the `Download ZIP` button at the bottom.
 
 Thanks to the following:
 
