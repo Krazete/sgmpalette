@@ -118,13 +118,14 @@ input.option.text:checked + label:before {
 }
 
 .button-container {
-    padding: 16px;
+    padding: 8px;
 }
-.button-container > * {
+.button-container > *,
+#tap-download:checked + label {
     background: #ccb55a;
     color: black;
     font-weight: bold;
-    display: inline;
+    display: inline-block;
     padding: 6px;
     border: 3px double #1b2a41;
     cursor: pointer;
@@ -133,8 +134,16 @@ input.option.text:checked + label:before {
     background: #dec974;
 }
 
+#tap-download + label {
+    background: #1b2a41;
+    color: gray;
+    border: 3px double gray;
+    opacity: 1;
+}
+
 #outlink {
     line-height: 32px;
+    display: inline;
 }
 
 #outlink img {

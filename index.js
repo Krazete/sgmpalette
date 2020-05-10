@@ -127,6 +127,7 @@ function initLeft() {
     var selection = document.getElementById("selection");
     var background = document.getElementById("background");
     var sheet = document.getElementById("sheet");
+    var tapdownload = document.getElementById("tap-download");
     var touched = false; /* to relegate post-touchstart click events */
 
     function initSprite() {
@@ -219,6 +220,12 @@ function initLeft() {
                 }
                 else {
                     swatches[cid].text.select();
+                }
+                if (tapdownload.checked) {
+                    var a = document.createElement("a");
+                    a.href = e.target.toDataURL();
+                    a.setAttribute("download", e.target.id);
+                    a.click();
                 }
             }
             else {
