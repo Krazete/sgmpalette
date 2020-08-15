@@ -77,6 +77,11 @@ input.option.text:checked + label:before {
     display: none;
 }
 
+.wrapper {
+    width: 100%;
+    height: 100%;
+}
+
 .section {
     position: relative;
     overflow-y: scroll;

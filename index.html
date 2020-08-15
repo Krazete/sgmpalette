@@ -13,56 +13,58 @@
     <script src="directory.js"></script>
     <script src="index.js"></script>
 </head>
-<body class="flexbox">
-    <div class="section" id="left">
-        <div id="basic">
-            <div class="flexbox">
-                <div id="version">4.2.0</div>
-                <h1>
-                    <a target="_blank" href="https://github.com/Krazete/sgmpalette">Skullgirls Mobile Palette Editor</a>
-                </h1>
-                <a target="_blank" href="https://ko-fi.com/krazete" id="kofi">
-                    <img src="icon/kofi.png">
+<body>
+    <div class="wrapper flexbox">
+        <div class="section" id="left">
+            <div id="basic">
+                <div class="flexbox">
+                    <div id="version">4.2.0</div>
+                    <h1>
+                        <a target="_blank" href="https://github.com/Krazete/sgmpalette">Skullgirls Mobile Palette Editor</a>
+                    </h1>
+                    <a target="_blank" href="https://ko-fi.com/krazete" id="kofi">
+                        <img src="icon/kofi.png">
+                    </a>
+                </div>
+                <div id="selection"></div>
+                <div class="flexbox">
+                    <input type="checkbox" class="option text" id="background" checked>
+                    <label for="background">Background</label>
+                    <input type="checkbox" class="option text" id="line" checked>
+                    <label for="line">Linework</label>
+                    <input type="checkbox" class="option text" id="detail" checked>
+                    <label for="detail">Detail</label>
+                </div>
+            </div>
+            <div id="sheet"></div>
+            <div class="button-container">
+                <input type="checkbox" class="option text" id="tap-download">
+                <label for="tap-download">Download on Tap</label>
+                <div id="download">Download ZIP</div>
+            </div>
+            <div class="button-container">
+                <a href="https://sgmcard.netlify.app/" target="_blank" id="outlink">
+                    Card Creator<img src="icon/ArrowGold.png">
                 </a>
             </div>
-            <div id="selection"></div>
-            <div class="flexbox">
-                <input type="checkbox" class="option text" id="background" checked>
-                <label for="background">Background</label>
-                <input type="checkbox" class="option text" id="line" checked>
-                <label for="line">Linework</label>
-                <input type="checkbox" class="option text" id="detail" checked>
-                <label for="detail">Detail</label>
+        </div>
+        <div class="section" id="right">
+            <div class="flexbox" id="blendmode">
+                <input type="radio" class="option text" name="blend" id="matte" checked>
+                <label for="matte">Matte</label>
+                <input type="radio" class="option text" name="blend" id="pastel">
+                <label for="pastel">Pastel</label>
+                <input type="radio" class="option text" name="blend" id="shiny">
+                <label for="shiny">Shiny</label>
             </div>
-        </div>
-        <div id="sheet"></div>
-        <div class="button-container">
-            <input type="checkbox" class="option text" id="tap-download">
-            <label for="tap-download">Download on Tap</label>
-            <div id="download">Download ZIP</div>
-        </div>
-        <div class="button-container">
-            <a href="https://sgmcard.netlify.app/" target="_blank" id="outlink">
-                Card Creator<img src="icon/ArrowGold.png">
-            </a>
-        </div>
-    </div>
-    <div class="section" id="right">
-        <div class="flexbox" id="blendmode">
-            <input type="radio" class="option text" name="blend" id="matte" checked>
-            <label for="matte">Matte</label>
-            <input type="radio" class="option text" name="blend" id="pastel">
-            <label for="pastel">Pastel</label>
-            <input type="radio" class="option text" name="blend" id="shiny">
-            <label for="shiny">Shiny</label>
-        </div>
-        <div class="flexbox" id="iro"></div>
-        <div id="palette"></div>
-        <div class="flexbox">
-            <input type="file" accept="image/*" id="load">
-            <label for="load">Load</label>
-            <input type="button" id="save">
-            <label for="save">Save</label>
+            <div class="flexbox" id="iro"></div>
+            <div id="palette"></div>
+            <div class="flexbox">
+                <input type="file" accept="image/*" id="load">
+                <label for="load">Load</label>
+                <input type="button" id="save">
+                <label for="save">Save</label>
+            </div>
         </div>
     </div>
 </body>
