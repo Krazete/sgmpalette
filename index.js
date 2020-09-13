@@ -19,9 +19,13 @@ var blend = {
     },
     "shiny": function (a, b, line) {
         return Math.min(0x80 * Math.log(a / (b * strength)), 0xff) - line;
+    },
+    "vivid": function (a, b, line) {
+        var d = b - 0x33;
+        return Math.min(a - (d < 0 ? d * 0x40 / 0x33 : d * 0x80 / (0xff - 0x33)), 0xff) - line;
     }
 }; /* blend mode functions */
-var mode = "matte"; /* active blend mode */
+var mode = "vivid"; /* active blend mode */
 
 var colormap = new Uint8ClampedArray(1024); /* map color id to its color value */
 var spectralmap = new Uint8ClampedArray(256); /* map color id to its spectral value */

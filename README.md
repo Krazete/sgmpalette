@@ -32,9 +32,12 @@ The hex color text input will automatically be selected for easy copying via key
 The palette contains all colors present in the chosen character's spritesheet.
 Some characters have sprites with noisy edges and thus have extraneous rows of color.
 
-The `Matte`, `Pastel`, and `Shiny` options at the top denote how the detail layer is blended with the color layer.
-`Matte` is essentially linear burn and `Shiny` is basically color dodge.
-I'm not sure what common blend mode `Pastel` resembles, but it uses an arctangent.
+The options at the very top denote how the detail layer is blended with the color layer.
+
+* `Matte` is essentially linear burn.
+* I'm not sure what common blend mode `Pastel` resembles, but it uses an arctangent.
+* `Shiny` is basically color dodge.
+* `Vivid` is linear burn for low values and linear dodge for high values.
 
 A color picker is available above the list of colors.
 If your device's native color picker is more feature-rich, you can click the colored boxes at the left of each row to use that instead.
