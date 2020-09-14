@@ -1,6 +1,7 @@
 var ids = {
     "annie": [
-        "Annie_Test"
+        "Annie_Test",
+        "Annie_Test2"
     ],
     "beowulf": [
         "Beowulf_BB1_T1_GiganticArm",
