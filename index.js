@@ -216,7 +216,7 @@ function initLeft() {
         if (e.target.tagName == "CANVAS") {
             if (e.type == "click") {
                 var data = datamap[e.target.id];
-                var cid = data.data[4 * (data.width * e.offsetY + e.offsetX)];
+                var cid = data.data[4 * (data.width * Math.round(e.offsetY) + Math.round(e.offsetX))];
                 if (typeof activecid != "undefined") {
                     swatches[activecid].text.blur();
                 }
