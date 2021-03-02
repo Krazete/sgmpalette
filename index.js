@@ -30,6 +30,7 @@ var mode = "vivid"; /* active blend mode */
 var colormap = new Uint8ClampedArray(1024); /* map color id to its color value */
 var spectralmap = new Uint8ClampedArray(256); /* map color id to its spectral value */
 var knownspectral = {
+    "annie": [212, 217, 222],
     "beowulf": [236],
     "big band": [219],
     "cerebella": [183],
