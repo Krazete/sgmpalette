@@ -587,7 +587,7 @@ function init() {
     var day = date.getDate();
     var buffchance = month == 4 && (day == 1 || day == 11); // april fools or bella's bday
     if (Math.random() < (buffchance ? 0.5 : 0.02)) {
-        ids.scribble = ["cat"];
+        ids.scribble = ["cat", "Annie_Test"];
     }
     initLeft();
     initDownload();
