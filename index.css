@@ -88,8 +88,10 @@ input.option.text:checked + label:before {
 }
 
 #left {
-    background: linear-gradient(to top left, gray 50%, darkgray 50%);
-    background-size: 10px 10px;
+    background:
+        linear-gradient(45deg, gray 25%, transparent 25% 75%, gray 75%) 0 0,
+        linear-gradient(45deg, gray 25%, darkgray 25% 75%, gray 75%) 10px 10px;
+    background-size: 20px 20px;
 }
 #left.solid {
     background: none;
