@@ -83,6 +83,7 @@ var ids = {
 		"BigBand_SM7_SweetClarinet",
 		"BigBand_SM8_NoiseCancel",
 		"BigBand_TrebleMaker",
+		"BigBand_VintageVirtuoso",
 		"HeavyMetal"
     ],
     "cerebella": [
@@ -292,6 +293,7 @@ var ids = {
 		"Parasoul_BB4_T1_Forbearance",
 		"Parasoul_BB5_T2_NapalmShower",
 		"Parasoul_HeavyReign",
+		"Parasoul_HighRuler",
 		"Parasoul_IvyLeague",
 		"Parasoul_NoEgrets",
 		"Parasoul_Portrait",
@@ -429,6 +431,7 @@ var ids = {
 		"Valentine_SM7_VialHazardC",
 		"Valentine_SM9_MortuaryDrop",
 		"Valentine_SurgeonGeneral",
-		"Valentine_TresChic"
+		"Valentine_TresChic",
+		"Valentine_Wetwork"
     ]
 };
