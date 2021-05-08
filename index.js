@@ -181,6 +181,15 @@ function initLeft() {
         }
     }
 
+    function toggleForum() {
+        if (activechar == "custom") {
+            document.getElementById("forum").classList.remove("hidden");
+        }
+        else {
+            document.getElementById("forum").classList.add("hidden");
+        }
+    }
+
     function toggleCharacter() {
         if (activechar) {
             flagActiveCharacter();
@@ -202,6 +211,7 @@ function initLeft() {
         }
         flagActiveCharacter();
         uncheckSwatch();
+        toggleForum();
     }
 
     function toggleBackground() {
