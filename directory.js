@@ -433,5 +433,8 @@ var ids = {
 		"Valentine_SurgeonGeneral",
 		"Valentine_TresChic",
 		"Valentine_Wetwork"
+    ],
+    "custom": [
+    	"umbrella_custom0_by_krazete"
     ]
 };
