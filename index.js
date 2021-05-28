@@ -480,11 +480,13 @@ function initSwatch(n, r, g, b, a) {
         union(flaggedids, idmap[n]);
     }
 
+    var n222 = n == 222 ? 1 : 0;
+
     colormap[4 * n] = r;
     colormap[4 * n + 1] = g;
     colormap[4 * n + 2] = b;
     colormap[4 * n + 3] = a;
-    chowdermap[n] = 0;
+    chowdermap[n] = n222;
     spectralmap[n] = 0;
 
     radio.type = "radio";
@@ -500,17 +502,20 @@ function initSwatch(n, r, g, b, a) {
     color.type = "color";
     color.value = "#" + rgb;
     color.style.opacity = a / 0xff;
+    color.disabled = n222;
     color.addEventListener("input", onColorChange);
     label.appendChild(color);
 
     text.type = "text";
     text.value = "#" + rgb + (a < 0xff ? hexToString(a, 2) : "");
     text.style.borderColor = "#" + rgb;
+    text.disabled = n222;
     text.addEventListener("focus", onTextFocus);
     text.addEventListener("change", onTextChange);
     label.appendChild(text);
 
     chowder.className = "chowder";
+    chowder.dataset.value = n222;
     chowder.addEventListener("click", updateChowder);
     label.appendChild(chowder);
 
