@@ -29,6 +29,7 @@ var mode = "vivid"; /* active blend mode */
 
 var colormap = new Uint8ClampedArray(1024); /* map color id to its color value */
 var chowdermap = new Uint8ClampedArray(256); /* map color id to its texture value */
+var texture = {}; /* array of texture data */
 var spectralmap = new Uint8ClampedArray(256); /* map color id to its spectral value */
 var knownspectral = {
     "annie": [212, 217, 222],
@@ -316,6 +317,25 @@ function initDownload() {
     download.addEventListener("click", beginDownload);
 }
 
+function initTextures() {
+    function loadTexture(tid, src) {
+        var image = new Image();
+        image.addEventListener("load", function () {
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.width = this.width;
+            canvas.height = this.height;
+            context.drawImage(this, 0, 0);
+            texture[tid] = context.getImageData(0, 0, this.width, this.height);
+        });
+        image.src = src;
+    }
+
+    loadTexture(1, "texture/Space.png");
+    loadTexture(2, "texture/fire.png");
+    loadTexture(3, "texture/water.png");
+}
+
 /* Right Section */
 
 function union(a, b) {
@@ -533,6 +553,7 @@ function initSwatch(n, r, g, b, a) {
         "radio": radio,
         "color": color,
         "text": text,
+        "chowder": chowder,
         "spectral": spectral,
         "check": checkSwatch,
         "update": updateColormap
@@ -628,6 +649,7 @@ function init() {
     }
     initLeft();
     initDownload();
+    initTextures();
     initPalette();
     updateFlags();
     window.addEventListener("load", function () { /* because bfcache */
