@@ -28,6 +28,7 @@ var blend = {
 var mode = "vivid"; /* active blend mode */
 
 var colormap = new Uint8ClampedArray(1024); /* map color id to its color value */
+var chowdermap = new Uint8ClampedArray(256); /* map color id to its texture value */
 var spectralmap = new Uint8ClampedArray(256); /* map color id to its spectral value */
 var knownspectral = {
     "annie": [212, 217, 222],
@@ -389,6 +390,7 @@ function initSwatch(n, r, g, b, a) {
     var label = document.createElement("label");
     var color = document.createElement("input");
     var text = document.createElement("input");
+    var chowder = document.createElement("div");
     var spectral = document.createElement("input");
     var spectrallabel = document.createElement("label");
     var rgb = hexToString(0x10000 * r + 0x100 * g + b, 6);
@@ -459,6 +461,20 @@ function initSwatch(n, r, g, b, a) {
         flagPicker();
     }
 
+    function updateChowder() {
+        chowdermap[n] = (chowdermap[n] + 1) % 4;
+        if (chowdermap[n]) {
+            color.disabled = true;
+            text.disabled = true;
+        }
+        else {
+            color.disabled = false;
+            text.disabled = false;
+        }
+        chowder.dataset.value = chowdermap[n];
+        union(flaggedids, idmap[n]);
+    }
+
     function updateSpectral() {
         spectralmap[n] = this.checked ? 1 : 0;
         union(flaggedids, idmap[n]);
@@ -468,6 +484,7 @@ function initSwatch(n, r, g, b, a) {
     colormap[4 * n + 1] = g;
     colormap[4 * n + 2] = b;
     colormap[4 * n + 3] = a;
+    chowdermap[n] = 0;
     spectralmap[n] = 0;
 
     radio.type = "radio";
@@ -492,6 +509,10 @@ function initSwatch(n, r, g, b, a) {
     text.addEventListener("focus", onTextFocus);
     text.addEventListener("change", onTextChange);
     label.appendChild(text);
+
+    chowder.className = "chowder";
+    chowder.addEventListener("click", updateChowder);
+    label.appendChild(chowder);
 
     spectral.type = "checkbox";
     spectral.id = "b" + n;

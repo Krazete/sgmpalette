@@ -44,6 +44,10 @@ input[type='button'] {
     display: none;
 }
 
+input:disabled {
+    visibility: hidden;
+}
+
 input + label {
     cursor: pointer;
 }
@@ -235,6 +239,23 @@ input.option.text:checked + label:before {
     text-transform: uppercase;
     width: 9em;
     border-width: 0 0 1px 0;
+}
+
+#palette .chowder {
+    background: black;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    cursor: pointer;
+}
+#palette .chowder[data-value='1'] {
+    background-image: url(texture/Space.png);
+}
+#palette .chowder[data-value='2'] {
+    background-image: url(texture/fire.png);
+}
+#palette .chowder[data-value='3'] {
+    background-image: url(texture/water.png);
 }
 
 #palette input[type='checkbox'] + label {
