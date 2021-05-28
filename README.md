@@ -22,6 +22,7 @@ You can also toggle visibility of the background layer, linework layer, and deta
 ### Spritesheet
 
 The spritesheet contains all in-game static sprites of the chosen character.
+There are also experimental custom sprites, created as outlined in the [submission instructions](https://forum.skullgirlsmobile.com/threads/17533).
 You can click within any sprite to select a color area to edit.
 
 The hex color text input will automatically be selected for easy copying via keyboard shortcuts.
@@ -42,6 +43,8 @@ The options at the very top denote how the detail layer is blended with the colo
 A color picker is available above the list of colors.
 If your device's native color picker is more feature-rich, you can click the colored boxes at the left of each row to use that instead.
 The native color picker will always be focused on the active color row.
+
+The boxes to the right of the color inputs toggle textures, which override selected colors.
 
 The white circles at the right of each row indicate whether that color area is opaque (detail layer applies shadows) or transparent (detail layer is an alpha channel).
 This is automatically set based on the selected character, but can be changed.
