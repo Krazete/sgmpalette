@@ -246,6 +246,7 @@ input.option.text:checked + label:before {
     width: 24px;
     height: 24px;
     display: inline-block;
+    outline: 1px solid white;
     cursor: pointer;
 }
 #palette .chowder[data-value='1'] {

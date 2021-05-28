@@ -81,16 +81,25 @@ function updateFlags() {
                 var line = layer.line ? 0xff - rawdata.data[i + 1] : 0;
                 var detail = 0xff - rawdata.data[i + 2];
                 var moed = layer.detail ? mode : "none";
-                if (spectralmap[cid]) {
-                    newdata.data[i] = blend[moed](colormap[j], detail, line);
-                    newdata.data[i + 1] = blend[moed](colormap[j + 1], detail, line);
-                    newdata.data[i + 2] = blend[moed](colormap[j + 2], detail, line);
-                    newdata.data[i + 3] = Math.max(colormap[j + 3] - detail * 0xff / (0xff - 0x64), line);
+                if (chowdermap[cid]) {
+                    var x = i / 4 % canvas.width;
+                    var y = Math.ceil(i / 4 / canvas.width);
+                    var texturemap = texture[chowdermap[cid]];
+                    var k = 4 * ((x % texturemap.width) + (y % texturemap.height) * texturemap.width);
+                    newdata.data[i] = blend[moed](texturemap.data[k], detail, line);
+                    newdata.data[i + 1] = blend[moed](texturemap.data[k + 1], detail, line);
+                    newdata.data[i + 2] = blend[moed](texturemap.data[k + 2], detail, line);
                 }
                 else {
                     newdata.data[i] = blend[moed](colormap[j], detail, line);
                     newdata.data[i + 1] = blend[moed](colormap[j + 1], detail, line);
                     newdata.data[i + 2] = blend[moed](colormap[j + 2], detail, line);
+
+                }
+                if (spectralmap[cid]) {
+                    newdata.data[i + 3] = Math.max(colormap[j + 3] - Math.pow(detail / 0x9b, 2) * 0xff, line);
+                }
+                else {
                     newdata.data[i + 3] = Math.max(colormap[j + 3], line);
                 }
             }
