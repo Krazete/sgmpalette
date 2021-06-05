@@ -436,6 +436,7 @@ var ids = {
     ],
     "custom": [
     	"_umbrella0_by_krazete",
+    	"_umbrella1_by_krazete",
     	"_molly0_by_krazete"
     ]
 };
