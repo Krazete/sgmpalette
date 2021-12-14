@@ -95,6 +95,7 @@ var ids = {
 		"Cerebella_BB5_T1_DiamondDrop",
 		"Cerebella_BB6_T3_GrabBag",
 		"Cerebella_BigTop",
+		"Cerebella_BlitzAndGlamour",
 		"Cerebella_BrainFreeze",
 		"Cerebella_CriminalMind",
 		"Cerebella_GrayMatter",
@@ -209,6 +210,7 @@ var ids = {
 		"Fukua_BB4_InevitableSnuggle",
 		"Fukua_BB6_HeadOverHeels",
 		"Fukua_ChameleonTwist",
+		"Fukua_DreamDemon",
 		"Fukua_FeatheredEdges",
 		"Fukua_InfernalTwin",
 		"Fukua_NightTerror",
@@ -372,6 +374,7 @@ var ids = {
 		"RoboFortune_SMX_HeadDroneHardware_RAM",
 		"RoboFortune_SMX_HeadDroneHardware_Salvo",
 		"RoboFortune_TerrorByte",
+		"RoboFortune_VectorProtector",
 		"RoboFortune_XBot"
     ],
     "squigly": [
