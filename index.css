@@ -243,6 +243,7 @@ input.option.text:checked + label:before {
 
 #palette .chowder {
     background: black;
+    background-size: 200%;
     width: 24px;
     height: 24px;
     display: inline-block;
@@ -257,6 +258,9 @@ input.option.text:checked + label:before {
 }
 #palette .chowder[data-value='3'] {
     background-image: url(texture/water.png);
+}
+#palette .chowder[data-value='4'] {
+    background-image: url(texture/killarainbow.png);
 }
 
 #palette input[type='checkbox'] + label {

@@ -29,7 +29,7 @@ var mode = "vivid"; /* active blend mode */
 
 var colormap = new Uint8ClampedArray(1024); /* map color id to its color value */
 var chowdermap = new Uint8ClampedArray(256); /* map color id to its texture value */
-var texture = {}; /* array of texture data */
+var texture = {"length": 1}; /* array of texture data */
 var spectralmap = new Uint8ClampedArray(256); /* map color id to its spectral value */
 var knownspectral = {
     "annie": [212, 217, 222],
@@ -338,11 +338,13 @@ function initTextures() {
             texture[tid] = context.getImageData(0, 0, this.width, this.height);
         });
         image.src = src;
+        texture.length++;
     }
 
     loadTexture(1, "texture/Space.png");
     loadTexture(2, "texture/fire.png");
     loadTexture(3, "texture/water.png");
+    loadTexture(4, "texture/killarainbow.png");
 }
 
 /* Right Section */
@@ -491,7 +493,7 @@ function initSwatch(n, r, g, b, a) {
     }
 
     function updateChowder() {
-        chowdermap[n] = (chowdermap[n] + 1) % 4;
+        chowdermap[n] = (chowdermap[n] + 1) % texture.length;
         if (chowdermap[n]) {
             color.disabled = true;
             text.disabled = true;
