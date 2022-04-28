@@ -346,6 +346,7 @@ function initTextures() {
     loadTexture(2, "texture/fire.png");
     loadTexture(3, "texture/water.png");
     loadTexture(4, "texture/killarainbow.png");
+    loadTexture(4, "texture/umbrella_veins.png");
 }
 
 /* Right Section */
@@ -512,7 +513,7 @@ function initSwatch(n, r, g, b, a) {
         union(flaggedids, idmap[n]);
     }
 
-    var n222 = n == 222 ? 1 : 0;
+    var n222 = n == 222 ? 1 : 0; /* annie texture */
 
     colormap[4 * n] = r;
     colormap[4 * n + 1] = g;
