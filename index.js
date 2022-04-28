@@ -40,7 +40,8 @@ var knownspectral = {
     "fukua": [133, 139],
     "parasoul": [207],
     "robofortune": [210, 215, 223, 228],
-    "squigly": [206]
+    "squigly": [206],
+    "umbrella": [170, 217]
 }; /* known color ids of spectral areas */
 var idmap = new Array(256).fill().map(function () {
     return new Set();
