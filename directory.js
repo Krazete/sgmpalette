@@ -476,6 +476,7 @@ var ids = {
         "_custom_umbrella1",
         "_custom_molly0",
         "_custom_annie0",
-        "_custom_dahlia0"
+        "_custom_dahlia0",
+        "_custom_dahlia1"
     ]
 };
