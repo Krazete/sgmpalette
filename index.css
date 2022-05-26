@@ -262,6 +262,9 @@ input.option.text:checked + label:before {
 #palette .chowder[data-value='4'] {
     background-image: url(texture/killarainbow.png);
 }
+#palette .chowder[data-value='5'] {
+    background-image: url(texture/umbrella_veins.png);
+}
 
 #palette input[type='checkbox'] + label {
     background: white;
