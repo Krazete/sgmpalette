@@ -417,6 +417,7 @@ var ids = {
         "Umbrella_BB5_TongueTwister",
         "Umbrella_BB6_FeedingTime",
         "Umbrella_CandyCrusher",
+        "Umbrella_DeathWish",
         "Umbrella_EagerDeceiver",
         "Umbrella_FreshHeir",
         "Umbrella_Portrait",
