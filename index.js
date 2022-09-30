@@ -41,7 +41,7 @@ var knownspectral = {
     "parasoul": [207],
     "robofortune": [210, 215, 223, 228],
     "squigly": [206],
-    "umbrella": [170, 217]
+    "umbrella": [170, 175, 217]
 }; /* known color ids of spectral areas */
 var idmap = new Array(256).fill().map(function () {
     return new Set();
