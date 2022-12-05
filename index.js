@@ -32,16 +32,17 @@ var chowdermap = new Uint8ClampedArray(256); /* map color id to its texture valu
 var texture = {"length": 1}; /* array of texture data */
 var spectralmap = new Uint8ClampedArray(256); /* map color id to its spectral value */
 var knownspectral = {
-    "annie": [212, 217, 222],
-    "beowulf": [236],
-    "big band": [219],
-    "cerebella": [183],
-    "eliza": [237],
-    "fukua": [133, 139],
-    "parasoul": [207],
-    "robofortune": [210, 215, 223, 228],
-    "squigly": [206],
-    "umbrella": [170, 175, 217]
+    "annie": [47, 48, 49],
+    "beowulf": [61],
+    "big band": [53],
+    "black dahlia": [47, 62, 64],
+    "cerebella": [34],
+    "eliza": [66],
+    "fukua": [27, 28],
+    "parasoul": [37],
+    "robofortune": [49, 50, 52, 53],
+    "squigly": [43],
+    "umbrella": [35, 36, 47]
 }; /* known color ids of spectral areas */
 var idmap = new Array(256).fill().map(function () {
     return new Set();
