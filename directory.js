@@ -503,12 +503,12 @@ var ids = {
         "Valentine_Wetwork"
     ],
     "custom": [
-        "_custom_umbrella0",
-        "_custom_umbrella1",
-        "_custom_molly0",
-        "_custom_annie0",
-        "_custom_dahlia0",
-        "_custom_dahlia1",
-        "_custom_dahlia2"
+        "custom_umbrella0",
+        "custom_umbrella1",
+        "custom_molly0",
+        "custom_annie0",
+        "custom_dahlia0",
+        "custom_dahlia1",
+        "custom_dahlia2"
     ]
 };
