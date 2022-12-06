@@ -1,4 +1,4 @@
-var activechar; /* active char */
+var activechar; /* active character */
 var activecid; /* active color id */
 var picker; /* iro color picker element */
 
@@ -27,23 +27,25 @@ var blend = {
 }; /* blend mode functions */
 var mode = "vivid"; /* active blend mode */
 
-var colormap = new Uint8ClampedArray(1024); /* map color id to its color value */
-var chowdermap = new Uint8ClampedArray(256); /* map color id to its texture value */
 var texture = {"length": 1}; /* array of texture data */
-var spectralmap = new Uint8ClampedArray(256); /* map color id to its spectral value */
-var knownspectral = {
-    "annie": [47, 48, 49],
-    "beowulf": [61],
-    "big band": [53],
-    "black dahlia": [47, 62, 64],
-    "cerebella": [34],
-    "eliza": [66],
-    "fukua": [27, 28],
-    "parasoul": [37],
-    "robofortune": [49, 50, 52, 53],
-    "squigly": [43],
-    "umbrella": [35, 36, 47]
-}; /* known color ids of spectral areas */
+ 
+var colormap = new Uint8Array(1024); /* map color id to its color value */
+var chowderlog = {
+    "annie": {49: 1}
+}; /* map color id to texture id for each character */
+var spectrallog = {
+    "annie": new Set([47, 48, 49]),
+    "beowulf": new Set([61]),
+    "bigband": new Set([53]),
+    "blackdahlia": new Set([47, 62, 64]),
+    "cerebella": new Set([34]),
+    "eliza": new Set([66]),
+    "fukua": new Set([27, 28]),
+    "parasoul": new Set([37]),
+    "robofortune": new Set([49, 50, 52, 53]),
+    "squigly": new Set([43]),
+    "umbrella": new Set([35, 36, 47])
+}; /* list color ids with spectral opacity for each character */
 var idmap = new Array(256).fill().map(function () {
     return new Set();
 }); /* map color id to canvas ids that use it */
@@ -83,10 +85,10 @@ function updateFlags() {
                 var line = layer.line ? 0xff - rawdata.data[i + 1] : 0;
                 var detail = 0xff - rawdata.data[i + 2];
                 var moed = layer.detail ? mode : "none";
-                if (chowdermap[cid]) {
+                if (chowderlog[activechar] && chowderlog[activechar][cid]) {
                     var x = i / 4 % canvas.width;
                     var y = Math.ceil(i / 4 / canvas.width);
-                    var texturemap = texture[chowdermap[cid]];
+                    var texturemap = texture[chowderlog[activechar][cid]];
                     var k = 4 * ((x % texturemap.width) + (y % texturemap.height) * texturemap.width);
                     newdata.data[i] = blend[moed](texturemap.data[k], detail, line);
                     newdata.data[i + 1] = blend[moed](texturemap.data[k + 1], detail, line);
@@ -98,7 +100,7 @@ function updateFlags() {
                     newdata.data[i + 2] = blend[moed](colormap[j + 2], detail, line);
 
                 }
-                if (spectralmap[cid]) {
+                if (spectrallog[activechar] && spectrallog[activechar].has(cid)) {
                     newdata.data[i + 3] = Math.max(colormap[j + 3] - Math.pow(detail / 0x9b, 2) * 0xff, line);
                 }
                 else {
@@ -209,14 +211,9 @@ function initLeft() {
         }
         activechar = this.id;
         for (var i = 0; i < 256; i++) {
-            if (knownspectral[activechar] && knownspectral[activechar].includes(i)) {
-                swatches[i].spectral.checked = true;
-                spectralmap[i] = 1;
-            }
-            else {
-                swatches[i].spectral.checked = false;
-                spectralmap[i] = 0;
-            }
+            swatches[i].chowder.dataset.value = chowderlog[activechar] && chowderlog[activechar][i] ? chowderlog[activechar][i] : 0;
+            swatches[i].updateChowder();
+            swatches[i].spectral.checked = spectrallog[activechar] && spectrallog[activechar].has(i);
         }
         if (!alreadyloaded.has(activechar)) {
             alreadyloaded.add(activechar);
@@ -496,8 +493,7 @@ function initSwatch(n, r, g, b, a) {
     }
 
     function updateChowder() {
-        chowdermap[n] = (chowdermap[n] + 1) % texture.length;
-        if (chowdermap[n]) {
+        if (chowderlog[activechar] && chowderlog[activechar][n]) {
             color.disabled = true;
             text.disabled = true;
         }
@@ -505,23 +501,35 @@ function initSwatch(n, r, g, b, a) {
             color.disabled = false;
             text.disabled = false;
         }
-        chowder.dataset.value = chowdermap[n];
+    }
+
+    function toggleChowder() {
+        if (!chowderlog[activechar]) {
+            chowderlog[activechar] = {};
+        }
+        chowderlog[activechar][n] = chowderlog[activechar][n] ? (chowderlog[activechar][n] + 1) % texture.length : 1;
+        chowder.dataset.value = chowderlog[activechar][n];
+        updateChowder();
         union(flaggedids, idmap[n]);
     }
 
-    function updateSpectral() {
-        spectralmap[n] = this.checked ? 1 : 0;
+    function toggleSpectral() {
+        if (!spectrallog[activechar]) {
+            spectrallog[activechar] = new Set();
+        }
+        if (this.checked) {
+            spectrallog[activechar].add(n);
+        }
+        else {
+            spectrallog[activechar].delete(n);
+        }
         union(flaggedids, idmap[n]);
     }
-
-    var n222 = n == 222 ? 1 : 0; /* annie texture */
 
     colormap[4 * n] = r;
     colormap[4 * n + 1] = g;
     colormap[4 * n + 2] = b;
     colormap[4 * n + 3] = a;
-    chowdermap[n] = n222;
-    spectralmap[n] = 0;
 
     radio.type = "radio";
     radio.name = "swatch";
@@ -536,26 +544,23 @@ function initSwatch(n, r, g, b, a) {
     color.type = "color";
     color.value = "#" + rgb;
     color.style.opacity = a / 0xff;
-    color.disabled = n222;
     color.addEventListener("input", onColorChange);
     label.appendChild(color);
 
     text.type = "text";
     text.value = "#" + rgb + (a < 0xff ? hexToString(a, 2) : "");
     text.style.borderColor = "#" + rgb;
-    text.disabled = n222;
     text.addEventListener("focus", onTextFocus);
     text.addEventListener("change", onTextChange);
     label.appendChild(text);
 
     chowder.className = "chowder";
-    chowder.dataset.value = n222;
-    chowder.addEventListener("click", updateChowder);
+    chowder.addEventListener("click", toggleChowder);
     label.appendChild(chowder);
 
     spectral.type = "checkbox";
     spectral.id = "b" + n;
-    spectral.addEventListener("click", updateSpectral);
+    spectral.addEventListener("click", toggleSpectral);
     label.appendChild(spectral);
 
     spectrallabel.setAttribute("for", spectral.id);
@@ -570,7 +575,8 @@ function initSwatch(n, r, g, b, a) {
         "chowder": chowder,
         "spectral": spectral,
         "check": checkSwatch,
-        "update": updateColormap
+        "update": updateColormap,
+        "updateChowder": updateChowder
     };
 }
 
