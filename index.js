@@ -667,6 +667,10 @@ function init() {
     if (Math.random() < (buffchance ? 0.5 : 0.02)) {
         ids.scribble = ["cat"];
     }
+    var mariebday = month == 4 && day == 3; // TODO: delete when marie
+    if (Math.random() < (mariebday ? 0 : 0.75)) {
+        delete ids.marie;
+    }
     initLeft();
     initDownload();
     initTextures();

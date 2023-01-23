@@ -259,6 +259,8 @@ var ids = {
         "Fukua_SplittingImage",
         "Fukua_VaporwaveVixen"
     ],
+    "marie": [
+    ],
     "msfortune": [
         "MsFortune_BB1_HitPaws",
         "MsFortune_BB2_CatScratchFever",
