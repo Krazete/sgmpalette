@@ -51,6 +51,7 @@ This is automatically set based on the selected character, but can be changed.
 
 At the bottom of the palette section, you can load and save palette files.
 Palette files are 16x16px images, though you may load images with different dimensions.
+Note that developers may change color IDs at any time (e.g. in patch 5.2.0), which renders old palette files obsolete.
 
 ## Download
 
