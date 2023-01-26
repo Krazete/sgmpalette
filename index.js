@@ -41,6 +41,7 @@ var spectrallog = {
     "cerebella": new Set([34]),
     "eliza": new Set([66]),
     "fukua": new Set([27, 28]),
+    "marie": new Set([1]), /* temp */
     "parasoul": new Set([37]),
     "robofortune": new Set([49, 50, 52, 53]),
     "squigly": new Set([43]),
@@ -670,6 +671,11 @@ function init() {
     var mariebday = month == 4 && day == 3; // TODO: delete when marie
     if (Math.random() < (mariebday ? 0 : 0.75)) {
         delete ids.marie;
+    }
+    else {
+        if (Math.random() < (mariebday ? 0 : 0.15)) {
+            ids.marie = [];
+        }
     }
     initLeft();
     initDownload();
