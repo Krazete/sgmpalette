@@ -1,0 +1,17 @@
+{
+    "lang": "en-us",
+    "name": "Skullgirls Mobile Palette Editor",
+    "short_name": "SGM Palette",
+    "description": "A palette edtior for the static sprites of Skullgirls Mobile.",
+    "start_url": "./",
+    "background_color": "#808080",
+    "theme_color": "#1b2a41",
+    "orientation": "any",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "./icon/notblight.png",
+            "sizes": "187x187"
+        }
+    ]
+}
