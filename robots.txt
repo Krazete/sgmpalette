@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /icon/
+Disallow: /library/
+Disallow: /sprite/
+Disallow: /texture/
