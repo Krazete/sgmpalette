@@ -6,7 +6,7 @@ A palette editor for the static sprites of Skullgirls Mobile.
 
 Static sprites consist of portraits, card art, and art for special moves and blockbusters.
 
-<img src="sample.png">
+<img src="preview.png">
 
 A big thanks to Discord user Pupix#0001 for showing me where to find the raw sprites from which this entire project is based on.
 
