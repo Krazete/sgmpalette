@@ -1,3 +1,5 @@
+> Note: Color IDs were changed in 5.2.0. To load palette files saved before this patch, use this 5.1.1 fork: https://serperiorrose.github.io/sgmpalette.
+
 # Skullgirls Mobile Palette Editor
 
 A palette editor for the static sprites of Skullgirls Mobile.
