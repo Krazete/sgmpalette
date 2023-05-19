@@ -260,7 +260,8 @@ var ids = {
         "Fukua_VaporwaveVixen"
     ],
     "marie": [
-        "arena-a-marie"
+        "arena-a-marie",
+        "temp_skel"
     ],
     "msfortune": [
         "MsFortune_BB1_HitPaws",
