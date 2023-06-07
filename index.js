@@ -91,9 +91,21 @@ function updateFlags() {
                     var y = Math.ceil(i / 4 / canvas.width);
                     var texturemap = texture[chowderlog[activechar][cid]];
                     var k = 4 * ((x % texturemap.width) + (y % texturemap.height) * texturemap.width);
-                    newdata.data[i] = blend[moed](texturemap.data[k], detail, line);
-                    newdata.data[i + 1] = blend[moed](texturemap.data[k + 1], detail, line);
-                    newdata.data[i + 2] = blend[moed](texturemap.data[k + 2], detail, line);
+                    if (chowderlog[activechar][cid] == 5) { /* umbrella_veins */
+                        newdata.data[i] = blend[moed](colormap[j] + texturemap.data[k], detail, line);
+                        newdata.data[i + 1] = blend[moed](colormap[j + 1] + texturemap.data[k], detail, line);
+                        newdata.data[i + 2] = blend[moed](colormap[j + 2] + texturemap.data[k], detail, line);
+                    }
+                    else if (chowderlog[activechar][cid] == 6) { /* bunny_fishnet */
+                        newdata.data[i] = blend[moed](colormap[j] * texturemap.data[k] / 0xff, detail, line);
+                        newdata.data[i + 1] = blend[moed](colormap[j + 1] * texturemap.data[k + 1] / 0xff, detail, line);
+                        newdata.data[i + 2] = blend[moed](colormap[j + 2] * texturemap.data[k + 2] / 0xff, detail, line);
+                    }
+                    else {
+                        newdata.data[i] = blend[moed](texturemap.data[k], detail, line);
+                        newdata.data[i + 1] = blend[moed](texturemap.data[k + 1], detail, line);
+                        newdata.data[i + 2] = blend[moed](texturemap.data[k + 2], detail, line);
+                    }
                 }
                 else {
                     newdata.data[i] = blend[moed](colormap[j], detail, line);
@@ -346,6 +358,7 @@ function initTextures() {
     loadTexture(3, "texture/water.png");
     loadTexture(4, "texture/killarainbow.png");
     loadTexture(5, "texture/umbrella_veins.png");
+    loadTexture(6, "texture/bunny_fishnet.png");
 }
 
 /* Right Section */
@@ -494,7 +507,7 @@ function initSwatch(n, r, g, b, a) {
     }
 
     function updateChowder() {
-        if (chowderlog[activechar] && chowderlog[activechar][n]) {
+        if (chowderlog[activechar] && chowderlog[activechar][n] && [1, 2, 3, 4].includes(chowderlog[activechar][n])) {
             color.disabled = true;
             text.disabled = true;
         }
