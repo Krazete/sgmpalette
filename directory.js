@@ -23,6 +23,7 @@ var ids = {
         "Annie_SMX_StarPower",
         "Annie_SolarFlair",
         "Annie_StarChild",
+        "Annie_StarlightRose",
         "Annie_StarShine",
         "Annie_TimelessHero",
         "Annie_TripleThreat"
@@ -115,7 +116,8 @@ var ids = {
         "BlackDahlia_SoulCrusher",
         "BlackDahlia_TriggerHappy",
         "BlackDahlia_Unfazed",
-        "BlackDahlia_UnholyHost"
+        "BlackDahlia_UnholyHost",
+        "BlackDahlia_WildHuntress"
     ],
     "cerebella": [
         "Cerebella_ArmedForces",
@@ -148,6 +150,7 @@ var ids = {
         "Cerebella_Understudy"
     ],
     "double": [
+        "Double_AltarEgo",
         "Double_BB1_BeastOfGehenna",
         "Double_BB2_GunBlades",
         "Double_BB3_NightmareLegion",
@@ -217,6 +220,7 @@ var ids = {
         "Filia_BB4_T2_WidowsPeak",
         "Filia_BB5_T1_DrillTempered",
         "Filia_BB6_T3_Blowout",
+        "Filia_BlueStreak",
         "Filia_ClassCutter",
         "Filia_DjinnFrizz",
         "Filia_Dreadlocks",
@@ -287,12 +291,12 @@ var ids = {
         "MsFortune_SM5_ElGato",
         "MsFortune_SM6_CatSlide",
         "MsFortune_SM7_CatScratch",
+        "MsFortune_SMX_HeadGames",
         "MsFortune_SMX_HeadGames_Bowl",
         "MsFortune_SMX_HeadGames_Headbutt",
         "MsFortune_SMX_HeadGames_Recall",
         "MsFortune_SMX_HeadGames_Sneeze",
         "MsFortune_SMX_HeadGames_Zoom",
-        "MsFortune_SMX_HeadGames",
         "MsFortune_TimeThief",
         "MsFortune_WindStalker"
     ],
@@ -305,6 +309,8 @@ var ids = {
         "Painwheel_BitingCold",
         "Painwheel_BloodDrive",
         "Painwheel_Buzzkill",
+        "Painwheel_CAButton_Down",
+        "Painwheel_CAButton_Up",
         "Painwheel_Firefly",
         "Painwheel_FlyTrap",
         "Painwheel_FreakyFriday",
@@ -359,6 +365,8 @@ var ids = {
         "Peacock_BB5_T1_ArgusAgony",
         "Peacock_BB6_T1_ImpendingDoom",
         "Peacock_BB7_T3_DeadlyAirport",
+        "Peacock_CAButton_Down",
+        "Peacock_CAButton_Up",
         "Peacock_DreamCatcher",
         "Peacock_FreezeFrame",
         "Peacock_Inkling",
@@ -455,6 +463,7 @@ var ids = {
         "Umbrella_EagerDeceiver",
         "Umbrella_FreshHeir",
         "Umbrella_Portrait",
+        "Umbrella_Psykid",
         "Umbrella_PuddlePirate",
         "Umbrella_RainingChamp",
         "Umbrella_RoseTinted",
@@ -485,6 +494,7 @@ var ids = {
         "Valentine_BB6_T1_CountervenomBeta",
         "Valentine_BB7_T1_CountervenomOmega",
         "Valentine_BB8_T2_Laryngectomy",
+        "Valentine_FinalFang",
         "Valentine_GraveyardShift",
         "Valentine_IcyHot",
         "Valentine_KillJoy",
@@ -507,12 +517,12 @@ var ids = {
         "Valentine_Wetwork"
     ],
     "custom": [
-        "custom_umbrella0",
-        "custom_umbrella1",
-        "custom_molly0",
         "custom_annie0",
         "custom_dahlia0",
         "custom_dahlia1",
-        "custom_dahlia2"
+        "custom_dahlia2",
+        "custom_molly0",
+        "custom_umbrella0",
+        "custom_umbrella1"
     ]
 };
