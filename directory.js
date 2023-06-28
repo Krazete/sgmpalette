@@ -518,6 +518,7 @@ var ids = {
     ],
     "custom": [
         "custom_annie0",
+        "custom_avatar_bluestreak",
         "custom_dahlia0",
         "custom_dahlia1",
         "custom_dahlia2",
