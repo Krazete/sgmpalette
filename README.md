@@ -44,12 +44,15 @@ A color picker is available above the list of colors.
 If your device's native color picker is more feature-rich, you can click the colored boxes at the left of each row to use that instead.
 The native color picker will always be focused on the active color row.
 
-The boxes to the right of the color inputs toggle textures, which override selected colors.
+The first color input has an additional function of determining the color of the linework layer.
+
+The boxes to the right of the color inputs toggle textures, which override or overlay selected colors.
 
 The white circles at the right of each row indicate whether that color area is opaque (detail layer applies shadows) or transparent (detail layer is an alpha channel).
 This is automatically set based on the selected character, but can be changed.
 
 At the bottom of the palette section, you can load and save palette files.
+Due to quirks of the HTML canvas, some color information of transparent areas may be lost upon saving.
 Palette files are 16x16px images, though you may load images with different dimensions.
 Note that developers may change color IDs at any time (e.g. in patch 5.2.0), which renders old palette files obsolete.
 

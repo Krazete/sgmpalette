@@ -113,6 +113,9 @@ function updateFlags() {
                     newdata.data[i + 2] = blend[moed](colormap[j + 2], detail, line);
 
                 }
+                newdata.data[i] += line * colormap[0] / 0xff;
+                newdata.data[i + 1] += line * colormap[1] / 0xff;
+                newdata.data[i + 2] += line * colormap[2] / 0xff;
                 if (spectrallog[activechar] && spectrallog[activechar].has(cid)) {
                     newdata.data[i + 3] = Math.max(colormap[j + 3] - Math.pow(detail / 0x9b, 2) * 0xff, line);
                 }
