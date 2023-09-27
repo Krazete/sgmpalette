@@ -279,15 +279,3 @@ input.option.text:checked + label:before {
 #palette input[type='checkbox']:checked + label {
     background: radial-gradient(white, transparent 75%);
 }
-
-input.option#marie + label { /* TODO: delete when marie */
-    animation: 1s 1s shrink forwards;
-}
-#marie + label img {
-    width: 100%;
-}
-@keyframes shrink {
-    0% {width: 51px; padding: 6px;}
-    99% {width: 0px; padding: 0px;}
-    100% {width: 0px; padding: 0px; visibility: hidden;}
-}

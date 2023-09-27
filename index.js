@@ -41,7 +41,7 @@ var spectrallog = {
     "cerebella": new Set([34]),
     "eliza": new Set([66]),
     "fukua": new Set([27, 28]),
-    "marie": new Set([1]), /* temp */
+    "marie": new Set([47, 50, 51, 54]), /* todo: delete 47 if they ever fix dahlia sprites being grouped with marie */
     "parasoul": new Set([37]),
     "robofortune": new Set([49, 50, 52, 53]),
     "squigly": new Set([43]),
@@ -683,15 +683,6 @@ function init() {
     var buffchance = month == 4 && (day == 1 || day == 11); // april fools or bella's bday
     if (Math.random() < (buffchance ? 0.5 : 0.02)) {
         ids.scribble = ["cat"];
-    }
-    var mariebday = month == 4 && day == 3; // TODO: delete when marie
-    if (Math.random() < (mariebday ? 0 : 0.75)) {
-        delete ids.marie;
-    }
-    else {
-        if (Math.random() < (mariebday ? 0 : 0.15)) {
-            ids.marie = [];
-        }
     }
     initLeft();
     initDownload();
