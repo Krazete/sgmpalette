@@ -45,7 +45,8 @@ var spectrallog = {
     "parasoul": new Set([37]),
     "robofortune": new Set([49, 50, 52, 53]),
     "squigly": new Set([43]),
-    "umbrella": new Set([35, 36, 47])
+    "umbrella": new Set([35, 36, 47]),
+    "valentine": new Set([38])
 }; /* list color ids with spectral opacity for each character */
 var idmap = new Array(256).fill().map(function () {
     return new Set();
