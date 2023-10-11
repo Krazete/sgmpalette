@@ -559,6 +559,7 @@ var ids = {
         "custom_marie",
         "custom_molly0",
         "custom_umbrella0",
-        "custom_umbrella1"
+        "custom_umbrella1",
+        "custom_venus"
     ]
 };
