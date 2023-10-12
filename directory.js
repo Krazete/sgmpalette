@@ -551,15 +551,17 @@ var ids = {
         "Valentine_Wetwork"
     ],
     "custom": [
-        "custom_annie0",
-        "custom_avatar_bluestreak",
-        "custom_dahlia0",
-        "custom_dahlia1",
-        "custom_dahlia2",
-        "custom_marie",
-        "custom_molly0",
-        "custom_umbrella0",
-        "custom_umbrella1",
-        "custom_venus"
+        "custom/ballotboxer/marie",
+        "custom/ichkaansiho/feng",
+        "custom/ichkaansiho/minette",
+        "custom/ichkaansiho/venus",
+        "custom/krazete/annie",
+        "custom/krazete/avatar_bluestreak",
+        "custom/krazete/dahlia",
+        "custom/krazete/dahlia1",
+        "custom/krazete/dahlia2",
+        "custom/krazete/molly",
+        "custom/krazete/umbrella",
+        "custom/krazete/umbrella1"
     ]
 };
