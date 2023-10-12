@@ -552,6 +552,7 @@ var ids = {
     ],
     "custom": [
         "custom/ballotboxer/marie",
+        "custom/ichkaansiho/christmas",
         "custom/ichkaansiho/feng",
         "custom/ichkaansiho/minette",
         "custom/ichkaansiho/venus",
