@@ -6,6 +6,7 @@ var ids = {
         "Annie_BB3_GravitySlingshot",
         "Annie_BB4_PillarOfCreation",
         "Annie_BB5_AutographMagicGirl",
+        "Annie_CosmicRebel",
         "Annie_GalaxyGlamour",
         "Annie_HeatSynced",
         "Annie_MateriaGirl",
@@ -43,6 +44,7 @@ var ids = {
         "Beowulf_FreedomFighter",
         "Beowulf_HypeMan",
         "Beowulf_NumberOne",
+        "Beowulf_OgreAchiever",
         "Beowulf_Portrait",
         "Beowulf_SM1_Outtake",
         "Beowulf_SM2_Burst",
@@ -241,6 +243,7 @@ var ids = {
         "Filia_Windswept"
     ],
     "fukua": [
+        "Fukua_ApexComplex",
         "Fukua_BB1_GoodnightKiss",
         "Fukua_BB3_BestFriendsForever",
         "Fukua_BB4_InevitableSnuggle",
@@ -369,6 +372,7 @@ var ids = {
         "Parasoul_Bombshell",
         "Parasoul_HeavyReign",
         "Parasoul_HighRuler",
+        "Parasoul_Indomitable",
         "Parasoul_IvyLeague",
         "Parasoul_NoEgrets",
         "Parasoul_Portrait",
@@ -422,6 +426,7 @@ var ids = {
         "Peacock_Wildcard"
     ],
     "robofortune": [
+        "RoboFortune_AncientSentry",
         "RoboFortune_BB1_CatastropheCannonAlpha",
         "RoboFortune_BB2_AssaultBattery",
         "RoboFortune_BB3_CircuitBreaker",
@@ -537,6 +542,7 @@ var ids = {
         "Valentine_Portrait",
         "Valentine_PyroTechnique",
         "Valentine_Scrub",
+        "Valentine_SeraphSoldier",
         "Valentine_SilentKill",
         "Valentine_SM1_Taunt",
         "Valentine_SM2_Snapback",
