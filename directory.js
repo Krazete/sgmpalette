@@ -564,6 +564,7 @@ var ids = {
         "custom/ichkaansiho/feng",
         "custom/ichkaansiho/minette",
         "custom/ichkaansiho/venus",
+        "custom/imadesanieblush/eliza",
         "custom/krazete/annie",
         "custom/krazete/avatar_bluestreak",
         "custom/krazete/dahlia",
