@@ -563,6 +563,8 @@ var ids = {
         "custom/ichkaansiho/dviolet",
         "custom/ichkaansiho/feng",
         "custom/ichkaansiho/minette",
+        "custom/ichkaansiho/mrsvictoria",
+        "custom/ichkaansiho/sekhmet",
         "custom/ichkaansiho/venus",
         "custom/imadesanieblush/eliza",
         "custom/krazete/annie",
