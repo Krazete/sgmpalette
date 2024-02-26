@@ -52,7 +52,7 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
             colors1 = colors2.copy()
             colors2.clear()
         if len(colors1):
-            print('Color limit exceeded; colors excluded:', colors1)
+            print('Color limit exceeded; number of excess colors:', len(colors1))
             print('Trying again with color map in palette mode.')
             return create_sprite(name, width, differentiator, True)
         colormapinverse = {colormap[i]: i for i in colormap}
@@ -86,6 +86,7 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
     path = 'sprite/{}.png'.format(name)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     rgb.save(path)
+    print('Success\n')
 
 def auto(directory='custom'):
     '''Runs create_sprite with default settings for all files in the specified directory.'''
@@ -96,7 +97,11 @@ def auto(directory='custom'):
             name = '{}/{}/{}'.format(directory, user, character)
             if name not in names:
                 names.add(name)
-                create_sprite(name)
+                try:
+                    print('Creating sprite for:', name)
+                    create_sprite(name)
+                except Exception as e:
+                    print(e, '\n')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
