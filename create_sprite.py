@@ -4,7 +4,7 @@ from PIL import Image, ImageChops, ImageMath
 
 def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
     '''
-    Generates a palettized image from input images in the same folder.
+    Generates a palettized image from input images of the same base name.
     The inputs can be: raw image, base colors, color map, and detail layer
                    or: shadows, highlights, color map, and detail layer.
     Parameters:
@@ -21,16 +21,16 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
       True: run with color map in palette mode
       False: run normally with color map unmodified
     '''
-    area = Image.open(name + '_area.png').convert('RGBA') # color map
+    area = Image.open('{}_area.png'.format(name)).convert('RGBA') # color map
     if fallback:
         area = area.convert('P').convert('RGBA')
-    line = Image.open(name + '_line.png').convert('RGBA') # detail layer
+    line = Image.open('{}_line.png'.format(name)).convert('RGBA') # detail layer
     try:
-        shadow = Image.open(name + '_shadow.png').convert('RGBA')
-        highlight = Image.open(name + '_highlight.png').convert('RGBA')
+        shadow = Image.open('{}_shadow.png'.format(name)).convert('RGBA')
+        highlight = Image.open('{}_highlight.png'.format(name)).convert('RGBA')
     except:
-        raw = Image.open(name + '_raw.png').convert('RGBA') # raw image
-        base = Image.open(name + '_base.png').convert('RGBA') # base colors
+        raw = Image.open('{}_raw.png'.format(name)).convert('RGBA') # raw image
+        base = Image.open('{}_base.png'.format(name)).convert('RGBA') # base colors
         shadow = ImageChops.subtract(base, raw)
         highlight = ImageChops.subtract(raw, base)
     
@@ -83,14 +83,28 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
         b if width == 0 else b.resize(newsize)
     ))
 
-    path = 'sprite/custom' + name + '.png'
+    path = 'sprite/{}.png'.format(name)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     rgb.save(path)
 
+def auto(directory='custom'):
+    '''Runs create_sprite with default settings for all files in the specified directory.'''
+    names = set()
+    for user in os.listdir(directory):
+        for filename in os.listdir('{}/{}'.format(directory, user)):
+            character = '_'.join(filename.split('_')[:-1])
+            name = '{}/{}/{}'.format(directory, user, character)
+            if name not in names:
+                names.add(name)
+                create_sprite(name)
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-n', '--name', type=str, help='base name')
+    parser.add_argument('-n', '--name', type=str, help='base name (processes entire `custom` folder if empty)')
     parser.add_argument('-w', '--width', type=int, default=-1, help='width (px)')
     parser.add_argument('-d', '--differentiator', type=str, default='RGB', help='differentiator (R or RGB)')
     args = parser.parse_args()
-    create_sprite(args.name, args.width, args.differentiator)
+    if args.name:
+        create_sprite(args.name, args.width, args.differentiator)
+    else:
+        auto()
