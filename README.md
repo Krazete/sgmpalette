@@ -22,7 +22,7 @@ You can also toggle visibility of the background layer, linework layer, and deta
 ### Spritesheet
 
 The spritesheet contains all in-game static sprites of the chosen character.
-There are also experimental custom sprites, created as outlined in the [submission instructions](https://forum.skullgirlsmobile.com/threads/17533).
+There are also experimental custom sprites, created as outlined in the [Submissions](#Submissions) section.
 You can click within any sprite to select a color area to edit.
 
 The hex color text input will automatically be selected for easy copying via keyboard shortcuts.
@@ -70,3 +70,11 @@ Thanks to the following:
 * [eligrey/FileSaver.js](https://github.com/eligrey/FileSaver.js) for making it easy to download those zip files
 
 The card art sprites can be uploaded to the [SGM Card Creator](https://github.com/Krazete/sgmcard), which should detect it based on its dimensions and automatically set the optimal position parameters.
+
+## Submissions
+
+Custom palettized sprites can be created from inputs of a raw image layer, a linework layer, a base color layer, and a color map layer.
+
+<img src="create_sprite.png">
+
+See more information on [the submissions page](https://forum.skullgirlsmobile.com/threads/17533).
