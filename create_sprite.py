@@ -63,9 +63,12 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
         print('Unsupported differentiator:', differentiator)
         return
 
-    g = ImageMath.eval('convert(0xff - line, "L")', line=line.getchannel(3).convert('L'))
-    b = ImageMath.eval(
-        'convert(0xff - (area > 0) * (shadow * (0xff - 0x33) / 0x80) + (area > 0) * ((highlight - 0x33) * 0x33 / 0x40), "L")',
+    g = ImageMath.lambda_eval(
+        lambda _: _['convert'](0xff - _['line'], 'L'),
+        line=line.getchannel(3).convert('L')
+    )
+    b = ImageMath.lambda_eval(
+        lambda _: _['convert'](0xff - (_['area'] > 0) * (_['shadow'] * (0xff - 0x33) / 0x80) + (_['area'] > 0) * ((_['highlight'] - 0x33) * 0x33 / 0x40), 'L'),
         area=area.convert('L'),
         shadow=shadow.convert('L'),
         highlight=highlight.convert('L')
