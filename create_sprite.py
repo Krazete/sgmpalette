@@ -1,6 +1,7 @@
 import argparse
 import os
 from PIL import Image, ImageChops, ImageMath
+from update_directory import update_directory
 
 def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
     '''
@@ -86,7 +87,7 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
         b if width == 0 else b.resize(newsize)
     ))
 
-    path = 'sprite/{}.png'.format(name)
+    path = 'sprite/{}.png'.format(name.lower())
     os.makedirs(os.path.dirname(path), exist_ok=True)
     rgb.save(path)
     print('Success\n')
@@ -116,3 +117,4 @@ if __name__ == '__main__':
         create_sprite(args.name, args.width, args.differentiator)
     else:
         auto()
+    update_directory()

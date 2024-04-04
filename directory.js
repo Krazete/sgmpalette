@@ -582,6 +582,7 @@ var ids = {
         "custom/krazete/dahlia2",
         "custom/krazete/molly",
         "custom/krazete/umbrella",
-        "custom/krazete/umbrella1"
+        "custom/krazete/umbrella1",
+        "custom/serperiorrose/eliza"
     ]
 };
