@@ -12,7 +12,7 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
     - name
       base name of input files
     - width
-      <0: downscale such that diagonal is ~666 (preserve size if original diagonal is <666)
+      <0: crop and downscale such that diagonal is ~666 (preserve size if already <666)
       =0: preserve size
       >0: resize to specified width
     - differentiator
@@ -76,16 +76,28 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
     )
 
     if width < 0:
-        diagonal = 666
-        area_diagonal = (area.width ** 2 + area.height ** 2) ** 0.5
-        width = min(area.width, int(area.width * diagonal / area_diagonal))
-    newsize = tuple(int(x * width / area.width) for x in area.size)
+        diagonal_max = 666
+        diagonal = (r.width ** 2 + r.height ** 2) ** 0.5
+        if diagonal > diagonal_max:
+            bbox = ImageMath.lambda_eval(
+                lambda _: _['convert'](_['r'] + max(0, 0xff - _['g']) + max(0, 0xff - _['b']), 'L'),
+                r=r, g=g, b=b
+            ).getbbox()
+            r = r.crop(bbox)
+            g = g.crop(bbox)
+            b = b.crop(bbox)
+            diagonal = (r.width ** 2 + r.height ** 2) ** 0.5
+        width = min(r.width, int(r.width * diagonal_max / diagonal))
+    newsize = tuple(int(x * width / r.width) for x in r.size)
 
-    rgb = Image.merge('RGB', (
-        r if width == 0 else r.resize(newsize, Image.NEAREST),
-        g if width == 0 else g.resize(newsize), # set resample to Image.NEAREST if area has gaps
-        b if width == 0 else b.resize(newsize)
-    ))
+    if width == 0 or width == r.width:
+        rgb = Image.merge('RGB', (r, g, b))
+    else:
+        rgb = Image.merge('RGB', (
+            r.resize(newsize, Image.NEAREST),
+            g.resize(newsize), # set resample to Image.NEAREST if area has gaps
+            b.resize(newsize)
+        ))
 
     path = 'sprite/{}.png'.format(name.lower())
     os.makedirs(os.path.dirname(path), exist_ok=True)
