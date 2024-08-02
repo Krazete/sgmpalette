@@ -572,7 +572,10 @@ var ids = {
     ],
     "custom": [
         "custom/ballotboxer/marie",
+        "custom/elizawetapopkova201/cerebella",
+        "custom/elizawetapopkova201/filia",
         "custom/elizawetapopkova201/filia_bluestreak",
+        "custom/elizawetapopkova201/squigly",
         "custom/ichkaansiho/aeon",
         "custom/ichkaansiho/christmas",
         "custom/ichkaansiho/dviolet",
