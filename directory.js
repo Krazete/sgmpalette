@@ -572,10 +572,6 @@ var ids = {
     ],
     "custom": [
         "custom/ballotboxer/marie",
-        "custom/elizawetapopkova201/cerebella",
-        "custom/elizawetapopkova201/filia",
-        "custom/elizawetapopkova201/filia_bluestreak",
-        "custom/elizawetapopkova201/squigly",
         "custom/ichkaansiho/aeon",
         "custom/ichkaansiho/christmas",
         "custom/ichkaansiho/dviolet",
@@ -593,6 +589,10 @@ var ids = {
         "custom/krazete/molly",
         "custom/krazete/umbrella",
         "custom/krazete/umbrella1",
-        "custom/serperiorrose/eliza"
+        "custom/serperiorrose/eliza",
+        "custom/yixtu_qu/cerebella",
+        "custom/yixtu_qu/filia",
+        "custom/yixtu_qu/filia_bluestreak",
+        "custom/yixtu_qu/squigly"
     ]
 };
