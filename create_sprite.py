@@ -104,7 +104,7 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
     rgb.save(path)
     print('Success\n')
 
-def auto(directory='custom'):
+def auto(directory='custom', skip=True):
     '''Runs create_sprite with default settings for all files in the specified directory.'''
     names = set()
     for user in os.listdir(directory):
@@ -113,20 +113,24 @@ def auto(directory='custom'):
             name = '{}/{}/{}'.format(directory, user, character)
             if name not in names:
                 names.add(name)
-                try:
-                    print('Creating sprite for:', name)
-                    create_sprite(name)
-                except Exception as e:
-                    print(e, '\n')
+                if skip and os.path.isfile('sprite/{}.png'.format(name)):
+                    print('Skipping:', name)
+                else:
+                    try:
+                        print('Creating sprite for:', name)
+                        create_sprite(name)
+                    except Exception as e:
+                        print(e, '\n')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', '--name', type=str, help='base name (processes entire `custom` folder if empty)')
+    parser.add_argument('-s', '--skip', action='store_true', default=True, help='skip existing sprites (if --name is empty)')
     parser.add_argument('-w', '--width', type=int, default=-1, help='width (px)')
     parser.add_argument('-d', '--differentiator', type=str, default='RGB', help='differentiator (R or RGB)')
     args = parser.parse_args()
     if args.name:
         create_sprite(args.name, args.width, args.differentiator)
     else:
-        auto()
+        auto('custom', args.skip)
     update_directory()
