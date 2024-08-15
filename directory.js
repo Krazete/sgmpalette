@@ -591,9 +591,11 @@ var ids = {
         "custom/krazete/umbrella1",
         "custom/serperiorrose/eliza",
         "custom/yixtu_qu/cerebella",
+        "custom/yixtu_qu/eliza",
         "custom/yixtu_qu/filia",
         "custom/yixtu_qu/filia_bluestreak",
         "custom/yixtu_qu/fukua",
+        "custom/yixtu_qu/msfortune",
         "custom/yixtu_qu/squigly"
     ]
 };
