@@ -596,6 +596,7 @@ var ids = {
         "custom/yixtu_qu/filia_bluestreak",
         "custom/yixtu_qu/fukua",
         "custom/yixtu_qu/msfortune",
+        "custom/yixtu_qu/robofortune",
         "custom/yixtu_qu/squigly"
     ]
 };
