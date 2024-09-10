@@ -592,6 +592,7 @@ var ids = {
         "custom/serperiorrose/eliza",
         "custom/yixtu_qu/cerebella",
         "custom/yixtu_qu/eliza",
+        "custom/yixtu_qu/eliza_lp_win_pose",
         "custom/yixtu_qu/filia",
         "custom/yixtu_qu/filia_bluestreak",
         "custom/yixtu_qu/filia_jumping",
