@@ -590,9 +590,11 @@ var ids = {
         "custom/krazete/umbrella",
         "custom/krazete/umbrella1",
         "custom/serperiorrose/eliza",
+        "custom/yixtu_qu/bloodymarie",
         "custom/yixtu_qu/cerebella",
         "custom/yixtu_qu/eliza",
         "custom/yixtu_qu/eliza_lp_win_pose",
+        "custom/yixtu_qu/eliza_stun",
         "custom/yixtu_qu/filia",
         "custom/yixtu_qu/filia_bluestreak",
         "custom/yixtu_qu/filia_jumping",
@@ -601,6 +603,7 @@ var ids = {
         "custom/yixtu_qu/msfortune",
         "custom/yixtu_qu/parasoul",
         "custom/yixtu_qu/robofortune",
-        "custom/yixtu_qu/squigly"
+        "custom/yixtu_qu/squigly",
+        "custom/yixtu_qu/squigly2"
     ]
 };
