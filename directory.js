@@ -590,8 +590,10 @@ var ids = {
         "custom/krazete/umbrella",
         "custom/krazete/umbrella1",
         "custom/serperiorrose/eliza",
+        "custom/yixtu_qu/annie",
         "custom/yixtu_qu/annie_adictoaladiarrea_fansprite",
         "custom/yixtu_qu/annie_bubble",
+        "custom/yixtu_qu/big_band_bubble",
         "custom/yixtu_qu/bloodymarie",
         "custom/yixtu_qu/cerebella",
         "custom/yixtu_qu/eliza",
@@ -609,6 +611,7 @@ var ids = {
         "custom/yixtu_qu/sagan",
         "custom/yixtu_qu/squigly",
         "custom/yixtu_qu/squigly2",
-        "custom/yixtu_qu/umbrella_bubble"
+        "custom/yixtu_qu/umbrella_bubble",
+        "custom/yixtu_qu/valentine"
     ]
 };
