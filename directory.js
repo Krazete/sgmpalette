@@ -589,6 +589,7 @@ var ids = {
         "custom/krazete/molly",
         "custom/krazete/umbrella",
         "custom/krazete/umbrella1",
+        "custom/minolovesrice/valentine",
         "custom/serperiorrose/eliza",
         "custom/yixtu_qu/annie",
         "custom/yixtu_qu/annie_adictoaladiarrea_fansprite",
@@ -596,6 +597,7 @@ var ids = {
         "custom/yixtu_qu/big_band_bubble",
         "custom/yixtu_qu/bloodymarie",
         "custom/yixtu_qu/cerebella",
+        "custom/yixtu_qu/double_stranger",
         "custom/yixtu_qu/eliza",
         "custom/yixtu_qu/eliza_lp_win_pose",
         "custom/yixtu_qu/eliza_stun",
@@ -611,6 +613,8 @@ var ids = {
         "custom/yixtu_qu/sagan",
         "custom/yixtu_qu/squigly",
         "custom/yixtu_qu/squigly2",
+        "custom/yixtu_qu/squigly3",
+        "custom/yixtu_qu/squigly_jumping",
         "custom/yixtu_qu/umbrella_bubble",
         "custom/yixtu_qu/valentine"
     ]
