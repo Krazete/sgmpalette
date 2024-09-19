@@ -125,12 +125,12 @@ def auto(directory='custom', skip=True):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', '--name', type=str, help='base name (processes entire `custom` folder if empty)')
-    parser.add_argument('-s', '--skip', action='store_true', default=True, help='skip existing sprites (if --name is empty)')
+    parser.add_argument('-r', '--rerun', action='store_false', help='do not skip existing sprites (if --name is empty)')
     parser.add_argument('-w', '--width', type=int, default=-1, help='width (px)')
     parser.add_argument('-d', '--differentiator', type=str, default='RGB', help='differentiator (R or RGB)')
     args = parser.parse_args()
     if args.name:
         create_sprite(args.name, args.width, args.differentiator)
     else:
-        auto('custom', args.skip)
+        auto('custom', args.rerun)
     update_directory()
