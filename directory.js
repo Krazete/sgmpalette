@@ -589,6 +589,7 @@ var ids = {
         "custom/krazete/molly",
         "custom/krazete/umbrella",
         "custom/krazete/umbrella1",
+        "custom/minolovesrice/blackdahlia",
         "custom/minolovesrice/valentine",
         "custom/serperiorrose/eliza",
         "custom/yixtu_qu/annie",
