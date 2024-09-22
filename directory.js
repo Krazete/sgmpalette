@@ -275,11 +275,9 @@ var ids = {
         "Fukua_VaporwaveVixen"
     ],
     "marie": [
-        "Marie_BB1_GiganBeam",
         "Marie_BB1_HilgardsHowl",
         "Marie_BB2_ScrubNSmash",
         "Marie_BB3_CarpalPummel",
-        "Marie_BB3_FistFromAbove",
         "Marie_BB4_HooverManeuver",
         "Marie_BB5_WeightOfOurWill",
         "Marie_BB6_RepetitiveSkeletonImpact",

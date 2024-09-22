@@ -41,7 +41,7 @@ var spectrallog = {
     "cerebella": new Set([34]),
     "eliza": new Set([66]),
     "fukua": new Set([27, 28]),
-    "marie": new Set([47, 50, 51, 54]), /* todo: delete 47 if they ever fix dahlia sprites being grouped with marie */
+    "marie": new Set([50, 51, 54]),
     "parasoul": new Set([37]),
     "robofortune": new Set([49, 50, 52, 53]),
     "squigly": new Set([43]),
@@ -181,7 +181,20 @@ function initLeft() {
         canvas.width = this.width;
         canvas.height = this.height;
         context.drawImage(this, 0, 0);
-        sheet.appendChild(canvas);
+
+        var last = true;
+        for (var child of sheet.children) { /* keep canvases in alphanumeric order */
+            if (id <= child.id) {
+                last = false;
+                break;
+            }
+        }
+        if (last) {
+            sheet.appendChild(canvas);
+        }
+        else {
+            sheet.insertBefore(canvas, child);
+        }
 
         datamap[id] = context.getImageData(0, 0, this.width, this.height);
         for (var i = 0; i < datamap[id].data.length; i += 4) {
