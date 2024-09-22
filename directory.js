@@ -594,10 +594,13 @@ var ids = {
         "custom/yixtu_qu/annie",
         "custom/yixtu_qu/annie_adictoaladiarrea_fansprite",
         "custom/yixtu_qu/annie_bubble",
+        "custom/yixtu_qu/annie_lorensca_fansprite",
         "custom/yixtu_qu/big_band_bubble",
         "custom/yixtu_qu/bloodymarie",
         "custom/yixtu_qu/braindrain_ogo80_fansprite",
         "custom/yixtu_qu/cerebella",
+        "custom/yixtu_qu/cerebella_gushen10_fansprite",
+        "custom/yixtu_qu/double_popasobaky_fansprite",
         "custom/yixtu_qu/double_stranger",
         "custom/yixtu_qu/eliza",
         "custom/yixtu_qu/eliza_gushen10_fansprite",
@@ -620,6 +623,7 @@ var ids = {
         "custom/yixtu_qu/squigly3",
         "custom/yixtu_qu/squigly_jumping",
         "custom/yixtu_qu/umbrella_bubble",
-        "custom/yixtu_qu/valentine"
+        "custom/yixtu_qu/valentine",
+        "custom/yixtu_qu/valentine_gushen10_fansprite"
     ]
 };
