@@ -30,7 +30,7 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
         shadow = Image.open('{}_shadow.png'.format(name)).convert('RGBA')
         highlight = Image.open('{}_highlight.png'.format(name)).convert('RGBA')
     except:
-        for ext in ['png', 'jpg', 'jpeg', 'webm']: # lenient with raw image format
+        for ext in ['png', 'jpg', 'jpeg', 'webp']: # lenient with raw image format
             rawname = '{}_raw.{}'.format(name, ext)
             if os.path.isfile(rawname):
                 break
