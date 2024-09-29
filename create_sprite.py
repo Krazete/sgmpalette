@@ -39,12 +39,12 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
         shadow = ImageChops.subtract(base, raw)
         highlight = ImageChops.subtract(raw, base)
     
+    thresh = 127 # alpha channel threshhold for area
     if differentiator == 'R':
         r = area.getchannel(0).convert('L')
     elif differentiator == 'RGB':
-        thresh = 128 # alpha channel threshhold
         data = area.getdata()
-        colors1 = {(a, b, c, 0) for a, b, c, d in data if d >= thresh}
+        colors1 = {(a, b, c, 0) for a, b, c, d in data if d > thresh}
         colors2 = set()
         colormap = {0: (0, 0, 0)}
         while len(colors1) > 0 and len(colormap) < 256:
@@ -63,7 +63,7 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
                 print('Trying again with color map in palette mode.')
                 return create_sprite(name, width, differentiator, True)
         colormapinverse = {colormap[i]: i for i in colormap}
-        rdata = [colormapinverse[(a, b, c)] if d >= thresh else 0 for a, b, c, d in data]
+        rdata = [colormapinverse[(a, b, c)] if d > thresh else 0 for a, b, c, d in data]
         r = Image.new('L', area.size)
         r.putdata(rdata)
     else:
@@ -75,8 +75,8 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
         line=line.getchannel(3).convert('L')
     )
     b = ImageMath.lambda_eval(
-        lambda _: _['convert'](0xff - (_['area'] > 0) * (_['shadow'] * (0xff - 0x33) / 0x80) + (_['area'] > 0) * ((_['highlight'] - 0x33) * 0x33 / 0x40), 'L'),
-        area=area.convert('L'),
+        lambda _: _['convert'](0xff - (_['area'] > thresh) * (_['shadow'] * (0xff - 0x33) / 0x80) + (_['area'] > thresh) * ((_['highlight'] - 0x33) * 0x33 / 0x40), 'L'),
+        area=area.getchannel(3),
         shadow=shadow.convert('L'),
         highlight=highlight.convert('L')
     )
