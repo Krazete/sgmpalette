@@ -42,26 +42,28 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
     if differentiator == 'R':
         r = area.getchannel(0).convert('L')
     elif differentiator == 'RGB':
-        copy = Image.new('RGB', area.size)
-        copy.paste(area, mask=area) # paste removes color info in transparent areas
-        data = copy.getdata()
-        colors1 = {(a, b, c, 0) for a, b, c in data} - {(0, 0, 0, 0)}
+        thresh = 128 # alpha channel threshhold
+        data = area.getdata()
+        colors1 = {(a, b, c, 0) for a, b, c, d in data if d >= thresh}
         colors2 = set()
         colormap = {0: (0, 0, 0)}
         while len(colors1) > 0 and len(colormap) < 256:
-            for a, b, c, d in colors1:
+            for a, b, c, n in colors1:
                 if a not in colormap:
-                    colormap[a] = ((a - d) % 256, b, c)
+                    colormap[a] = ((a - n) % 256, b, c)
                 else:
-                    colors2.add(((a + 1) % 256, b, c, d + 1))
+                    colors2.add(((a + 1) % 256, b, c, n + 1))
             colors1 = colors2.copy()
             colors2.clear()
         if len(colors1):
             print('Color limit exceeded; number of excess colors:', len(colors1))
-            print('Trying again with color map in palette mode.')
-            return create_sprite(name, width, differentiator, True)
+            if fallback:
+                print('Failed\n')
+            else:
+                print('Trying again with color map in palette mode.')
+                return create_sprite(name, width, differentiator, True)
         colormapinverse = {colormap[i]: i for i in colormap}
-        rdata = [colormapinverse[i] for i in data]
+        rdata = [colormapinverse[(a, b, c)] if d >= thresh else 0 for a, b, c, d in data]
         r = Image.new('L', area.size)
         r.putdata(rdata)
     else:
@@ -124,7 +126,7 @@ def auto(directory='custom', skip=True):
                         print('Creating sprite for:', name)
                         create_sprite(name)
                     except Exception as e:
-                        print(e, '\n')
+                        print('Error:', e, '\n')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
