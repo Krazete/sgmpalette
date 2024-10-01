@@ -576,6 +576,9 @@ var ids = {
     ],
     "custom": [
         "custom/ballotboxer/marie",
+        "custom/demiiial/dahlia",
+        "custom/gushen/annie",
+        "custom/gushen/annie2",
         "custom/ichkaansiho/aeon",
         "custom/ichkaansiho/christmas",
         "custom/ichkaansiho/dviolet",
@@ -614,6 +617,7 @@ var ids = {
         "custom/yixtu_qu/cerebella",
         "custom/yixtu_qu/cerebella_gushen10",
         "custom/yixtu_qu/cerebella_meruring",
+        "custom/yixtu_qu/double_mrsvictoria_popasobaky",
         "custom/yixtu_qu/double_popasobaky",
         "custom/yixtu_qu/double_stranger",
         "custom/yixtu_qu/eliza",
