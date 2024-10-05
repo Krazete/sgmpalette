@@ -596,6 +596,8 @@ var ids = {
         "custom/krazete/dahlia2",
         "custom/krazete/minette",
         "custom/krazete/molly",
+        "custom/krazete/squigly_block",
+        "custom/krazete/squigly_block2",
         "custom/krazete/umbrella",
         "custom/krazete/umbrella1",
         "custom/meruring/parasoul",
