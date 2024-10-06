@@ -636,6 +636,7 @@ var ids = {
         "custom/yixtu_qu/filia_bluestreak",
         "custom/yixtu_qu/filia_jumping",
         "custom/yixtu_qu/filia_sittingpose",
+        "custom/yixtu_qu/filia_tv_popasobaky",
         "custom/yixtu_qu/fukua",
         "custom/yixtu_qu/fukua2",
         "custom/yixtu_qu/killer",
