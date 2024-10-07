@@ -134,7 +134,7 @@ input + label img {
 
 #custom-selection label img {
     background: #1b2a41;
-    box-shadow: 0 0 6px 6px #1b2a41;
+    box-shadow: 0 0 0 5px #1b2a41;
     border-radius: 50%;
 }
 
