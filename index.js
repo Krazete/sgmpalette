@@ -60,14 +60,71 @@ var alreadyloaded = new Set(); /* chars whose sprites have already been loaded *
 var flaggedids = new Set(); /* ids of outdated canvases */
 var pickerflagged = true; /* true if picker is outdated */
 
+var activecustom; /* active custom character */
+var customids = { /* custom character categories and list of associated terms */
+    "annie": ["sagan"],
+    "beowulf": ["hurting"],
+    "bigband": ["big_band"],
+    "blackdahlia": ["dahlia", "bookie", "bonnie", "buttercup", "killer"],
+    "cerebella": ["cassandra", "vice-versa", "vice_versa"],
+    "double": ["agatha"],
+    "eliza": ["sekhmet"],
+    "filia": ["fukua", "samson", "shamone"],
+    "marie": [],
+    "msfortune": ["ms_fortune", "ms.fortune"],
+    "painwheel": ["carol"],
+    "parasoul": ["krieg"],
+    "peacock": ["patricia"],
+    "robofortune": ["robo_fortune", "robo-fortune"],
+    "squigly": ["sienna"],
+    "umbrella": ["hungern"],
+    "valentine": [],
+    "other": [] /* included for the icon; list must be empty */
+}
+
 function flagActiveCharacter() {
     for (var id of ids[activechar]) {
         flaggedids.add(id);
     }
 }
 
+function flagCustomCharacter() {
+    activecustom = this.id.slice(7);
+    flagActiveCharacter();
+}
+
 function flagPicker() {
     pickerflagged = true;
+}
+
+function isCheckedIfCustom(id) {
+    if (activechar != "custom") {
+        return true;
+    }
+    var spritename = id.slice(id.lastIndexOf("/") + 1);
+    if (activecustom == "other") {
+        for (var character in customids) {
+            if (spritename.includes(character)) {
+                return false;
+            }
+            for (var associate of customids[character]) {
+                if (spritename.includes(associate)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    if (activecustom in customids) {
+        if (spritename.includes(activecustom)) {
+            return true;
+        }
+        for (var associate of customids[activecustom]) {
+            if (spritename.includes(associate)) {
+                return true;
+            }
+        }
+    }
 }
 
 function updateFlags() {
@@ -76,7 +133,7 @@ function updateFlags() {
         if (!canvas) {
             continue;
         }
-        else if (canvas.classList.contains(activechar)) {
+        else if (canvas.classList.contains(activechar) && isCheckedIfCustom(id)) {
             var context = canvas.getContext("2d");
             var rawdata = datamap[canvas.id];
             var newdata = context.createImageData(rawdata.width, rawdata.height);
@@ -166,6 +223,8 @@ function initLeft() {
     var left = document.getElementById("left");
     var selection = document.getElementById("selection");
     var background = document.getElementById("background");
+    var forum = document.getElementById("forum");
+    var customselection = document.getElementById("custom-selection");
     var sheet = document.getElementById("sheet");
     var tapdownload = document.getElementById("tap-download");
     var touched = false; /* to relegate post-touchstart click events */
@@ -226,12 +285,14 @@ function initLeft() {
         }
     }
 
-    function toggleForum() {
+    function toggleCustomMenu() {
         if (activechar == "custom") {
-            document.getElementById("forum").classList.remove("hidden");
+            forum.classList.remove("hidden");
+            customselection.classList.remove("hidden");
         }
         else {
-            document.getElementById("forum").classList.add("hidden");
+            forum.classList.add("hidden");
+            customselection.classList.add("hidden");
         }
     }
 
@@ -251,7 +312,7 @@ function initLeft() {
         }
         flagActiveCharacter();
         uncheckSwatch();
-        toggleForum();
+        toggleCustomMenu();
     }
 
     function toggleBackground() {
@@ -323,6 +384,25 @@ function initLeft() {
 
     for (var i in layer) {
         document.getElementById(i).addEventListener("click", toggleLayer);
+    }
+
+    for (var character in customids) {
+        var input = document.createElement("input");
+        var label = document.createElement("label");
+        var img = new Image();
+
+        input.type = "radio";
+        input.name = "custom-character";
+        input.className = "option";
+        input.id = "custom-" + character;
+        input.addEventListener("click", flagCustomCharacter);
+        customselection.appendChild(input);
+
+        img.src = "icon/character_symbol_" + character + "01.png";
+        label.appendChild(img);
+
+        label.setAttribute("for", "custom-" + character);
+        customselection.appendChild(label);
     }
 
     sheet.addEventListener("click", onSheetClick);
