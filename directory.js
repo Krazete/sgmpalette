@@ -626,6 +626,7 @@ var ids = {
         "custom/yixtu_qu/annie_meruring",
         "custom/yixtu_qu/annie_monroeqw",
         "custom/yixtu_qu/beowulf_ogo80",
+        "custom/yixtu_qu/bigband",
         "custom/yixtu_qu/big_band_bubble",
         "custom/yixtu_qu/bloodymarie",
         "custom/yixtu_qu/braindrain_ogo80",
