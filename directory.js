@@ -667,6 +667,7 @@ var ids = {
         "custom/yixtu_qu/minette",
         "custom/yixtu_qu/msfortune",
         "custom/yixtu_qu/msfortune_faceup",
+        "custom/yixtu_qu/msfortune_headless_popasobaky",
         "custom/yixtu_qu/painwheel",
         "custom/yixtu_qu/painwheel2_ogo80",
         "custom/yixtu_qu/painwheel_ogo80",
