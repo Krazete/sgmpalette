@@ -673,6 +673,7 @@ var ids = {
         "custom/yixtu_qu/painwheel_ogo80",
         "custom/yixtu_qu/parasoul",
         "custom/yixtu_qu/parasoul2",
+        "custom/yixtu_qu/parasoul3",
         "custom/yixtu_qu/peacock",
         "custom/yixtu_qu/peacock_popasobaky",
         "custom/yixtu_qu/robofortune",
@@ -688,6 +689,7 @@ var ids = {
         "custom/yixtu_qu/umbrella_bubble",
         "custom/yixtu_qu/umbrella_gushen10",
         "custom/yixtu_qu/valentine",
+        "custom/yixtu_qu/valentine2",
         "custom/yixtu_qu/valentine_gushen10"
     ]
 };
