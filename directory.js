@@ -614,6 +614,7 @@ var ids = {
         "custom/meruring/parasoul",
         "custom/n_ko/10_filia_1p",
         "custom/n_ko/trawjaw_filia",
+        "custom/n_ko/turkey_double",
         "custom/n_ko/win2_hc01_msfortune_1",
         "custom/r_easy/annie",
         "custom/r_easy/blackdahlia",
