@@ -18,7 +18,7 @@ def update_directory():
     directory.setdefault('custom', [])
     for path in os.listdir('sprite/custom'):
         for subpath in os.listdir('sprite/custom/{}'.format(path)):
-            name = '{}/{}'.format(path, subpath.split('.')[0])
+            name = '{}/{}'.format(path, '.'.join(subpath.split('.')[0:-1]))
             directory['custom'].append('custom/{}'.format(name))
 
     with open('directory.js', 'w') as fp:
