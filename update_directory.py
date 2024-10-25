@@ -19,6 +19,8 @@ def update_directory():
     for path in os.listdir('sprite/custom'):
         for subpath in os.listdir('sprite/custom/{}'.format(path)):
             name = '{}/{}'.format(path, '.'.join(subpath.split('.')[0:-1]))
+            if name == 'demiiial/marie': # denied / blocked submission
+                continue
             directory['custom'].append('custom/{}'.format(name))
 
     with open('directory.js', 'w') as fp:
