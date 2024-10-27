@@ -1,6 +1,10 @@
 import os
 import json
 
+blacklist = [
+    'demiiial/marie'
+]
+
 def update_directory():
     '''Updates directory.js with contents of sprite folder.'''
     directory = {}
@@ -19,7 +23,7 @@ def update_directory():
     for path in os.listdir('sprite/custom'):
         for subpath in os.listdir('sprite/custom/{}'.format(path)):
             name = '{}/{}'.format(path, '.'.join(subpath.split('.')[0:-1]))
-            if name == 'demiiial/marie': # denied / blocked submission
+            if name in blacklist:
                 continue
             directory['custom'].append('custom/{}'.format(name))
 
