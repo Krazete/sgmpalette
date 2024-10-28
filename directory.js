@@ -624,6 +624,7 @@ var ids = {
         "custom/n_ko/09_msfortune_1p",
         "custom/n_ko/10_filia_1p",
         "custom/n_ko/airsuper07a_msfortune_1p",
+        "custom/n_ko/jhk01_msfortune_1p",
         "custom/n_ko/teacup02_double_1p",
         "custom/n_ko/teacup03_double_1p",
         "custom/n_ko/trawjaw_filia",
