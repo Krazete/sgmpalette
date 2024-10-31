@@ -587,6 +587,7 @@ var ids = {
         "custom/gushen/annie5",
         "custom/gushen/annie6",
         "custom/gushen/annie7",
+        "custom/gushen/annie8",
         "custom/gushen/cerebella",
         "custom/gushen/eliza",
         "custom/gushen/eliza2",
@@ -671,7 +672,9 @@ var ids = {
         "custom/yixtu_qu/bigband",
         "custom/yixtu_qu/bigband2",
         "custom/yixtu_qu/big_band_bubble",
+        "custom/yixtu_qu/blackegretssoldier_popasobaky",
         "custom/yixtu_qu/bloodymarie",
+        "custom/yixtu_qu/bonnie",
         "custom/yixtu_qu/braindrain_ogo80",
         "custom/yixtu_qu/buttercup",
         "custom/yixtu_qu/cerebella",
@@ -715,6 +718,7 @@ var ids = {
         "custom/yixtu_qu/msfortune_faceup",
         "custom/yixtu_qu/msfortune_headless_popasobaky",
         "custom/yixtu_qu/painwheel",
+        "custom/yixtu_qu/painwheel2",
         "custom/yixtu_qu/painwheel2_ogo80",
         "custom/yixtu_qu/painwheel_ogo80",
         "custom/yixtu_qu/parasoul",
@@ -744,6 +748,7 @@ var ids = {
         "custom/yixtu_qu/umbrella_gushen10",
         "custom/yixtu_qu/valentine",
         "custom/yixtu_qu/valentine2",
+        "custom/yixtu_qu/valentine3",
         "custom/yixtu_qu/valentine_gushen10"
     ]
 };
