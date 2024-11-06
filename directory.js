@@ -578,6 +578,7 @@ var ids = {
         "custom/ballotboxer/marie",
         "custom/demiiial/dahlia",
         "custom/demiiial/dahlia2",
+        "custom/demiiial/double_1g",
         "custom/demiiial/marie2",
         "custom/demiiial/marie_1g",
         "custom/demiiial/painwheel_1g",
