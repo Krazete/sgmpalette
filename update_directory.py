@@ -2,7 +2,8 @@ import os
 import json
 
 blacklist = [
-    'demiiial/marie'
+    'demiiial/marie', # color map too messy; index overlap with face and hair
+    'krazete/n_ko_avatar_filia' # cropped; replaced with full version by n_ko
 ]
 
 def update_directory():

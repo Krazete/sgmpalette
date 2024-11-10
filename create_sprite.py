@@ -25,7 +25,11 @@ def create_sprite(name, width=-1, differentiator='RGB', fallback=False):
     area = Image.open('{}_area.png'.format(name)).convert('RGBA') # color map
     if fallback:
         area = area.convert('P').convert('RGBA')
-    line = Image.open('{}_line.png'.format(name)).convert('RGBA') # detail layer
+    try:
+        line = Image.open('{}_line.png'.format(name)).convert('RGBA') # detail layer
+    except:
+        line = Image.new('RGBA', area.size)
+        print('Warning: Line layer not found.')
     try:
         shadow = Image.open('{}_shadow.png'.format(name)).convert('RGBA')
         highlight = Image.open('{}_highlight.png'.format(name)).convert('RGBA')
