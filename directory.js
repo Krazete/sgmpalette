@@ -787,6 +787,8 @@ var ids = {
         "custom/yixtu_qu/umbrella",
         "custom/yixtu_qu/umbrella2",
         "custom/yixtu_qu/umbrella3",
+        "custom/yixtu_qu/umbrella4",
+        "custom/yixtu_qu/umbrella5",
         "custom/yixtu_qu/umbrella_bubble",
         "custom/yixtu_qu/umbrella_gushen10",
         "custom/yixtu_qu/valentine",
