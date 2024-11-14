@@ -603,6 +603,7 @@ var ids = {
         "custom/gushen/salt_squigly_1p",
         "custom/gushen/throw_land_23_blackdahlia_1p",
         "custom/gushen/valentine",
+        "custom/gushen/win10_valentine_1p",
         "custom/ichkaansiho/aeon",
         "custom/ichkaansiho/christmas",
         "custom/ichkaansiho/dviolet",
@@ -674,6 +675,7 @@ var ids = {
         "custom/r_easy/valentine",
         "custom/serperiorrose/eliza",
         "custom/wexllie/umbrella",
+        "custom/wexllie/umbrella1",
         "custom/whokilledbone/annie",
         "custom/whokilledbone/blackdahlia",
         "custom/whokilledbone/robo.fortune",
@@ -789,11 +791,13 @@ var ids = {
         "custom/yixtu_qu/umbrella3",
         "custom/yixtu_qu/umbrella4",
         "custom/yixtu_qu/umbrella5",
+        "custom/yixtu_qu/umbrella6",
         "custom/yixtu_qu/umbrella_bubble",
         "custom/yixtu_qu/umbrella_gushen10",
         "custom/yixtu_qu/valentine",
         "custom/yixtu_qu/valentine2",
         "custom/yixtu_qu/valentine3",
+        "custom/yixtu_qu/valentine4",
         "custom/yixtu_qu/valentine_gushen10"
     ]
 };
