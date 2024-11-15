@@ -663,6 +663,7 @@ var ids = {
         "custom/n_ko/turkey_double",
         "custom/n_ko/win2_ha02_msfortune_1p",
         "custom/n_ko/win2_hc01_msfortune_1",
+        "custom/popasobaky/double",
         "custom/r_easy/annie",
         "custom/r_easy/blackdahlia",
         "custom/r_easy/blackdahlia2",
