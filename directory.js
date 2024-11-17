@@ -772,6 +772,7 @@ var ids = {
         "custom/yixtu_qu/leduc",
         "custom/yixtu_qu/marie",
         "custom/yixtu_qu/marie2",
+        "custom/yixtu_qu/marie3",
         "custom/yixtu_qu/minette",
         "custom/yixtu_qu/msfortune",
         "custom/yixtu_qu/msfortune2",
