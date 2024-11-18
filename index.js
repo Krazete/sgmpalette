@@ -74,7 +74,7 @@ var customids = { /* custom character categories and list of associated terms */
     "msfortune": ["ms_fortune", "ms-fortune", "ms.fortune"],
     "painwheel": ["carol"],
     "parasoul": ["krieg", "egret"],
-    "peacock": ["patricia"],
+    "peacock": ["patricia", "avery", "george", "lenny"],
     "robofortune": ["robo_fortune", "robo-fortune", "robo.fortune"],
     "squigly": ["sienna"],
     "umbrella": ["hungern"],
