@@ -2,9 +2,9 @@
 
 > The [original submissions page](https://forum.skullgirlsmobile.com/threads/17533) was created on May 8, 2021, and vanished on November 11, 2024.
 
-## Creating a Custom Palette File
+## How to Create a Custom Palette File
 
-<img src="create_sprite.png" alt="Palette File Pipeline">
+![Palette File Pipeline](create_sprite.png)
 
 1. Choose a raw image `[name]_raw.png`.
 2. Using the raw image, create the linework layer `[name]_line.png`.
@@ -35,20 +35,20 @@ I will input your submitted layers into `create_sprite.py` and upload the result
 
 ## Examples
 
+All submissions are recorded in the [custom](custom) folder of this repository.
+
 ### Normal Submission
 
-<img src="custom/krazete/florence_raw.png" width="75" alt="Florence Raw Layer">
-<img src="custom/krazete/florence_line.png" width="75" alt="Florence Line Layer">
-<img src="custom/krazete/florence_base.png" width="75" alt="Florence Base Layer">
-<img src="custom/krazete/florence_area.png" width="75" alt="Florence Area Layer">
+|Raw|Line|Base|Area|
+|-|-|-|-|
+|<img src="custom/krazete/florence_raw.png" width="75" alt="Florence Raw Layer">|<img src="custom/krazete/florence_line.png" width="75" alt="Florence Line Layer">|<img src="custom/krazete/florence_base.png" width="75" alt="Florence Base Layer">|<img src="custom/krazete/florence_area.png" width="75" alt="Florence Area Layer">|
 
-All submissions are recorded in the [custom](custom) folder of this repository.
+Most submissions are like this, letting `create_sprite.py` do the work of extracting highlights and shadows from the `raw` and `base` layers.
 
 ### Alternative Submission
 
-<img src="custom/krazete/florence_highlight.png" width="75" alt="Florence Raw Layer">
-<img src="custom/krazete/florence_shadow.png" width="75" alt="Florence Line Layer">
-<img src="custom/krazete/florence_base.png" width="75" alt="Florence Base Layer">
-<img src="custom/krazete/florence_area.png" width="75" alt="Florence Area Layer">
+|Highlight|Shadow|Base|Area|
+|-|-|-|-|
+|<img src="custom/krazete/florence_highlight.png" width="75" alt="Florence Highlight Layer">|<img src="custom/krazete/florence_shadow.png" width="75" alt="Florence Shadow Layer">|<img src="custom/krazete/florence_base.png" width="75" alt="Florence Base Layer">|<img src="custom/krazete/florence_area.png" width="75" alt="Florence Area Layer">|
 
-This submission uses `highlight` and `shadow` layers instead of `raw` and `base` layers. If done correctly, this can result in more pronounced details.
+The `highlight` and `shadow` layers are created by subtracting the `base` layer from the `raw` layer and vice versa respectively. Brightness and contrast can then be adjusted as desired to create more pronounced details in the resulting sprite.
