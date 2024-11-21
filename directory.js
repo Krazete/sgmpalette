@@ -31,7 +31,6 @@ var ids = {
     ],
     "beowulf": [
         "Beowulf_AA1_Launcher",
-        "Beowulf_AA2_GiganticArm",
         "Beowulf_AA3_IntoTheTrash",
         "Beowulf_BB1_T1_GiganticArm",
         "Beowulf_BB2_T2_Airwulf",
