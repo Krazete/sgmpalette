@@ -30,6 +30,9 @@ var ids = {
         "Annie_TripleThreat"
     ],
     "beowulf": [
+        "Beowulf_AA1_Launcher",
+        "Beowulf_AA2_GiganticArm",
+        "Beowulf_AA3_IntoTheTrash",
         "Beowulf_BB1_T1_GiganticArm",
         "Beowulf_BB2_T2_Airwulf",
         "Beowulf_BB3_T3_ThreeWulfMoonsault",
@@ -123,6 +126,16 @@ var ids = {
         "BlackDahlia_TriggerHappy",
         "BlackDahlia_Unfazed",
         "BlackDahlia_UnholyHost"
+    ],
+    "braindrain": [
+        "BrainDrain_AM1_HeadDetach",
+        "BrainDrain_AM1_HeadDetachSmall",
+        "BrainDrain_AM2_PsychicJumble",
+        "BrainDrain_AM2_PsychicJumbleSmall",
+        "BrainDrain_AM3_MinionSummon",
+        "BrainDrain_AM3_MinionSummonSmall",
+        "BrainDrain_AM4_GendoPhantasm",
+        "BrainDrain_AM4_GendoPhantasmSmall"
     ],
     "cerebella": [
         "Cerebella_ArmedForces",
@@ -307,6 +320,16 @@ var ids = {
         "Marie_SM8_HilgardsHaymaker",
         "Marie_SnakeCharmer",
         "Marie_TricksyMystic"
+    ],
+    "minette": [
+        "Minette_AM1_TentacleGrab",
+        "Minette_AM1_TentacleGrabSmall",
+        "Minette_AM2_CoolKidsDrinkTime",
+        "Minette_AM2_CoolKidsDrinkTimeSmall",
+        "Minette_AM3_DimSumCart",
+        "Minette_AM3_DimSumCartSmall",
+        "Minette_AM4_JawsAttack",
+        "Minette_AM4_JawsAttackSmall"
     ],
     "msfortune": [
         "MsFortune_BB1_HitPaws",
