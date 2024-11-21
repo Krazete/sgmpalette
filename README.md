@@ -75,6 +75,6 @@ The card art sprites can be uploaded to the [SGM Card Creator](https://github.co
 
 Custom palettized sprites can be created from inputs of a raw image layer, a linework layer, a base color layer, and a color map layer.
 
-<img src="create_sprite.png">
+<img src="create_sprite.png" alt="Palette File Pipeline">
 
-See more information on [the submissions page](https://forum.skullgirlsmobile.com/threads/17533).
+See more information in [CONTRIBUTING.md](CONTRIBUTING.md).
