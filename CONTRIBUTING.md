@@ -6,17 +6,17 @@
 
 ![Palette File Pipeline](create_sprite.png)
 
-1. Choose a raw image `[name]_raw.png`.
-2. Using the raw image, create the linework layer `[name]_line.png`.
+1. Choose a raw image `<NAME>_raw.png`.
+2. Using the raw image, create the linework layer `<NAME>_line.png`.
    - Soft edges are allowed.
      - If tracing, use the brush tool.
      - If using selections, turn on anti-aliasing.
    - The script only reads the alpha channel here; it does not use any color information.
-3. Using the raw image, create the base colors layer `[name]_base.png`.
+3. Using the raw image, create the base colors layer `<NAME>_base.png`.
    - Hard edges are required.
      - Use the pencil tool instead of the brush.
      - For other tools, turn off anti-aliasing and feathering.
-4. Using the base colors layer, create the color areas layer `[name]_area.png`.
+4. Using the base colors layer, create the color areas layer `<NAME>_area.png`.
    - Hard edges are required.
    - Different items/materials/areas should be different colors.
    - If colors match in this color map, they will match forever.
@@ -26,10 +26,11 @@
 
 ## How to Submit
 
-[krazete@gmail.com](mailto:krazete@gmail.com?subject=%5Bsgmpalette%5D)
-
-Submit the layers `[name]_raw.png`, `[name]_line.png`, `[name]_base.png`, and `[name]_area.png` to the email listed above with "[sgmpalette]" in the subject line.
- - Alternatively, instead of `raw.png` and `base.png`, you may submit a highlights layer `[name]_highlight.png` and a shadows layer `[name]_shadow.png`.
+- Recipient: [krazete@gmail.com](mailto:krazete@gmail.com?subject=%5Bsgmpalette%5D)
+- Subject: [sgmpalette]
+- Body: Attach the 4 layers: `<NAME>_raw.png`, `<NAME>_line.png`, `<NAME>_base.png`, and `<NAME>_area.png`.
+  - Alternatively, instead of `raw.png` and `base.png`, you may submit a highlights layer `<NAME>_highlight.png` and a shadows layer `<NAME>_shadow.png`.
+  - Also let me know your username if it isn't apparent. (Custom sprites are sorted into folders by username.)
 
 I will input your submitted layers into `create_sprite.py` and upload the result here.
 
