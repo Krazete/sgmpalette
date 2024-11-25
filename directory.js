@@ -832,6 +832,7 @@ var ids = {
         "custom/yixtu_qu/squigly",
         "custom/yixtu_qu/squigly2",
         "custom/yixtu_qu/squigly3",
+        "custom/yixtu_qu/squigly4",
         "custom/yixtu_qu/squigly_concept",
         "custom/yixtu_qu/squigly_jumping",
         "custom/yixtu_qu/umbrella",
