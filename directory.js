@@ -707,6 +707,7 @@ var ids = {
         "custom/ogo80/beowulf3",
         "custom/ogo80/beowulf4",
         "custom/ogo80/beowulf5",
+        "custom/ogo80/beowulf6",
         "custom/ogo80/bigband",
         "custom/ogo80/braindrain",
         "custom/ogo80/braindrain2",
