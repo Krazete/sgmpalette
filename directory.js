@@ -714,6 +714,7 @@ var ids = {
         "custom/ogo80/braindrain3",
         "custom/ogo80/cerebella",
         "custom/ogo80/cerebella2",
+        "custom/ogo80/eliza",
         "custom/ogo80/filia",
         "custom/ogo80/marie",
         "custom/ogo80/painwheel",
