@@ -750,6 +750,7 @@ var ids = {
         "custom/wexllie/umbrella",
         "custom/wexllie/umbrella1",
         "custom/wexllie/umbrella2",
+        "custom/wexllie/umbrella3",
         "custom/whokilledbone/annie",
         "custom/whokilledbone/blackdahlia",
         "custom/whokilledbone/robo.fortune",
