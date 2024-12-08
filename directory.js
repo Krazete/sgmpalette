@@ -864,6 +864,7 @@ var ids = {
         "custom/yixtu_qu/valentine",
         "custom/yixtu_qu/valentine2",
         "custom/yixtu_qu/valentine3",
-        "custom/yixtu_qu/valentine4"
+        "custom/yixtu_qu/valentine4",
+        "custom/yixtu_qu/valentine5"
     ]
 };
