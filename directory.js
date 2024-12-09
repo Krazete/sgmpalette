@@ -774,6 +774,7 @@ var ids = {
         "custom/wpplq/parasoul6",
         "custom/wpplq/parasoul7",
         "custom/wpplq/parasoul8",
+        "custom/wpplq/parasoul9",
         "custom/wpplq/parasoul_bubble",
         "custom/wpplq/parasoul_dead",
         "custom/wpplq/parasoul_egret",
@@ -865,6 +866,7 @@ var ids = {
         "custom/yixtu_qu/valentine2",
         "custom/yixtu_qu/valentine3",
         "custom/yixtu_qu/valentine4",
-        "custom/yixtu_qu/valentine5"
+        "custom/yixtu_qu/valentine5",
+        "custom/yixtu_qu/valentine6"
     ]
 };
