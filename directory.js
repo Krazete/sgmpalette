@@ -791,6 +791,7 @@ var ids = {
         "custom/yixtu_qu/annie",
         "custom/yixtu_qu/annie2",
         "custom/yixtu_qu/annie3",
+        "custom/yixtu_qu/annie4",
         "custom/yixtu_qu/annie_adictoaladiarrea_fansprite",
         "custom/yixtu_qu/annie_bubble",
         "custom/yixtu_qu/annie_sagan",
