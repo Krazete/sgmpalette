@@ -34,6 +34,8 @@
 
 I will input your submitted layers into `create_sprite.py` and upload the result here.
 
+Please be aware that your submission may be denied, revised, or replaced in the future by me or another submitter without notice, usually for reasons regarding quality or redundancy.
+
 ## Examples
 
 All submissions are recorded in the [custom](custom) folder of this repository.
