@@ -71,7 +71,7 @@ var customids = { /* custom character categories and list of associated terms */
     "braindrain": ["brain_drain"],
     "cerebella": ["cassandra", "vice-versa", "vice_versa"],
     "double": ["agatha"],
-    "eliza": ["sekhmet"],
+    "eliza": ["sekhmet", "albus", "horace"],
     "filia": ["fukua", "samson", "shamone"],
     "marie": [],
     "minette": [],
