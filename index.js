@@ -186,10 +186,10 @@ function updateFlags() {
                 }
             }
             context.putImageData(newdata, 0, 0);
-            canvas.classList.remove("hidden");
+            canvas.parentElement.classList.remove("hidden");
         }
         else {
-            canvas.classList.add("hidden");
+            canvas.parentElement.classList.add("hidden");
         }
 
         for (var i = 0; i < 256; i++) {
@@ -236,9 +236,15 @@ function initLeft() {
     function initSprite() {
         var character = this.dataset.character;
         var id = this.dataset.id;
+        var container = document.createElement("div");
         var canvas = document.createElement("canvas");
         var context = canvas.getContext("2d");
 
+        container.className = "canvas-container";
+        if (character == "custom") {
+            container.classList.add("credit");
+            container.dataset.credit = id.match(/custom\/(.*)\//i)[1];
+        }
         canvas.className = character;
         canvas.id = id;
         canvas.width = this.width;
@@ -252,11 +258,12 @@ function initLeft() {
                 break;
             }
         }
+        container.appendChild(canvas);
         if (last) {
-            sheet.appendChild(canvas);
+            sheet.appendChild(container);
         }
         else {
-            sheet.insertBefore(canvas, child);
+            sheet.insertBefore(container, child);
         }
 
         datamap[id] = context.getImageData(0, 0, this.width, this.height);

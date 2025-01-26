@@ -22,8 +22,10 @@ You can also toggle visibility of the background layer, linework layer, and deta
 ### Spritesheet
 
 The spritesheet contains all in-game static sprites of the chosen character.
-There are also experimental custom sprites, created as outlined in the [Submissions](#Submissions) section.
 You can click within any sprite to select a color area to edit.
+
+There are also experimental custom sprites, created as outlined in the [Submissions](#Submissions) section.
+The creator of each custom sprite is credited in the corner of the sprite box and in the sprite filename.
 
 The hex color text input will automatically be selected for easy copying via keyboard shortcuts.
 (This feature does not activate when a touch is detected instead of a mouse click.)

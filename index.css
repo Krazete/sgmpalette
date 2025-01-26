@@ -31,10 +31,33 @@ a:hover {
     text-decoration: underline;
 }
 
+.canvas-container {
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+    border: 1px dashed #1b2a41;
+    margin: 1px;
+}
+.canvas-container.credit:after {
+    content: attr(data-credit);
+    position: absolute;
+    right: 2px;
+    top: 0;
+    font-size: small;
+    text-shadow: 0 0 5px #1b2a41;
+    display: block;
+    pointer-events: none;
+}
+
 canvas {
+    position: relative;
+    display: block;
     image-rendering: crisp-edges;
     image-rendering: pixelated;
     cursor: crosshair;
+}
+.canvas-container.credit:hover canvas {
+    z-index: 1;
 }
 
 input[type='radio'],
