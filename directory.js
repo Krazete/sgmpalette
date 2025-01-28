@@ -613,6 +613,7 @@ var ids = {
         "custom/demiiial/painwheel_1g",
         "custom/diaxx0q_xd/eliza",
         "custom/golden_mirth/albus_neutral",
+        "custom/golden_mirth/brain_drain_hitstun",
         "custom/golden_mirth/peacock_timeout",
         "custom/gushen/04_annie_1p-2",
         "custom/gushen/06_umbrella_1p",
