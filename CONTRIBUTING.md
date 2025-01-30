@@ -4,7 +4,7 @@
 
 ## How to Create a Custom Palette File
 
-![Palette File Pipeline](create_sprite.png)
+![Palette File Pipeline](sample/create_sprite.png)
 
 1. Choose a raw image `<NAME>_raw.png`.
 2. Using the raw image, create the linework layer `<NAME>_line.png`.
@@ -13,11 +13,13 @@
      - If using selections, turn on anti-aliasing.
    - The script only reads the alpha channel here; it does not use any color information.
 3. Using the raw image, create the base colors layer `<NAME>_base.png`.
-   - Hard edges are required.
+   - Hard edges are recommended.
      - Use the pencil tool instead of the brush.
      - For other tools, turn off anti-aliasing and feathering.
 4. Using the base colors layer, create the color areas layer `<NAME>_area.png`.
    - Hard edges are required.
+     - ![Edge Example](sample/edges.png)
+     - Ignoring this rule will result in unwanted color map areas, which can also cause other issues like color ID overflow.
    - Different items/materials/areas should be different colors.
    - If colors match in this color map, they will match forever.
      - For example, if the hat and the skin are both colored `#A1B2C3` in your `area.png` submission, then the hat will always be skin-colored in the Palette Editor no matter what.

@@ -6,7 +6,7 @@ A palette editor for the static sprites of Skullgirls Mobile.
 
 Static sprites consist of portraits, card art, and art for special moves and blockbusters.
 
-![Skullgirls Mobile Palette Editor](preview.png)
+![Skullgirls Mobile Palette Editor](sample/preview.png)
 
 A big thanks to Discord user Pupix#0001 for showing me where to find the raw sprites from which this entire project is based on.
 
@@ -77,6 +77,6 @@ The card art sprites can be uploaded to the [SGM Card Creator](https://github.co
 
 Custom palettized sprites can be created from inputs of a raw image layer, a linework layer, a base color layer, and a color map layer.
 
-![Palette File Pipeline](create_sprite.png)
+![Palette File Pipeline](sample/create_sprite.png)
 
 See more information in [CONTRIBUTING.md](CONTRIBUTING.md).
