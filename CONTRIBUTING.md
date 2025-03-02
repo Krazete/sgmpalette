@@ -34,11 +34,11 @@
   - Alternatively, instead of `raw.png` and `base.png`, you may submit a highlights layer `<NAME>_highlight.png` and a shadows layer `<NAME>_shadow.png`.
   - Also let me know your username if it isn't apparent. (Custom sprites are sorted into folders by username.)
 
-I will input your submitted layers into `create_sprite.py` and upload the result here.
+I will input your submitted layers into `create_sprite.sh` and upload the result here.
 
 Please be aware that your submission may be denied, revised, or replaced in the future by me or another submitter without notice, usually for reasons regarding quality or redundancy.
 
-You may also copy or fork this repo, put your layers in a [custom](custom) subfolder, and run `python -m create_sprite` yourself if you want to use a custom sprite without submitting it for public use.
+You may also copy or fork this repo, put your layers in a [custom](custom) subfolder, and run `create_sprite.sh` yourself if you want to use a custom sprite without submitting it for public use.
 
 ## Examples
 
