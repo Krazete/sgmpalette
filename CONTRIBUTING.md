@@ -38,6 +38,8 @@ I will input your submitted layers into `create_sprite.py` and upload the result
 
 Please be aware that your submission may be denied, revised, or replaced in the future by me or another submitter without notice, usually for reasons regarding quality or redundancy.
 
+You may also copy or fork this repo, put your layers in a [custom](custom) subfolder, and run `python -m create_sprite` yourself if you want to use a custom sprite without submitting it for public use.
+
 ## Examples
 
 All submissions are recorded in the [custom](custom) folder of this repository.
