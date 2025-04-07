@@ -786,7 +786,7 @@ var ids = {
         "custom/whokilledbone/robofortune",
         "custom/whokilledbone/robofortune2",
         "custom/wipexx1/marie",
-        "custom/wpplq/eggysoul",
+        "custom/wpplq/eggparasoul",
         "custom/wpplq/parasoul",
         "custom/wpplq/parasoul10",
         "custom/wpplq/parasoul11",
