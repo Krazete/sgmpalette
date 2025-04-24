@@ -638,6 +638,7 @@ var ids = {
         "custom/gushen/eliza",
         "custom/gushen/eliza2",
         "custom/gushen/eliza3",
+        "custom/gushen/eliza4",
         "custom/gushen/eliza_bubble",
         "custom/gushen/eliza_fur",
         "custom/gushen/filia",
