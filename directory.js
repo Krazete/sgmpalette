@@ -306,6 +306,7 @@ var ids = {
         "Marie_Gravedigger",
         "Marie_GrinReaper",
         "Marie_LunarRegent",
+        "Marie_MadMalice",
         "Marie_MaidOfHonor",
         "Marie_MarineCorpse",
         "Marie_MinuetMaid",
@@ -398,6 +399,7 @@ var ids = {
         "Painwheel_SM6_PinionDash",
         "Painwheel_SM7_Burst",
         "Painwheel_TwistedMettle",
+        "Painwheel_Tyrannical",
         "Painwheel_WebCrawler"
     ],
     "parasoul": [
