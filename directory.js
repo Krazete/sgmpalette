@@ -624,6 +624,8 @@ var ids = {
         "custom/gushen/06_umbrella_1p",
         "custom/gushen/08_annie_1p-4",
         "custom/gushen/annie",
+        "custom/gushen/annie10",
+        "custom/gushen/annie11",
         "custom/gushen/annie2",
         "custom/gushen/annie3",
         "custom/gushen/annie4",
