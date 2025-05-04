@@ -14,4 +14,4 @@ for i in $(find custom -name *.png); do
     fi
 done
 unset IFS; set +f
-read -p "Press any key to exit." -r -n 1 -s
+read -p "All filesnames fixed. Press any key to continue." -r -n 1 -s

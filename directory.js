@@ -781,6 +781,7 @@ var ids = {
         "custom/r_easy/peacock2",
         "custom/r_easy/squigly4",
         "custom/r_easy/valentine",
+        "custom/saveliyfomin13/trickyvalentine",
         "custom/serperiorrose/eliza",
         "custom/wexllie/cerebella",
         "custom/wexllie/filia",
