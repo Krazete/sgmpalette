@@ -617,6 +617,7 @@ var ids = {
         "custom/diaxx0q_xd/eliza",
         "custom/golden_mirth/albus_neutral",
         "custom/golden_mirth/brain_drain_hitstun",
+        "custom/golden_mirth/doublegarbage",
         "custom/golden_mirth/peacock_timeout",
         "custom/golden_mirth/robofortune",
         "custom/golden_mirth/shitpostannie",
