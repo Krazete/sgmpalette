@@ -672,6 +672,7 @@ var ids = {
         "custom/ichkaansiho/sekhmet",
         "custom/ichkaansiho/venus",
         "custom/imadesanieblush/eliza",
+        "custom/jackwlaten/customannie",
         "custom/jackwlaten/elannie",
         "custom/jackwlaten/trickyvalentine",
         "custom/krazete/annie",
