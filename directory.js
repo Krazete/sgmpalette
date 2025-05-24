@@ -686,6 +686,7 @@ var ids = {
         "custom/krazete/florence",
         "custom/krazete/minette",
         "custom/krazete/molly",
+        "custom/krazete/skullheart",
         "custom/krazete/squigly_block",
         "custom/krazete/squigly_block2",
         "custom/krazete/umbrella",

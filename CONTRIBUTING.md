@@ -59,3 +59,5 @@ Most submissions are like this, letting `create_sprite.py` do the work of extrac
 |<img src="custom/krazete/florence_highlight.png" width="75" alt="Florence Highlight Layer">|<img src="custom/krazete/florence_shadow.png" width="75" alt="Florence Shadow Layer">|<img src="custom/krazete/florence_base.png" width="75" alt="Florence Base Layer">|<img src="custom/krazete/florence_area.png" width="75" alt="Florence Area Layer">|
 
 The `highlight` and `shadow` layers are created by subtracting the `base` layer from the `raw` layer and vice versa respectively. Brightness and contrast can then be adjusted as desired to create more pronounced details in the resulting sprite.
+
+<!--There is yet another option to submit the layers `<NAME>_r.png`, `<NAME>_g.png`, and `<NAME>_b.png` instead. You must have a good understanding of how these palettized sprites work in order to submit these (i.e. you're me).-->
