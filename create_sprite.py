@@ -3,7 +3,7 @@ import os
 from PIL import Image, ImageChops, ImageMath
 from update_directory import update_directory
 
-def get_r(area, thresh, differentiator='RGB', fallback=False):
+def get_r(area, differentiator='RGB', thresh=127, fallback=False):
     '''
     Generates the color map layer.
     Parameters:
@@ -12,6 +12,8 @@ def get_r(area, thresh, differentiator='RGB', fallback=False):
     - differentiator
       ='R': only consider the red channel when making the color map
       ='RGB': differentiate all colors when making the color map
+    - thresh
+      alpha channel threshhold for area
     - fallback
       True: run with color map in palette mode
       False: run normally with color map unmodified
@@ -39,7 +41,7 @@ def get_r(area, thresh, differentiator='RGB', fallback=False):
                 print('Failed\n')
             else:
                 print('Trying again with color map in palette mode.')
-                return get_r(area, thresh, differentiator, True)
+                return get_r(area, differentiator, thresh, True)
         colormapinverse = {colormap[i]: i for i in colormap}
         rdata = [colormapinverse[(a, b, c)] if d > thresh else 0 for a, b, c, d in data]
         r = Image.new('L', area.size)
@@ -118,8 +120,8 @@ def create_sprite(name, width=-1, differentiator='RGB'):
         shadow = ImageChops.subtract(base, raw)
         highlight = ImageChops.subtract(raw, base)
     
-    thresh = 127 # alpha channel threshhold for area
-    r = get_r(area, thresh, differentiator)
+    thresh = 127
+    r = get_r(area, differentiator, thresh)
 
     g = ImageMath.lambda_eval(
         lambda _: _['convert'](0xff - _['line'], 'L'),
@@ -147,7 +149,7 @@ def create_sprite_rgb(name, width=-1, differentiator='RGB'):
     '''
     area = Image.open('{}_r.png'.format(name)).convert('RGBA')
     area.putalpha(area.convert('L').point(lambda p: p > 0 and 0xff))
-    r = get_r(area, 127, differentiator) # color map
+    r = get_r(area, differentiator) # color map
     g = Image.open('{}_g.png'.format(name)).convert('L') # line layer
     b = Image.open('{}_b.png'.format(name)).convert('L') # detail layer
     rgb = resize_rgb(r, g, b, width)
