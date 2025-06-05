@@ -672,6 +672,7 @@ var ids = {
         "custom/gushen/valentine",
         "custom/gushen/valentine2",
         "custom/gushen/valentine3",
+        "custom/gushen/valentine4",
         "custom/gushen/win10_valentine_1p",
         "custom/ichkaansiho/aeon",
         "custom/ichkaansiho/christmas",
