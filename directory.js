@@ -688,6 +688,7 @@ var ids = {
         "custom/jackwlaten/eliza_leg",
         "custom/jackwlaten/pushfilia",
         "custom/jackwlaten/trickyvalentine",
+        "custom/jackwlaten/twirl_eliza",
         "custom/krazete/annie",
         "custom/krazete/annie_indivisible",
         "custom/krazete/dahlia",
