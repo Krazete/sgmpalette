@@ -662,6 +662,7 @@ var ids = {
         "custom/gushen/filia2",
         "custom/gushen/filia3",
         "custom/gushen/fukua",
+        "custom/gushen/fukua2",
         "custom/gushen/fukua_banana",
         "custom/gushen/marie",
         "custom/gushen/parasoul",
