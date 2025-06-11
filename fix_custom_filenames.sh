@@ -22,13 +22,14 @@ for i in $(find custom -name *.png); do
         done
         echo "Cyrillic letters replaced in $i"
     fi
-    if [[ $i =~ (.+_(raw|line|base|area|highlight|shadow)).+\.png ]]; then
+    if [[ ${i,,} =~ (.+_(raw|line|base|area|highlight|shadow)).+\.png ]]; then
         j=${BASH_REMATCH[1]}
         while [[ -f "$j.png" ]]; do
             j=$j+
         done
         mv "$i" "$j.png"
-        echo "$i -> $j.png"
+        echo "$i"
+        echo " -> $j.png"
     fi
 done
 unset IFS; set +f
