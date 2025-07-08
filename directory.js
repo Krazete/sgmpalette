@@ -637,6 +637,7 @@ var ids = {
         "custom/golden_mirth/robofortune3",
         "custom/golden_mirth/robofortunehead",
         "custom/golden_mirth/shitpostannie",
+        "custom/golden_mirth/valentine_cadaver",
         "custom/gushen/04_annie_1p-2",
         "custom/gushen/06_umbrella_1p",
         "custom/gushen/08_annie_1p-4",
