@@ -625,6 +625,7 @@ var ids = {
         "custom/golden_mirth/dahlia",
         "custom/golden_mirth/doublegarbage",
         "custom/golden_mirth/doublehand",
+        "custom/golden_mirth/filia",
         "custom/golden_mirth/peacock_airthrow",
         "custom/golden_mirth/peacock_bat",
         "custom/golden_mirth/peacock_hattip",
