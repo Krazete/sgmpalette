@@ -626,6 +626,8 @@ var ids = {
         "custom/golden_mirth/doublegarbage",
         "custom/golden_mirth/doublehand",
         "custom/golden_mirth/filia",
+        "custom/golden_mirth/minette_by_lyu_mawo",
+        "custom/golden_mirth/msfortune_by_lyu_mawo",
         "custom/golden_mirth/painwheel_burst",
         "custom/golden_mirth/peacock_airthrow",
         "custom/golden_mirth/peacock_bat",
