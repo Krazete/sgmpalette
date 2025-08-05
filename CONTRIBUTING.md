@@ -54,15 +54,15 @@ All submissions are recorded in the [custom](custom) folder of this repository.
 
 |Raw|Line|Base|Area|
 |-|-|-|-|
-|<img src="custom/krazete/florence_raw.png" width="75" alt="Florence Raw Layer">|<img src="custom/krazete/florence_line.png" width="75" alt="Florence Line Layer">|<img src="custom/krazete/florence_base.png" width="75" alt="Florence Base Layer">|<img src="custom/krazete/florence_area.png" width="75" alt="Florence Area Layer">|
+|<img src="custom/gushen/Annie_redo_raw.png" width="100" alt="Raw Layer">|<img src="custom/gushen/Annie_redo_line.png" width="100" alt="Line Layer">|<img src="custom/gushen/Annie_redo_base.png" width="100" alt="Base Layer">|<img src="custom/gushen/Annie_redo_area.png" width="100" alt="Area Layer">|
 
 Most submissions are like this, letting `create_sprite.py` do the work of extracting highlights and shadows from the `raw` and `base` layers.
 
 ### Alternative Submission
 
-|Highlight|Shadow|Base|Area|
+|Highlight|Shadow|Line|Area|
 |-|-|-|-|
-|<img src="custom/krazete/florence_highlight.png" width="75" alt="Florence Highlight Layer">|<img src="custom/krazete/florence_shadow.png" width="75" alt="Florence Shadow Layer">|<img src="custom/krazete/florence_base.png" width="75" alt="Florence Base Layer">|<img src="custom/krazete/florence_area.png" width="75" alt="Florence Area Layer">|
+|<img src="custom/gushen/Annie_redo_highlight.png" width="100" alt="Highlight Layer">|<img src="custom/gushen/Annie_redo_shadow.png" width="100" alt="Shadow Layer">|<img src="custom/gushen/Annie_redo_line.png" width="100" alt="Line Layer">|<img src="custom/gushen/Annie_redo_area.png" width="100" alt="Area Layer">|
 
 The `highlight` and `shadow` layers are created by subtracting the `base` layer from the `raw` layer and vice versa respectively. Brightness and contrast can then be adjusted as desired to create more pronounced details in the resulting sprite.
 
