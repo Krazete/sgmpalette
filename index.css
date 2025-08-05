@@ -38,15 +38,28 @@ a:hover {
     border: 1px dashed #1b2a41;
     margin: 1px;
 }
-.canvas-container.credit:after {
-    content: attr(data-credit);
+.canvas-container[data-credit]:before {
+    content: 'Submitter: 'attr(data-credit);
+    top: 0;
+}
+.canvas-container[data-artist]:after {
+    content: 'Artist: 'attr(data-artist);
+    top: 1em;
+}
+.canvas-container[data-credit]:before,
+.canvas-container[data-artist]:after {
     position: absolute;
     right: 2px;
-    top: 0;
     font-size: small;
     text-shadow: 0 0 5px #1b2a41;
+    white-space: pre;
     display: block;
     pointer-events: none;
+    z-index: 2;
+}
+.canvas-container[data-credit]:hover:before,
+.canvas-container[data-artist]:hover:after {
+    z-index: 0;
 }
 
 canvas {
@@ -55,8 +68,6 @@ canvas {
     image-rendering: crisp-edges;
     image-rendering: pixelated;
     cursor: crosshair;
-}
-.canvas-container.credit:hover canvas {
     z-index: 1;
 }
 

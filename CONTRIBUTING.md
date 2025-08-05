@@ -33,7 +33,7 @@
 - Body: Attach the 4 layers: `<NAME>_raw.png`, `<NAME>_line.png`, `<NAME>_base.png`, and `<NAME>_area.png`.
   - Alternatively, instead of `raw` and `base`, you may submit a highlights layer `<NAME>_highlight.png` and a shadows layer `<NAME>_shadow.png`. See the Examples section below.
   - Let me know your username if it isn't apparent. (Custom sprites are sorted into folders by username.)
-  - If the art used is not official and is not yours, please credit the artist in your message.
+  - If the art used is not official and is not yours, please credit the artist in your message. Also use this filename format instead: `<NAME>_artist=<ARTIST>_<LAYER>.png`.
 
 I will process your submitted layers with `create_sprite.sh` and upload the result here.
 

@@ -242,8 +242,10 @@ function initLeft() {
 
         container.className = "canvas-container";
         if (character == "custom") {
-            container.classList.add("credit");
             container.dataset.credit = id.match(/custom\/(.*)\//i)[1];
+        }
+        if (id.includes("_artist=")) {
+            container.dataset.artist = id.match(/_artist=(.*)/i)[1];
         }
         canvas.className = character;
         canvas.id = id;
