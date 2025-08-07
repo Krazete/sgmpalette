@@ -690,6 +690,7 @@ var ids = {
         "custom/gushen/throw_land_23_blackdahlia_1p",
         "custom/gushen/umbrella",
         "custom/gushen/umbrella2",
+        "custom/gushen/umbrella_artist=soap",
         "custom/gushen/valentine",
         "custom/gushen/valentine2",
         "custom/gushen/valentine3",
