@@ -682,6 +682,7 @@ var ids = {
         "custom/gushen/filia",
         "custom/gushen/filia2",
         "custom/gushen/filia3",
+        "custom/gushen/filia_artist=lyu_mawo",
         "custom/gushen/fukua",
         "custom/gushen/fukua2",
         "custom/gushen/fukua_banana",
