@@ -452,6 +452,7 @@ var ids = {
         "Peacock_DreamCatcher",
         "Peacock_FreezeFrame",
         "Peacock_Inkling",
+        "Peacock_Iono",
         "Peacock_MeanOne",
         "Peacock_PeaShooter",
         "Peacock_Portrait",
@@ -505,7 +506,8 @@ var ids = {
         "RoboFortune_SMX_HeadDroneHardware_Salvo",
         "RoboFortune_TerrorByte",
         "RoboFortune_VectorProtector",
-        "RoboFortune_XBot"
+        "RoboFortune_XBot",
+        "RoboFortune_Zeraora"
     ],
     "squigly": [
         "Squigly_BB1_DaisyPusher",
