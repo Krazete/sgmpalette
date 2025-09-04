@@ -68,7 +68,7 @@ var customids = { /* custom character categories and list of associated terms */
     "beowulf": ["hurting"],
     "bigband": ["big_band"],
     "blackdahlia": ["dahlia", "bookie", "bonnie", "buttercup", "killer"],
-    "braindrain": ["brain_drain"],
+    "braindrain": ["brain_drain", "mech"],
     "cerebella": ["cassandra", "vice-versa", "vice_versa"],
     "double": ["agatha"],
     "eliza": ["sekhmet", "albus", "horace"],
