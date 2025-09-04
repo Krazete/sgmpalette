@@ -19,12 +19,12 @@
 4. Using the base colors layer, create the color areas layer `<NAME>_area.png`.
    - Hard edges are required.
      - ![Edge Example](sample/edges.png)
-     - Ignoring this rule will result in unwanted color map areas, which can also cause other issues like color ID overflow.
+     - Ignoring this rule will result in unwanted colormap areas, which can also cause other issues like color ID overflow.
    - Different items/materials/areas should be different colors.
-   - If colors match in this color map, they will match forever.
+   - If colors match in this colormap, they will match forever.
      - For example, if the hat and the skin are both colored `#A1B2C3` in your `area.png` submission, then the hat will always be skin-colored in the Palette Editor no matter what.
    - If you're picky about color IDs, encode them in the red channel.
-     - To match official color maps, reference the Palette Editor. Click on a sprite and you'll see the corresponding color ID as a circled number in the sidebar.
+     - To match official colormaps, reference the Palette Editor. Click on a sprite and you'll see the corresponding color ID as a circled number in the sidebar.
 
 ## How to Submit
 
@@ -32,6 +32,7 @@
 - Subject: [sgmpalette]
 - Body: Attach the 4 layers: `<NAME>_raw.png`, `<NAME>_line.png`, `<NAME>_base.png`, and `<NAME>_area.png`.
   - Alternatively, instead of `raw` and `base`, you may submit a highlights layer `<NAME>_highlight.png` and a shadows layer `<NAME>_shadow.png`. See the Examples section below.
+  - Alternatively<sup>2</sup>, instead of `raw` and `base` or `highlight` and `shadow`, you may submit a details layer `<NAME>_detail.png`. See the Examples section below.
   - Let me know your username if it isn't apparent. (Custom sprites are sorted into folders by username.)
   - If the art used is not official and is not yours, please credit the artist in your message. Also use this filename format instead: `<NAME>_artist=<ARTIST>_<LAYER>.png`.
 
@@ -54,16 +55,48 @@ All submissions are recorded in the [custom](custom) folder of this repository.
 
 |Raw|Line|Base|Area|
 |-|-|-|-|
-|<img src="custom/gushen/Annie_redo_raw.png" width="100" alt="Raw Layer">|<img src="custom/gushen/Annie_redo_line.png" width="100" alt="Line Layer">|<img src="custom/gushen/Annie_redo_base.png" width="100" alt="Base Layer">|<img src="custom/gushen/Annie_redo_area.png" width="100" alt="Area Layer">|
+|<img src="custom/yixtu_qu/BrainDrain_Raw.png" width="100" alt="Raw Layer">|<img src="custom/yixtu_qu/Braindrain_Line.png" width="100" alt="Line Layer">|<img src="custom/yixtu_qu/Braindrain_Base.png" width="100" alt="Base Layer">|<img src="custom/yixtu_qu/Braindrain_Area.png" width="100" alt="Area Layer">|
 
 Most submissions are like this, letting `create_sprite.py` do the work of extracting highlights and shadows from the `raw` and `base` layers.
 
-### Alternative Submission
+### Advanced Submission
+
+<details>
+<summary>Click for more details.</summary>
 
 |Highlight|Shadow|Line|Area|
 |-|-|-|-|
 |<img src="custom/gushen/Annie_redo_highlight.png" width="100" alt="Highlight Layer">|<img src="custom/gushen/Annie_redo_shadow.png" width="100" alt="Shadow Layer">|<img src="custom/gushen/Annie_redo_line.png" width="100" alt="Line Layer">|<img src="custom/gushen/Annie_redo_area.png" width="100" alt="Area Layer">|
 
-The `highlight` and `shadow` layers are created by subtracting the `base` layer from the `raw` layer and vice versa respectively. Brightness and contrast can then be adjusted as desired to create more pronounced details in the resulting sprite.
+> This example in particular takes the extra step of encoding the official colormap into the area layer.  
+> This isn't necessary; the area layer can be as colorful as the other submission methods if desired.
 
-<!--There is yet another option to submit the layers `<NAME>_r.png`, `<NAME>_g.png`, and `<NAME>_b.png` instead. You must have a good understanding of how these palettized sprites work in order to submit these (i.e. you're me).-->
+The `highlight` and `shadow` layers are created by subtracting the `base` layer from the `raw` layer and vice versa respectively.  
+Brightness and contrast can then be adjusted as desired to create more pronounced details in the resulting sprite.
+</details>
+
+### Advanced+ Submission
+
+<details>
+<summary>Click for more details.</summary>
+
+|Detail|Line|Area|
+|-|-|-|
+|<img src="custom/lyu_mawo/Mechvalentine_detail.png" width="100" alt="Detail Layer">|<img src="custom/lyu_mawo/Mechvalentine_line.png" width="100" alt="Line Layer">|<img src="custom/lyu_mawo/Mechvalentine_area.png" width="100" alt="Area Layer">|
+
+This method is intended when shadows and highlights are created from scratch (rather than differencing `raw` and `base` layers).  
+If submitting this way, you must use a base gray of `#CCCCCC` or `RGB(204, 204, 240)`.
+
+This method is also useful for sprites with luminous parts since translucency is treated differently.
+
+> E.g. Parasoul's tears, Fukua's orbs, Robo-Fortune's beams, explosions, fire, etc.
+
+Luminous areas have a floor of `#646464` or `RGB(100, 100, 100)`. Anything darker than this will be completely transparent.
+
+The detail layer of Parasoul's official Napalm Trigger sprite demonstrates both the base gray and the luminous floor:
+
+|Palettized Sprite|Red Channel|Green Channel|Blue Channel|
+|-|-|-|-|
+|<img src="sprite/Parasoul_SM9_NapalmTrigger.png" width="100" alt="Palettized Sprite">|<img src="sample/Parasoul_SM9_NapalmTrigger_Red.png" width="100" alt="Red Channel">|<img src="sample/Parasoul_SM9_NapalmTrigger_Green.png" width="100" alt="Green Channel">|<img src="sample/Parasoul_SM9_NapalmTrigger_Blue.png" width="100" alt="Blue Channel">|
+|(ignore this)|(ignore this)|(ignore this)|This is the `detail` layer.|
+</details>
