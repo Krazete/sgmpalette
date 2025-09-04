@@ -31,8 +31,8 @@
 - Recipient: [krazete@gmail.com](mailto:krazete@gmail.com?subject=%5Bsgmpalette%5D)
 - Subject: [sgmpalette]
 - Body: Attach the 4 layers: `<NAME>_raw.png`, `<NAME>_line.png`, `<NAME>_base.png`, and `<NAME>_area.png`.
-  - Alternatively, instead of `raw` and `base`, you may submit a highlights layer `<NAME>_highlight.png` and a shadows layer `<NAME>_shadow.png`. See the Examples section below.
-  - Alternatively<sup>2</sup>, instead of `raw` and `base` or `highlight` and `shadow`, you may submit a details layer `<NAME>_detail.png`. See the Examples section below.
+  - Alternatively, instead of `raw` and `base`, you may submit a highlights layer `<NAME>_highlight.png` and a shadows layer `<NAME>_shadow.png`. See the [Examples section](#submission-method-2) below.
+  - Alternatively<sup>2</sup>, instead of `raw` and `base` or `highlight` and `shadow`, you may submit a details layer `<NAME>_detail.png`. See the [Examples section](#submission-method-3) below.
   - Let me know your username if it isn't apparent. (Custom sprites are sorted into folders by username.)
   - If the art used is not official and is not yours, please credit the artist in your message. Also use this filename format instead: `<NAME>_artist=<ARTIST>_<LAYER>.png`.
 
@@ -51,15 +51,15 @@ You may also copy or fork this repo, put your layers in a [custom](custom) subfo
 
 All submissions are recorded in the [custom](custom) folder of this repository.
 
-### Normal Submission
+### Submission Method 1
 
 |Raw|Line|Base|Area|
 |-|-|-|-|
 |<img src="custom/yixtu_qu/BrainDrain_Raw.png" width="100" alt="Raw Layer">|<img src="custom/yixtu_qu/Braindrain_Line.png" width="100" alt="Line Layer">|<img src="custom/yixtu_qu/Braindrain_Base.png" width="100" alt="Base Layer">|<img src="custom/yixtu_qu/Braindrain_Area.png" width="100" alt="Area Layer">|
 
-Most submissions are like this, letting `create_sprite.py` do the work of extracting highlights and shadows from the `raw` and `base` layers.
+This is the normal method as outlined in the instructions above, letting `create_sprite.py` do the work of extracting highlights and shadows from the `raw` and `base` layers.
 
-### Advanced Submission
+### Submission Method 2
 
 <details>
 <summary>Click for more details.</summary>
@@ -71,11 +71,11 @@ Most submissions are like this, letting `create_sprite.py` do the work of extrac
 > This example in particular takes the extra step of encoding the official colormap into the area layer.  
 > This isn't necessary; the area layer can be as colorful as the other submission methods if desired.
 
-The `highlight` and `shadow` layers are created by subtracting the `base` layer from the `raw` layer and vice versa respectively.  
+Here, the `highlight` and `shadow` layers are created by subtracting the `base` layer from the `raw` layer and vice versa respectively.  
 Brightness and contrast can then be adjusted as desired to create more pronounced details in the resulting sprite.
 </details>
 
-### Advanced+ Submission
+### Submission Method 3
 
 <details>
 <summary>Click for more details.</summary>
@@ -84,7 +84,7 @@ Brightness and contrast can then be adjusted as desired to create more pronounce
 |-|-|-|
 |<img src="custom/lyu_mawo/Mechvalentine_detail.png" width="100" alt="Detail Layer">|<img src="custom/lyu_mawo/Mechvalentine_line.png" width="100" alt="Line Layer">|<img src="custom/lyu_mawo/Mechvalentine_area.png" width="100" alt="Area Layer">|
 
-This method is intended for those who create shadows and highlights from scratch (rather than differencing `raw` and `base` layers).  
+This method is recommended when creating shadows and highlights from scratch (rather than differencing `raw` and `base` layers).  
 If submitting this way, you must use a base gray of `#CCCCCC` or `RGB(204, 204, 240)`.
 
 This method is also useful for sprites with luminous parts since translucency is treated differently.
