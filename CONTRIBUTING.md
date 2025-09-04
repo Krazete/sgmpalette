@@ -85,7 +85,7 @@ Brightness and contrast can then be adjusted as desired to create more pronounce
 |<img src="custom/lyu_mawo/Mechvalentine_detail.png" width="100" alt="Detail Layer">|<img src="custom/lyu_mawo/Mechvalentine_line.png" width="100" alt="Line Layer">|<img src="custom/lyu_mawo/Mechvalentine_area.png" width="100" alt="Area Layer">|
 
 This method is recommended when creating shadows and highlights from scratch (rather than differencing `raw` and `base` layers).  
-If submitting this way, you must use a base gray of `#CCCCCC` or `RGB(204, 204, 240)`.
+If submitting this way, you must use a base gray of `#CCCCCC` or `RGB(204, 204, 204)`.
 
 This method is also useful for sprites with luminous parts since translucency is treated differently.
 
