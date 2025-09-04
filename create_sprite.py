@@ -5,18 +5,18 @@ from update_directory import update_directory
 
 def get_r(area, differentiator='RGB', thresh=127, fallback=False):
     '''
-    Generates the color map layer.
+    Generates the colormap layer.
     Parameters:
     - area
-      the color map image
+      the colormap image
     - differentiator
-      ='R': only consider the red channel when making the color map
-      ='RGB': differentiate all colors when making the color map
+      ='R': only consider the red channel when making the colormap
+      ='RGB': differentiate all colors when making the colormap
     - thresh
       alpha channel threshhold for area
     - fallback
-      True: run with color map in palette mode
-      False: run normally with color map unmodified
+      True: run with colormap in palette mode
+      False: run normally with colormap unmodified
     '''
     if fallback:
         area = area.convert('P').convert('RGBA')
@@ -40,7 +40,7 @@ def get_r(area, differentiator='RGB', thresh=127, fallback=False):
             if fallback:
                 print('Failed\n')
             else:
-                print('Trying again with color map in palette mode.')
+                print('Trying again with colormap in palette mode.')
                 return get_r(area, differentiator, thresh, True)
         colormapinverse = {colormap[i]: i for i in colormap}
         rdata = [colormapinverse[(a, b, c)] if d > thresh else 0 for a, b, c, d in data]
@@ -65,7 +65,7 @@ def resize_rgb(r, g, b, width=-1):
         diagonal_max = 666
         diagonal = (r.width ** 2 + r.height ** 2) ** 0.5
         if diagonal > diagonal_max:
-            bbox = ImageMath.lambda_eval(
+            bbox = ImageMath.lambda_eval( # don't always crop; whitespace can be important (e.g. modified official sprites)
                 lambda _: _['convert'](_['r'] + max(0, 0xff - _['g']) + max(0, 0xff - _['b']), 'L'),
                 r=r, g=g, b=b
             ).getbbox()
@@ -88,8 +88,9 @@ def resize_rgb(r, g, b, width=-1):
 def create_sprite(name, width=-1, differentiator='RGB'):
     '''
     Generates a palettized image from input images of the same base name.
-    The inputs can be: raw image, base colors, color map, and detail layer
-                   or: shadows, highlights, color map, and detail layer.
+    The inputs can be: raw image, base colors, colormap, and linework
+                   or: shadows, highlights, colormap, and linework
+                   or: details, colormap, and linework.
     Parameters:
     - name
       base name of input files
@@ -98,64 +99,50 @@ def create_sprite(name, width=-1, differentiator='RGB'):
       =0: preserve size
       >0: resize to specified width
     - differentiator
-      ='R': only consider the red channel when making the color map
-      ='RGB': differentiate all colors when making the color map
+      ='R': only consider the red channel when making the colormap
+      ='RGB': differentiate all colors when making the colormap
     '''
-    area = Image.open('{}_area.png'.format(name)).convert('RGBA') # color map
-    try:
-        line = Image.open('{}_line.png'.format(name)).convert('RGBA') # detail layer
-    except:
-        line = Image.new('RGBA', area.size)
-        print('Warning: Line layer not found.')
-    try:
-        dow = Image.open('{}_shadow.png'.format(name)).convert('RGBA')
-        sha = Image.new('RGBA', dow.size)
-        shadow = Image.alpha_composite(sha, dow)
-        light = Image.open('{}_highlight.png'.format(name)).convert('RGBA')
-        high = Image.new('RGBA', light.size)
-        highlight = Image.alpha_composite(high, light) # ensure transparency is interpreted as black
-    except:
-        for ext in ['png', 'jpg', 'jpeg', 'webp']: # lenient with raw image format
-            rawname = '{}_raw.{}'.format(name, ext)
-            if os.path.isfile(rawname):
-                break
-        raw = Image.open(rawname).convert('RGBA') # raw image
-        base = Image.open('{}_base.png'.format(name)).convert('RGBA') # base colors
-        shadow = ImageChops.subtract(base, raw)
-        highlight = ImageChops.subtract(raw, base)
-    
     thresh = 127
+
+    area = Image.open('{}_area.png'.format(name)).convert('RGBA') # colormap
     r = get_r(area, differentiator, thresh)
 
+    try:
+        line = Image.open('{}_line.png'.format(name)).convert('RGBA') # linework
+    except:
+        line = Image.new('RGBA', area.size)
+        print('Warning: Linework layer not found.')
     g = ImageMath.lambda_eval(
         lambda _: _['convert'](0xff - _['line'], 'L'),
         line=line.getchannel(3).convert('L')
     )
-    b = ImageMath.lambda_eval(
-        lambda _: _['convert'](0xff - (_['area'] > thresh) * (_['shadow'] * (0xff - 0x33) / 0x80) + (_['area'] > thresh) * ((_['highlight'] - 0x33) * 0x33 / 0x40), 'L'),
-        area=area.getchannel(3),
-        shadow=shadow.convert('L'),
-        highlight=highlight.convert('L')
-    )
 
-    rgb = resize_rgb(r, g, b, width)
-
-    path = 'sprite/{}.png'.format(name.lower())
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    rgb.save(path)
-    print('Success\n')
-
-def create_sprite_rgb(name, width=-1, differentiator='RGB'):
-    '''
-    Generates a palettized image from input images of the same base name.
-    Unlike create_sprite, the inputs must be RGB layers that already prepared.
-    This simply merges the layers as channels within a palettized sprite.
-    '''
-    area = Image.open('{}_area.png'.format(name)).convert('RGBA')
-    area.putalpha(area.convert('L').point(lambda p: p > 0 and 0xff))
-    r = get_r(area, differentiator) # color map
-    g = Image.open('{}_line.png'.format(name)).convert('L') # line layer
-    b = Image.open('{}_detail.png'.format(name)).convert('L') # detail layer
+    try:
+        b = Image.open('{}_detail.png'.format(name)).convert('L') # details
+    except:
+        try:
+            dow = Image.open('{}_shadow.png'.format(name)).convert('RGBA') # shadows
+            sha = Image.new('RGBA', dow.size)
+            shadow = Image.alpha_composite(sha, dow)
+            light = Image.open('{}_highlight.png'.format(name)).convert('RGBA') # highlights
+            high = Image.new('RGBA', light.size)
+            highlight = Image.alpha_composite(high, light) # ensure transparency is interpreted as black
+        except:
+            for ext in ['png', 'jpg', 'jpeg', 'webp']: # lenient with raw image format
+                rawname = '{}_raw.{}'.format(name, ext)
+                if os.path.isfile(rawname):
+                    break
+            raw = Image.open(rawname).convert('RGBA') # raw image
+            base = Image.open('{}_base.png'.format(name)).convert('RGBA') # base colors
+            shadow = ImageChops.subtract(base, raw)
+            highlight = ImageChops.subtract(raw, base)
+        b = ImageMath.lambda_eval(
+            lambda _: _['convert'](0xff - (_['area'] > thresh) * (_['shadow'] * (0xff - 0x33) / 0x80) + (_['area'] > thresh) * ((_['highlight'] - 0x33) * 0x33 / 0x40), 'L'),
+            area=area.getchannel(3),
+            shadow=shadow.convert('L'),
+            highlight=highlight.convert('L')
+        )
+    
     rgb = resize_rgb(r, g, b, width)
 
     path = 'sprite/{}.png'.format(name.lower())
@@ -177,10 +164,7 @@ def auto(directory='custom', skip=True):
                 else:
                     try:
                         print('Creating sprite for:', name)
-                        try:
-                            create_sprite(name)
-                        except:
-                            create_sprite_rgb(name)
+                        create_sprite(name)
                     except Exception as e:
                         print('Error:', e, '\n')
 
@@ -192,10 +176,7 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--differentiator', type=str, default='RGB', help='differentiator (R or RGB)')
     args = parser.parse_args()
     if args.name:
-        try:
-            create_sprite(args.name, args.width, args.differentiator)
-        except:
-            create_sprite_rgb(args.name, args.width, args.differentiator)
+        create_sprite(args.name, args.width, args.differentiator)
     else:
         auto('custom', args.rerun)
     update_directory()
