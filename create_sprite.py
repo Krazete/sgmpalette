@@ -108,8 +108,12 @@ def create_sprite(name, width=-1, differentiator='RGB'):
         line = Image.new('RGBA', area.size)
         print('Warning: Line layer not found.')
     try:
-        shadow = Image.open('{}_shadow.png'.format(name)).convert('RGBA')
-        highlight = Image.open('{}_highlight.png'.format(name)).convert('RGBA')
+        dow = Image.open('{}_shadow.png'.format(name)).convert('RGBA')
+        sha = Image.new('RGBA', dow.size)
+        shadow = Image.alpha_composite(sha, dow)
+        light = Image.open('{}_highlight.png'.format(name)).convert('RGBA')
+        high = Image.new('RGBA', light.size)
+        highlight = Image.alpha_composite(high, light) # ensure transparency is interpreted as black
     except:
         for ext in ['png', 'jpg', 'jpeg', 'webp']: # lenient with raw image format
             rawname = '{}_raw.{}'.format(name, ext)
@@ -147,11 +151,11 @@ def create_sprite_rgb(name, width=-1, differentiator='RGB'):
     Unlike create_sprite, the inputs must be RGB layers that already prepared.
     This simply merges the layers as channels within a palettized sprite.
     '''
-    area = Image.open('{}_r.png'.format(name)).convert('RGBA')
+    area = Image.open('{}_area.png'.format(name)).convert('RGBA')
     area.putalpha(area.convert('L').point(lambda p: p > 0 and 0xff))
     r = get_r(area, differentiator) # color map
-    g = Image.open('{}_g.png'.format(name)).convert('L') # line layer
-    b = Image.open('{}_b.png'.format(name)).convert('L') # detail layer
+    g = Image.open('{}_line.png'.format(name)).convert('L') # line layer
+    b = Image.open('{}_detail.png'.format(name)).convert('L') # detail layer
     rgb = resize_rgb(r, g, b, width)
 
     path = 'sprite/{}.png'.format(name.lower())
@@ -188,7 +192,10 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--differentiator', type=str, default='RGB', help='differentiator (R or RGB)')
     args = parser.parse_args()
     if args.name:
-        create_sprite(args.name, args.width, args.differentiator)
+        try:
+            create_sprite(args.name, args.width, args.differentiator)
+        except:
+            create_sprite_rgb(args.name, args.width, args.differentiator)
     else:
         auto('custom', args.rerun)
     update_directory()
