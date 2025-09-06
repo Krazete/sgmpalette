@@ -122,10 +122,10 @@ def create_sprite(name, width=-1, differentiator='RGB'):
     except:
         try:
             dow = Image.open('{}_shadow.png'.format(name)).convert('RGBA') # shadows
-            sha = Image.new('RGBA', dow.size)
+            sha = Image.new('RGBA', dow.size, (0, 0, 0, 255))
             shadow = Image.alpha_composite(sha, dow)
             light = Image.open('{}_highlight.png'.format(name)).convert('RGBA') # highlights
-            high = Image.new('RGBA', light.size)
+            high = Image.new('RGBA', light.size, (0, 0, 0, 255))
             highlight = Image.alpha_composite(high, light) # ensure transparency is interpreted as black
         except:
             for ext in ['png', 'jpg', 'jpeg', 'webp']: # lenient with raw image format
