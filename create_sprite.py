@@ -50,7 +50,15 @@ def get_r(area, differentiator='RGB', thresh=127, fallback=False):
     else:
         print('Unsupported differentiator:', differentiator)
         return
-    
+
+def lenient_image_open(name, layer, mode='RGBA'):
+    '''Returns an image by filename prefix and suffix with multiple allowed extensions.'''
+    for ext in ('png', 'jpg', 'jpeg', 'webp'):
+        fn = '{}_{}.{}'.format(name, layer, ext)
+        if os.path.isfile(fn):
+            break
+    return Image.open(fn).convert(mode)
+
 def resize_rgb(r, g, b, width=-1):
     '''
     Scale channels of palettized sprite by width and return the single merged sprite.
@@ -118,21 +126,17 @@ def create_sprite(name, width=-1, differentiator='RGB'):
     )
 
     try:
-        b = Image.open('{}_detail.png'.format(name)).convert('L') # details
+        b = lenient_image_open(name, 'detail', 'L') # details
     except:
         try:
-            dow = Image.open('{}_shadow.png'.format(name)).convert('RGBA') # shadows
+            dow = lenient_image_open(name, 'shadow') # shadows
             sha = Image.new('RGBA', dow.size, (0, 0, 0, 255))
             shadow = Image.alpha_composite(sha, dow)
-            light = Image.open('{}_highlight.png'.format(name)).convert('RGBA') # highlights
+            light = lenient_image_open(name, 'highlight') # highlights
             high = Image.new('RGBA', light.size, (0, 0, 0, 255))
             highlight = Image.alpha_composite(high, light) # ensure transparency is interpreted as black
         except:
-            for ext in ['png', 'jpg', 'jpeg', 'webp']: # lenient with raw image format
-                rawname = '{}_raw.{}'.format(name, ext)
-                if os.path.isfile(rawname):
-                    break
-            raw = Image.open(rawname).convert('RGBA') # raw image
+            raw = lenient_image_open(name, 'raw') # raw image
             base = Image.open('{}_base.png'.format(name)).convert('RGBA') # base colors
             shadow = ImageChops.subtract(base, raw)
             highlight = ImageChops.subtract(raw, base)
