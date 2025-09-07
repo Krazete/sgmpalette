@@ -776,6 +776,7 @@ var ids = {
         "custom/monroeqw/sagan",
         "custom/montagueamond/peacock",
         "custom/montagueamond/umbrella",
+        "custom/montagueamond/umbrella2",
         "custom/n_ko/02_double_1p",
         "custom/n_ko/04a_msfortune_1p",
         "custom/n_ko/04_annie_1p-1",
