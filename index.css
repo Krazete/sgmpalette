@@ -326,3 +326,15 @@ input + label img {
 #palette input[type='checkbox']:checked + label {
     background: radial-gradient(white, transparent 75%);
 }
+
+.temporarily-closed {
+    background: gray;
+    color: silver;
+    border-color: silver;
+    font-weight: normal;
+    pointer-events: none;
+}
+.temporarily-closed:after {
+    content: ' Temporarily Closed';
+
+}

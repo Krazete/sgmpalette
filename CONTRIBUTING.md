@@ -28,6 +28,10 @@
 
 ## How to Submit
 
+<b>Submissions are temporarily closed.</b>
+
+<s style="color:gray">
+
 - Recipient: [krazete@gmail.com](mailto:krazete@gmail.com?subject=%5Bsgmpalette%5D)
 - Subject: [sgmpalette]
 - Body: Attach the 4 layers: `<NAME>_raw.png`, `<NAME>_line.png`, `<NAME>_base.png`, and `<NAME>_area.png`.
@@ -37,6 +41,8 @@
   - If the art used is not official and is not yours, please credit the artist in your message. Also use this filename format instead: `<NAME>_artist=<ARTIST>_<LAYER>.png`.
 
 I will process your submitted layers with `create_sprite.sh` and upload the result here.
+
+</s>
 
 Please be aware that your submission may be denied, revised, or replaced in the future by me or another submitter without notice for the following reasons:
 - poor quality
