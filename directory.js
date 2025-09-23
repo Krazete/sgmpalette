@@ -473,7 +473,6 @@ var ids = {
         "Peacock_Wildcard"
     ],
     "robofortune": [
-        "RoboFortune_AncientSentry",
         "RoboFortune_BB1_CatastropheCannonAlpha",
         "RoboFortune_BB2_AssaultBattery",
         "RoboFortune_BB3_CircuitBreaker",
