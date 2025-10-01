@@ -6,6 +6,7 @@ blacklist = [
     'cat', # easter egg; randomly added by index.js instead
     'Beowulf_AA2_GiganticArm', # duplicate of Beowulf_BB1_T1_GiganticArm
     'Eliza_Debonaire', # duplicate of Eliza_NobleMogul with swapped line & detail channels
+    'Eliza_TEST', # lower resolution duplicate of Eliza_DarkLord
     'Marie_BB1_GiganBeam', # duplicate of BlackDahlia_BB1_DoorMat
     'Marie_BB3_FistFromAbove', # duplicate of BlackDahlia_BB3_Empower
     'RoboFortune_AncientSentry', # duplicate of RoboFortune_BufferZone
