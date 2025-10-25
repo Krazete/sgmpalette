@@ -332,7 +332,6 @@ input + label img {
     color: silver;
     border-color: silver;
     font-weight: normal;
-    pointer-events: none;
 }
 .temporarily-closed:after {
     content: ' Temporarily Closed';
