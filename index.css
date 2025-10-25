@@ -327,11 +327,13 @@ input + label img {
     background: radial-gradient(white, transparent 75%);
 }
 
-.temporarily-closed {
+.button-container .temporarily-closed {
     background: gray;
     color: silver;
+    text-decoration: none;
     border-color: silver;
     font-weight: normal;
+    cursor: default;
 }
 .temporarily-closed:after {
     content: ' Temporarily Closed';
