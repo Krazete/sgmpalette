@@ -34,3 +34,7 @@ img {
     height: 300px;
     object-fit: contain;
 }
+
+#canvas-area {
+    cursor: pointer;
+}

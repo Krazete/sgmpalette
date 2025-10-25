@@ -82,6 +82,7 @@ function hexToCrgb(hex) {
 }
 
 var xx = {};
+var cmpflag;
 
 function cachedRandom(cmi) {
     if (!(cmi in xx)) {
@@ -95,7 +96,7 @@ function cachedRandom(cmi) {
 }
 
 function extractColormap(img, fallback) { /* red channel in palettized sprite */
-    requestAnimationFrame(e => extractColormap(img));
+    cmpflag = requestAnimationFrame(e => extractColormap(img));
     if (!img.width) {
         return;
     }
@@ -170,7 +171,20 @@ function extractColormap(img, fallback) { /* red channel in palettized sprite */
     return r;
 }
 
-window.addEventListener("DOMContentLoaded", e => extractColormap(document.getElementById("img-area")));
+function pauseColormapPreview() {
+    if (cmpflag) {
+        cancelAnimationFrame(cmpflag);
+        cmpflag = 0;
+    }
+    else {
+        extractColormap(document.getElementById("img-area"));
+    }
+}
+
+window.addEventListener("DOMContentLoaded", e => {
+    document.getElementById("canvas-area").addEventListener("click", pauseColormapPreview);
+    extractColormap(document.getElementById("img-area"));
+});
 
 // def lenient_image_open(name, layer, mode='RGBA'):
 //     '''Returns an image by filename prefix and suffix with multiple allowed extensions.'''
