@@ -1,5 +1,5 @@
 html {
-    background: gray;
+    background: black;
     height: 100%;
 }
 
@@ -20,7 +20,7 @@ body {
 }
 
 .step {
-    background-color: salmon;
+    background-color: tomato;
     margin: 5px;
 }
 
