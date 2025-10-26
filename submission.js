@@ -96,7 +96,9 @@ function cachedRandom(cmi) {
 }
 
 function extractColormap(img, fallback) { /* red channel in palettized sprite */
-    cmpflag = requestAnimationFrame(e => extractColormap(img));
+    if (!fallback) {
+        cmpflag = requestAnimationFrame(e => extractColormap(img));
+    }
     if (!img.width) {
         return;
     }
@@ -121,7 +123,7 @@ function extractColormap(img, fallback) { /* red channel in palettized sprite */
             var g = rgba[2];
             var b = rgba[3];
             if (!(r in colormap)) {
-                colormap[r] = crgbToHex(0, (r - c) % 256, g, b);
+                colormap[r] = crgbToHex(0, (256 + r - c) % 256, g, b);
             }
             else {
                 colors2.add(crgbToHex(c + 1, (r + 1) % 256, g, b));
