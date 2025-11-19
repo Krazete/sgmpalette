@@ -75,6 +75,7 @@ var ids = {
         "BigBand_BB5_T3_TubaTuba",
         "BigBand_BB6_T2_TakeTheATrain",
         "BigBand_Beatbox",
+        "BigBand_BigBaddy",
         "BigBand_BrassBandit",
         "BigBand_DreamBand",
         "BigBand_EpicSax",
