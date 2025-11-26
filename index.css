@@ -199,6 +199,7 @@ input + label img {
 #outlink {
     line-height: 32px;
     display: inline;
+    padding-right: 0;
 }
 
 #outlink img {
