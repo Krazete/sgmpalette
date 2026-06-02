@@ -475,6 +475,7 @@ var ids = {
         "Peacock_DealBreaker",
         "Peacock_DreamCatcher",
         "Peacock_FreezeFrame",
+        "Peacock_Inkfluencer",
         "Peacock_Inkling",
         "Peacock_Iono",
         "Peacock_MeanOne",
@@ -566,7 +567,8 @@ var ids = {
         "Squigly_SM8_AshesToAshes",
         "Squigly_StageFright",
         "Squigly_ThrillShrieker",
-        "Squigly_WyrmsTail"
+        "Squigly_WyrmsTail",
+        "Squigly_YellowOne"
     ],
     "umbrella": [
         "Umbrella_BB1_01_HungernRush",

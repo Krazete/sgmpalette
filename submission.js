@@ -95,6 +95,16 @@ function cachedRandom(cmi) {
     return xx[cmi];
 }
 
+var inputs = {
+    imgRaw: null,
+    imgLine: null,
+    imgBase: null,
+    imgArea: null,
+    imgShadow: null,
+    imgHighlight: null,
+    imgDetail: null,
+};
+
 function extractColormap(img, fallback) { /* red channel in palettized sprite */
     if (!fallback) {
         cmpflag = requestAnimationFrame(e => extractColormap(img));
