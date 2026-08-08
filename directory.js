@@ -99,6 +99,7 @@ var ids = {
         "BigBand_SM7_SweetClarinet",
         "BigBand_SM8_NoiseCancel",
         "BigBand_TrebleMaker",
+        "BigBand_Unbearable",
         "BigBand_VintageVirtuoso",
         "HeavyMetal"
     ],
@@ -312,6 +313,7 @@ var ids = {
         "Fukua_SoulsSister",
         "Fukua_SplittingImage",
         "Fukua_Teto",
+        "Fukua_TrueSelf",
         "Fukua_VaporwaveVixen"
     ],
     "marie": [
