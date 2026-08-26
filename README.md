@@ -70,12 +70,13 @@ Thanks to the following:
 * [jaames/iro.js](https://github.com/jaames/iro.js) for the color picker
 * [Stuk/jszip](https://github.com/Stuk/jszip) for making it easy to create zip files
 * [eligrey/FileSaver.js](https://github.com/eligrey/FileSaver.js) for making it easy to download those zip files
+* [leeoniya/RgbQuant.js](https://github.com/leeoniya/RgbQuant.js) for color quantization of erroneous colormap submissions
 
 The card art sprites can be uploaded to the [SGM Card Creator](https://github.com/Krazete/sgmcard), which should detect it based on its dimensions and automatically set the optimal position parameters.
 
 ## Submissions
 
-Custom palettized sprites can be created from inputs of a raw image layer, a linework layer, a base color layer, and a color map layer.
+Custom palettized sprites can be created from inputs of a raw image layer, a linework layer, a base color layer, and a colormap layer.
 
 ![Palette File Pipeline](sample/create_sprite.png)
 

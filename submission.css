@@ -11,6 +11,16 @@ body {
     margin: 0;
 }
 
+input[type='radio'] {
+    display: none;
+}
+input[type='radio'] + label {
+    background-color: gray;
+}
+input[type='radio']:checked + label {
+    background-color: green;
+}
+
 .flexbox {
     display: flex;
 }

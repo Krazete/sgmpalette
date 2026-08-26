@@ -6,6 +6,7 @@
     <title>SGMPalette Submission Helper</title>
     <link rel="shortcut icon" type="image/png" href="icon/notblight.png">
     <link rel="stylesheet" href="submission.css"></link>
+    <script src="library/rgbquant.js"></script>
     <script src="submission.js"></script>
 </head>
 <body>
@@ -14,14 +15,36 @@
         <br>
         Under Construction
     </h1>
+    <div>
+        <input type="number" id="diameter" value="630" min="100" max="4096" step="1">
+        <label for="diameter">Size</label>
+    </div>
+    <div class="flexbox">
+            <input type="radio" name="method" id="method1a">
+            <label for="method1a">
+                Method 1A
+                <br>
+                Select an image and create the colormap. Shadows and highlights will be extracted automatically.
+            </label>
+            <input type="radio" name="method" id="method1b">
+            <label for="method1b">
+                Method 1B
+                <br>
+                Create the shadows and highlights manually. Subtract the colormap from the raw for highlights and vice versa for shadows.
+            </label>
+            <input type="radio" name="method" id="method2">
+            <label for="method2">
+                Method 2
+                <br>
+                Preferred if creating a sprite from scratch. Use a base gray of #CCCCCC. For luminous areas, the darkest gray is #646464.
+            </label>
+    </div>
     <div class="flexbox">
         <div>
-            <input type="radio" id="method1a">
-            <label for="method1a">Method 1A</label>
             <div class="step" id="raw">
                 <h2>Raw Sprite</h2>
                 <input type="file" id="file-raw" accept="image/*">
-                <img src="custom/gushen/Annie_redo_raw.png">
+                <img src="custom/gushen/filia_artist=lyu_mawo_raw.png">
                 <ul>
                     <li id="check-raw-1">Uploaded</li>
                 </ul>
@@ -29,19 +52,17 @@
             <div class="step" id="base">
                 <h2>Base Colors</h2>
                 <input type="file" id="file-base" accept="image/*">
-                <img src="custom/gushen/Annie_redo_base.png">
+                <img src="custom/gushen/filia_artist=lyu_mawo_base.png">
                 <ul>
                     <li id="check-base-1">Uploaded</li>
                 </ul>
             </div>
         </div>
         <div>
-            <input type="radio" id="method1b">
-            <label for="method1b">Method 1B</label>
             <div class="step" id="highlight">
                 <h2>Highlights</h2>
                 <input type="file" id="file-highlight" accept="image/*">
-                <img src="custom/gushen/Annie_redo_highlight.png">
+                <img src="custom/gushen/filia_artist=lyu_mawo_highlight.png">
                 <ul>
                     <li id="check-highlight-1">Uploaded</li>
                 </ul>
@@ -49,19 +70,17 @@
             <div class="step" id="shadow">
                 <h2>Shadows</h2>
                 <input type="file" id="file-shadow" accept="image/*">
-                <img src="custom/gushen/Annie_redo_shadow.png">
+                <img src="custom/gushen/filia_artist=lyu_mawo_shadow.png">
                 <ul>
                     <li id="check-shadow-1">Uploaded</li>
                 </ul>
             </div>
         </div>
         <div>
-            <input type="radio" id="method2">
-            <label for="method2">Method 2</label>
             <div class="step" id="detail">
                 <h2>Shadows & Highlights</h2>
                 <input type="file" id="file-detail" accept="image/*">
-                <img src="custom/gushen/Annie_redo_detail.png">
+                <img src="custom/gushen/filia_artist=lyu_mawo_detail.png">
                 <ul>
                     <li id="check-detail-1">Uploaded</li>
                 </ul>
@@ -71,7 +90,7 @@
     <div class="step" id="line">
         <h2>Linework</h2>
         <input type="file" id="file-line" accept="image/*">
-        <img src="custom/gushen/Annie_redo_line.png">
+        <img src="custom/gushen/filia_artist=lyu_mawo_line.png">
         <ul>
             <li id="check-line-1">Uploaded</li>
         </ul>
@@ -79,7 +98,7 @@
     <div class="step" id="area">
         <h2>Colormap</h2>
         <input type="file" id="file-area" accept="image/png">
-        <img id="img-area" src="custom/gushen/Annie_redo_area.png">
+        <img id="img-area" src="custom/gushen/filia_artist=lyu_mawo_area.png">
         <canvas id="canvas-area"></canvas>
         <ul>
             <li id="check-area-1">Uploaded</li>

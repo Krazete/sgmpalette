@@ -21,14 +21,28 @@ function onLoadBase() {
     update('base');
 }
 
-function getDataFromImage(img) {
+function downscale(img, maxSize, smooth) {
+    var w = img.naturalWidth;
+    var h = img.naturalHeight;
+
+    var diagonal = Math.sqrt(Math.pow(img.naturalWidth, 2) + Math.pow(img.naturalHeight, 2));
+    if (diagonal > maxSize) {
+        w *= maxSize / diagonal;
+        h *= maxSize / diagonal;
+    }
+
     var canvas = document.createElement("canvas");
     var context = canvas.getContext("2d");
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
-    context.drawImage(img, 0, 0);
-    var imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+    canvas.width = w;
+    canvas.height = h;
+    context.imageSmoothingEnabled = false;
+    context.drawImage(img, 0, 0, w, h);
+    var imgData = context.getImageData(0, 0, w, h);
     return imgData;
+}
+
+function getDataFromImage(img) {
+    return downscale(img, 666, "nearest");
 }
 
 function clarifyColormap(img) {
@@ -49,12 +63,25 @@ function clarifyColormap(img) {
 
 var thresh = 128;
 
-function palettize(img, colors) {
+var q = new RgbQuant({colors: 256});
+
+function palettize(imgData, colors) {
+    try {q.sample(imgData);} catch (e) {}
+    var data = q.reduce(imgData);
+
+    var canvas = applyDataToCanvas(data, imgData.width, imgData.height);
+    var img = new Image();
+    img.src = canvas.toDataURL();
     return img//.convert('P', colors).convert('RGBA');
 }
 
-function applyDataToCanvas(id, data, width, height) {
-    var canvas = document.getElementById(id);
+function applyDataToCanvas(data, width, height, id) {
+    if (id) {
+        var canvas = document.getElementById(id);
+    }
+    else {
+        var canvas = document.createElement("canvas");
+    }
     var context = canvas.getContext("2d");
     canvas.width = width;
     canvas.height = height;
@@ -149,7 +176,7 @@ function extractColormap(img, fallback) { /* red channel in palettized sprite */
         }
         else {
             console.log('Trying again with colormap in palette mode.');
-            return extractColormap(palettize(img), true);
+            return extractColormap(palettize(imgData), true);
         }
     }
     colormapinverse = {};
@@ -179,7 +206,7 @@ function extractColormap(img, fallback) { /* red channel in palettized sprite */
         }
     }
     // console.log(rdata);
-    var r = applyDataToCanvas("canvas-area", rdata, imgData.width, imgData.height);
+    var r = applyDataToCanvas(rdata, imgData.width, imgData.height, "canvas-area");
     return r;
 }
 

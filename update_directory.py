@@ -10,7 +10,7 @@ blacklist = [
     'Marie_BB1_GiganBeam', # duplicate of BlackDahlia_BB1_DoorMat
     'Marie_BB3_FistFromAbove', # duplicate of BlackDahlia_BB3_Empower
     'RoboFortune_AncientSentry', # duplicate of RoboFortune_BufferZone
-    'custom/demiiial/marie', # color map too messy; index overlap with face and hair
+    'custom/demiiial/marie', # colormap too messy; index overlap with face and hair
     'custom/krazete/n_ko_avatar_filia', # cropped; replaced with full version by n_ko
 ]
 
