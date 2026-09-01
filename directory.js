@@ -36,6 +36,7 @@ var ids = {
     "beowulf": [
         "Beowulf_AA1_Launcher",
         "Beowulf_AA3_IntoTheTrash",
+        "Beowulf_BabaYaga",
         "Beowulf_BB1_T1_GiganticArm",
         "Beowulf_BB2_T2_Airwulf",
         "Beowulf_BB3_T3_ThreeWulfMoonsault",
@@ -156,6 +157,7 @@ var ids = {
         "Cerebella_BB4_T2_Excellebella",
         "Cerebella_BB5_T1_DiamondDrop",
         "Cerebella_BB6_T3_GrabBag",
+        "Cerebella_Bellarina",
         "Cerebella_BigTop",
         "Cerebella_BlitzAndGlamour",
         "Cerebella_BrainFreeze",
