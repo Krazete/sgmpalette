@@ -63,7 +63,7 @@ function clarifyColormap(img) {
 
 var thresh = 128;
 
-var q = new RgbQuant({colors: 256});
+var q = new RgbQuant({colors: 32});
 
 function palettize(imgData, colors) {
     try {q.sample(imgData);} catch (e) {}
@@ -220,10 +220,71 @@ function pauseColormapPreview() {
     }
 }
 
-window.addEventListener("DOMContentLoaded", e => {
-    document.getElementById("canvas-area").addEventListener("click", pauseColormapPreview);
-    extractColormap(document.getElementById("img-area"));
-});
+var m1a, m1b, m2;
+var rs, bc, hl, sd, cm, lw, sh, sp;
+
+function select(method) {
+    rs.classList.add("disabled");
+    bc.classList.add("disabled");
+    hl.classList.add("disabled");
+    sd.classList.add("disabled");
+    sh.classList.add("disabled");
+    if (this == m1a) {
+        rs.classList.remove("disabled");
+        bc.classList.remove("disabled");
+    }
+    else if (this == m1b) {
+        hl.classList.remove("disabled");
+        sd.classList.remove("disabled");
+    }
+    else if (this == m2) {
+        sh.classList.remove("disabled");
+    }
+}
+
+function main() {
+    m1a = document.getElementById("method1a");
+    m1b = document.getElementById("method1b");
+    m2 = document.getElementById("method2");
+    rs = document.getElementById("raw");
+    bc = document.getElementById("base");
+    hl = document.getElementById("highlight");
+    sd = document.getElementById("shadow");
+    cm = document.getElementById("area");
+    lw = document.getElementById("line");
+    sh = document.getElementById("detail");
+    sp = document.getElementById("result");
+
+    m1a.addEventListener("input", select);
+    m1b.addEventListener("input", select);
+    m2.addEventListener("input", select);
+
+    var canvasArea = document.getElementById("canvas-area");
+    var imgArea = document.getElementById("img-area");
+    canvasArea.addEventListener("click", pauseColormapPreview);
+    extractColormap(imgArea);
+}
+
+window.addEventListener("DOMContentLoaded", main);
+
+var layers = {
+    uploaded_raw: imgdata,
+    uploaded_base: imgdata,
+    processed_raw: imgdata,
+    processed_base: imgdata,
+    processed_highlight_from_raw_and_base: imgdata,
+    processed_shadow_from_raw_and_base: imgdata,
+    processed_detail_from_raw_and_base: imgdata,
+
+    uploaded_highlight: imgdata,
+    uploaded_shadow: imgdata,
+    processed_highlight: imgdata,
+    processed_shadow: imgdata,
+    processed_detail_from_highlight_and_shadow: imgdata,
+
+    uploaded_detail: imgdata,
+    processed_detail: imgdata,
+}
 
 // def lenient_image_open(name, layer, mode='RGBA'):
 //     '''Returns an image by filename prefix and suffix with multiple allowed extensions.'''

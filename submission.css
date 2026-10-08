@@ -1,24 +1,67 @@
 html {
-    background: black;
     height: 100%;
 }
 
 body {
-    color: white;
+    color: black;
     font-family: 'Trebuchet MS', 'Helvetica', 'Arial', sans-serif;
     text-align: center;
     height: 100%;
     margin: 0;
 }
 
+body, img {
+    background:
+        linear-gradient(45deg, gray 25%, transparent 25% 75%, gray 75%) 0 0,
+        linear-gradient(45deg, gray 25%, darkgray 25% 75%, gray 75%) 10px 10px;
+    background-size: 20px 20px;
+    background-attachment: fixed;
+}
+
 input[type='radio'] {
     display: none;
 }
 input[type='radio'] + label {
-    background-color: gray;
+    position: relative;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    cursor: pointer;
+}
+input[type='radio'] + label:before {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: 10px;
+    top: 10px;
+    background-image: url('icon/CheckmarkBad.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: block;
 }
 input[type='radio']:checked + label {
-    background-color: green;
+    cursor: default;
+}
+input[type='radio']:checked + label:before {
+    background-image: url('icon/CheckmarkGood.png');
+}
+
+input[type='radio'] + label,
+.disabled.step { /* bad hair day */
+    background-color: #5f5e71;
+    border-color: #110d15;
+    color: #2c2236;
+}
+.wrong { /* idol echo */
+    background-color: #ff9196;
+    border-color: #762432;
+}
+input[type='radio']:checked + label,
+.step,
+.right { /* idol threat */
+    background-color: #69dbc0;
+    border-color: #134043;
 }
 
 .flexbox {
@@ -29,9 +72,34 @@ input[type='radio']:checked + label {
     flex: 1;
 }
 
+img {
+    border: 6px double black;
+    border-radius: 6px;
+}
+#area img {
+    border-color: red;
+}
+#line img {
+    border-color: green;
+}
+#detail img {
+    border-color: blue;
+}
+
+#area {
+    flex: 2;
+}
+
 .step {
-    background-color: tomato;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
     margin: 5px;
+}
+.disabled input {
+    text-decoration: line-through;
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 input[type='file'] {
