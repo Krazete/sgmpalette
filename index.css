@@ -346,19 +346,12 @@ input + label img {
     z-index: 3;
 }
 
-#chowderboard div {
+#chowderboard .chowder {
     width: 35px;
     height: 35px;
     display: block;
-    cursor: pointer;
 }
-#chowderboard [data-value='0'],
-#chowderboard [data-value='6'],
-#chowderboard [data-value='7'],
-#chowderboard [data-value='10'],
-#chowderboard [data-value='11'],
-#chowderboard [data-value='12'],
-#chowderboard [data-value='13'] {
+#chowderboard .chowder.blend {
     outline-style: dashed;
 }
 
