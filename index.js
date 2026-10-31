@@ -154,12 +154,12 @@ function updateFlags() {
                     var y = Math.ceil(i / 4 / canvas.width);
                     var texturemap = texture[chowderlog[activechar][cid]];
                     var k = 4 * ((x % texturemap.width) + (y % texturemap.height) * texturemap.width);
-                    if (chowderlog[activechar][cid] == 6) { /* umbrella_veins */
+                    if ([6, 10, 11].includes(chowderlog[activechar][cid])) { /* black base textures */
                         newdata.data[i] = blend[moed](colormap[j] + texturemap.data[k], detail, line);
                         newdata.data[i + 1] = blend[moed](colormap[j + 1] + texturemap.data[k], detail, line);
                         newdata.data[i + 2] = blend[moed](colormap[j + 2] + texturemap.data[k], detail, line);
                     }
-                    else if (chowderlog[activechar][cid] == 7) { /* bunny_fishnet */
+                    else if ([7, 12, 13].includes(chowderlog[activechar][cid])) { /* white base textures */
                         newdata.data[i] = blend[moed](colormap[j] * texturemap.data[k] / 0xff, detail, line);
                         newdata.data[i + 1] = blend[moed](colormap[j + 1] * texturemap.data[k + 1] / 0xff, detail, line);
                         newdata.data[i + 2] = blend[moed](colormap[j + 2] * texturemap.data[k + 2] / 0xff, detail, line);
@@ -595,7 +595,7 @@ function initSwatch(n, r, g, b, a) {
     }
 
     function updateChowder() {
-        if (chowderlog[activechar] && chowderlog[activechar][n] && [1, 2, 3, 4, 5].includes(chowderlog[activechar][n])) {
+        if (chowderlog[activechar] && chowderlog[activechar][n] && ![0, 6, 7, 10, 11, 12, 13].includes(chowderlog[activechar][n])) {
             color.disabled = true;
             text.disabled = true;
         }
@@ -696,10 +696,12 @@ function initTextures() {
             context.drawImage(this, 0, 0);
             texture[tid] = context.getImageData(0, 0, this.naturalWidth, this.naturalHeight);
         });
-        image.dataset.tid = tid;
         image.src = src;
         texture.length++;
-        chowderboard.appendChild(image);
+        var div = document.createElement("div");
+        div.className = "chowder";
+        div.dataset.value = tid;
+        chowderboard.appendChild(div);
     }
     loadTexture(1, "texture/Space.png");
     loadTexture(2, "texture/fire.png");
@@ -708,6 +710,12 @@ function initTextures() {
     loadTexture(5, "texture/yixtu_qu.png");
     loadTexture(6, "texture/umbrella_veins.png");
     loadTexture(7, "texture/bunny_fishnet.png");
+    loadTexture(8, "texture/BlueSpace.png");
+    loadTexture(9, "texture/BrightStars.png");
+    loadTexture(10, "texture/Lattice.png");
+    loadTexture(11, "texture/glitter.png");
+    loadTexture(12, "texture/leo_spots.png");
+    loadTexture(13, "texture/sequin.png");
 }
 
 function openChowder() {
@@ -725,7 +733,7 @@ function openChowder() {
 function closeChowder(e) {
     var target = e.touches ? e.touches[0].target : e.target;
     if (target.parentElement == chowderboard) {
-        var tid = parseInt(target.dataset.tid);
+        var tid = parseInt(target.dataset.value);
         if (!chowderlog[activechar]) {
             chowderlog[activechar] = {};
         }

@@ -293,36 +293,32 @@ input + label img {
     border-width: 0 0 1px 0;
 }
 
-#palette .chowder {
+.chowder {
     background: black;
-    background-size: 200%;
     width: 24px;
     height: 24px;
     display: inline-block;
     outline: 1px solid white;
     cursor: pointer;
 }
-#palette .chowder[data-value='1'] {
-    background-image: url(texture/Space.png);
+.chowder[data-value='0'] {
+    background-image:
+        linear-gradient( 45deg, transparent 49%, white 49% 51%, transparent 51%),
+        linear-gradient(135deg, transparent 49%, white 49% 51%, transparent 51%);
 }
-#palette .chowder[data-value='2'] {
-    background-image: url(texture/fire.png);
-}
-#palette .chowder[data-value='3'] {
-    background-image: url(texture/water.png);
-}
-#palette .chowder[data-value='4'] {
-    background-image: url(texture/killarainbow.png);
-}
-#palette .chowder[data-value='5'] {
-    background-image: url(texture/yixtu_qu.png);
-}
-#palette .chowder[data-value='6'] {
-    background-image: url(texture/umbrella_veins.png);
-}
-#palette .chowder[data-value='7'] {
-    background-image: url(texture/bunny_fishnet.png);
-}
+.chowder[data-value='1'] {background-image: url(texture/Space.png); background-size: 100%;}
+.chowder[data-value='2'] {background-image: url(texture/fire.png); background-size: 100%;}
+.chowder[data-value='3'] {background-image: url(texture/water.png); background-size: 200%;}
+.chowder[data-value='4'] {background-image: url(texture/killarainbow.png); background-size: 100%;}
+.chowder[data-value='5'] {background-image: url(texture/yixtu_qu.png); background-size: 100%;}
+.chowder[data-value='6'] {background-image: url(texture/umbrella_veins.png); background-size: 200%;}
+.chowder[data-value='7'] {background-image: url(texture/bunny_fishnet.png);}
+.chowder[data-value='8'] {background-image: url(texture/BlueSpace.png); background-size: 100%;}
+.chowder[data-value='9'] {background-image: url(texture/BrightStars.png); background-size: 150%;}
+.chowder[data-value='10'] {background-image: url(texture/Lattice.png);}
+.chowder[data-value='11'] {background-image: url(texture/glitter.png);}
+.chowder[data-value='12'] {background-image: url(texture/leo_spots.png);}
+.chowder[data-value='13'] {background-image: url(texture/sequin.png);}
 
 #palette input[type='checkbox'] + label {
     background: white;
@@ -350,23 +346,20 @@ input + label img {
     z-index: 3;
 }
 
-#chowderboard div,
-#chowderboard img {
+#chowderboard div {
     width: 35px;
     height: 35px;
-    border: 1px solid white;
     display: block;
     cursor: pointer;
 }
-#chowderboard div {
-    background-image:
-        linear-gradient( 45deg, transparent 49%, white 49% 51%, transparent 51%),
-        linear-gradient(135deg, transparent 49%, white 49% 51%, transparent 51%)
-}
-#chowderboard [data-tid='0'],
-#chowderboard [data-tid='6'],
-#chowderboard [data-tid='7'] {
-    border-style: dashed;
+#chowderboard [data-value='0'],
+#chowderboard [data-value='6'],
+#chowderboard [data-value='7'],
+#chowderboard [data-value='10'],
+#chowderboard [data-value='11'],
+#chowderboard [data-value='12'],
+#chowderboard [data-value='13'] {
+    outline-style: dashed;
 }
 
 .button-container .temporarily-closed {
