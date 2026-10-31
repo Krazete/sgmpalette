@@ -1,6 +1,7 @@
 var activechar; /* active character */
 var activecid; /* active color id */
 var picker; /* iro color picker element */
+var chowderboard; /* texture picker element */
 
 var strength = 0.5; /* strength of the detail layer */
 var layer = {
@@ -448,30 +449,6 @@ function initDownload() {
     download.addEventListener("click", beginDownload);
 }
 
-function initTextures() {
-    function loadTexture(tid, src) {
-        var image = new Image();
-        image.addEventListener("load", function () {
-            var canvas = document.createElement("canvas");
-            var context = canvas.getContext("2d");
-            canvas.width = this.width;
-            canvas.height = this.height;
-            context.drawImage(this, 0, 0);
-            texture[tid] = context.getImageData(0, 0, this.width, this.height);
-        });
-        image.src = src;
-        texture.length++;
-    }
-
-    loadTexture(1, "texture/Space.png");
-    loadTexture(2, "texture/fire.png");
-    loadTexture(3, "texture/water.png");
-    loadTexture(4, "texture/killarainbow.png");
-    loadTexture(5, "texture/yixtu_qu.png");
-    loadTexture(6, "texture/umbrella_veins.png");
-    loadTexture(7, "texture/bunny_fishnet.png");
-}
-
 /* Right Section */
 
 function union(a, b) {
@@ -626,15 +603,6 @@ function initSwatch(n, r, g, b, a) {
             color.disabled = false;
             text.disabled = false;
         }
-    }
-
-    function toggleChowder() {
-        if (!chowderlog[activechar]) {
-            chowderlog[activechar] = {};
-        }
-        chowderlog[activechar][n] = chowderlog[activechar][n] ? (chowderlog[activechar][n] + 1) % texture.length : 1;
-        chowder.dataset.value = chowderlog[activechar][n];
-        updateChowder();
         union(flaggedids, idmap[n]);
     }
 
@@ -680,7 +648,7 @@ function initSwatch(n, r, g, b, a) {
     label.appendChild(text);
 
     chowder.className = "chowder";
-    chowder.addEventListener("click", toggleChowder);
+    chowder.addEventListener("click", openChowder);
     label.appendChild(chowder);
 
     spectral.type = "checkbox";
@@ -713,6 +681,62 @@ function initSwatches() {
     initSwatch(0, 0, 0, 0, 0);
     for (var i = 1; i < 256; i++) {
         initSwatch(i, rhex(), rhex(), rhex(), 0xff);
+    }
+}
+
+function initTextures() {
+    chowderboard = document.getElementById("chowderboard");
+    function loadTexture(tid, src) {
+        var image = new Image();
+        image.addEventListener("load", function () {
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.width = this.naturalWidth;
+            canvas.height = this.naturalHeight;
+            context.drawImage(this, 0, 0);
+            texture[tid] = context.getImageData(0, 0, this.naturalWidth, this.naturalHeight);
+        });
+        image.dataset.tid = tid;
+        image.src = src;
+        texture.length++;
+        chowderboard.appendChild(image);
+    }
+    loadTexture(1, "texture/Space.png");
+    loadTexture(2, "texture/fire.png");
+    loadTexture(3, "texture/water.png");
+    loadTexture(4, "texture/killarainbow.png");
+    loadTexture(5, "texture/yixtu_qu.png");
+    loadTexture(6, "texture/umbrella_veins.png");
+    loadTexture(7, "texture/bunny_fishnet.png");
+}
+
+function openChowder() {
+    var cid = parseInt(this.parentElement.dataset.n);
+    var box = this.getBoundingClientRect();
+    var boardbox = chowderboard.getBoundingClientRect();
+    chowderboard.dataset.n = cid;
+    chowderboard.children[0].style.backgroundColor = swatches[cid].color.value;
+    chowderboard.style.left = box.right - boardbox.width + "px";
+    chowderboard.style.top = box.top - boardbox.height - 5 + "px";
+    window.addEventListener("mousedown", closeChowder);
+    window.addEventListener("touchstart", closeChowder);
+}
+
+function closeChowder(e) {
+    var target = e.touches ? e.touches[0].target : e.target;
+    if (target.parentElement == chowderboard) {
+        var tid = parseInt(target.dataset.tid);
+        if (!chowderlog[activechar]) {
+            chowderlog[activechar] = {};
+        }
+        chowderlog[activechar][activecid] = tid;
+        swatches[activecid].chowder.dataset.value = tid;
+        swatches[activecid].updateChowder();
+    }
+    if (target != chowderboard) {
+        chowderboard.style = "";
+        window.removeEventListener("mousedown", closeChowder);
+        window.removeEventListener("touchstart", closeChowder);
     }
 }
 

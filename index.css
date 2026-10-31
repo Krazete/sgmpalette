@@ -249,7 +249,8 @@ input + label img {
     display: none;
 }
 
-#palette input[type='radio'] + label:before {
+#palette input[type='radio'] + label:before,
+#chowderboard:after {
     content: attr(data-n);
     width: 16px;
     height: 16px;
@@ -261,6 +262,12 @@ input + label img {
     border: 1px solid white;
     border-radius: 50%;
     margin: 3px;
+}
+#chowderboard:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: center;
 }
 
 #palette input[type='radio'] + label > * {
@@ -326,6 +333,40 @@ input + label img {
 }
 #palette input[type='checkbox']:checked + label {
     background: radial-gradient(white, transparent 75%);
+}
+
+#chowderboard {
+    position: absolute;
+    left: -100%;
+    top: -100%;
+    background: linear-gradient(#1b2a41, #0f1824);
+    border: 3px double #ccb55a;
+    border-radius: 10px 10px 0 10px;
+    box-shadow: 0 0 2px 2px white;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    padding: 5px;
+    z-index: 3;
+}
+
+#chowderboard div,
+#chowderboard img {
+    width: 35px;
+    height: 35px;
+    border: 1px solid white;
+    display: block;
+    cursor: pointer;
+}
+#chowderboard div {
+    background-image:
+        linear-gradient( 45deg, transparent 49%, white 49% 51%, transparent 51%),
+        linear-gradient(135deg, transparent 49%, white 49% 51%, transparent 51%)
+}
+#chowderboard [data-tid='0'],
+#chowderboard [data-tid='6'],
+#chowderboard [data-tid='7'] {
+    border-style: dashed;
 }
 
 .button-container .temporarily-closed {
