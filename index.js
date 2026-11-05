@@ -729,6 +729,10 @@ function initTextures() {
     loadTexture(11, "texture/glitter.png", "black");
     loadTexture(12, "texture/leo_spots.png", "white");
     loadTexture(13, "texture/sequin.png", "white");
+    loadTexture(1001, "texture/azurlaneui_tex_BS_noise.png", "white");
+    loadTexture(1002, "texture/azurlaneui_tex_noise_02.png", "black");
+    loadTexture(1003, "texture/azurlaneui_tex_uifx_noise_01.png");
+    loadTexture(1004, "texture/azurlaneui_tex_uifx_noise_019.png");
 }
 
 function openChowder() {

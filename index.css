@@ -319,6 +319,10 @@ input + label img {
 .chowder[data-value='11'] {background-image: url(texture/glitter.png);}
 .chowder[data-value='12'] {background-image: url(texture/leo_spots.png);}
 .chowder[data-value='13'] {background-image: url(texture/sequin.png);}
+.chowder[data-value='1001'] {background-image: url(texture/azurlaneui_tex_BS_noise.png);}
+.chowder[data-value='1002'] {background-image: url(texture/azurlaneui_tex_noise_02.png);}
+.chowder[data-value='1003'] {background-image: url(texture/azurlaneui_tex_uifx_noise_01.png);}
+.chowder[data-value='1004'] {background-image: url(texture/azurlaneui_tex_uifx_noise_019.png);}
 
 #palette input[type='checkbox'] + label {
     background: white;
